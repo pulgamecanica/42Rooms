@@ -1,0 +1,138 @@
+// $bg-blue: #22D399;
+$bg-light: #292D39;
+$bg-dark: #121212;
+$text-light: darkgray;
+
+* {
+	box-sizing: border-box;
+	color: $text-light;
+}
+
+html {
+	width: 100vw;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	min-height: 100vh;
+	background-color: $bg-dark;
+	position: relative;
+	background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+body {
+	#log-in-out {
+		position: fixed;
+		right: 0;
+		top: 0;
+		padding: 1rem;
+		padding-bottom: 0;
+		a {
+			background-color: $bg-light;
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			margin-bottom: 0.5rem;
+			svg {
+				width: 70px;
+				height: 70px;
+				fill: $text-light;
+			}
+			#coin-exit {
+				width: 80px;
+				height: 80px;
+			}
+			&:hover svg {
+				transform: scale(0.95);
+			}
+			&:hover .user-card {
+				display: block;
+			}
+			.user-card {
+				opacity: 0.95;
+				position: absolute;
+				display: none;
+				background-color: $bg-light;
+				margin: 0;
+				padding: 0.5rem;
+				text-align: right;
+				list-style: none;
+				top: 220px;
+				right: 10px;
+				border-radius: 1rem;
+				white-space: nowrap;
+				li {
+					padding: 0.5rem;
+					display: block;
+					&:hover {
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+	}
+	#card-buttons {
+		background-color: rgba(32, 32, 38, 0.5);
+		margin: auto;
+		width: 100vw;
+		min-height: 100vh;
+		max-width: 1000px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 2rem;
+		a {
+			border: 1px solid gray;
+			margin: auto;
+			border-radius: 1rem;
+			padding: 0.5rem;
+			min-width: 90%;
+			min-height: 20vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 5rem;
+			flex-direction: row;
+			h1	{
+				margin: 0;
+				padding: 0;
+				font-size: 50px;
+			}
+			svg {
+				width: 100px;
+				height: 100px;
+				fill: $text-light;
+			}
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.5);
+			}
+		}
+	}
+	.rooms-centered {
+		min-height: 100vh;
+		max-width: 1600px;
+		margin: auto;
+		background-color: rgba(32, 32, 38, 0.5);
+		.cards {
+		   display: flex;
+		   flex-wrap: wrap;
+		   article {
+		   	background-color: pink;
+		   }
+		}
+	}
+}

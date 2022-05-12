@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beginnig: 2022-05-10 15:20:06
+  ending: 2022-05-10 15:20:06
+  finished: false
+  user: one
+  room: one
+
+two:
+  beginnig: 2022-05-10 15:20:06
+  ending: 2022-05-10 15:20:06
+  finished: false
+  user: two
+  room: two
