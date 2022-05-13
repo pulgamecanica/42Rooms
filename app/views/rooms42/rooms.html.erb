@@ -1,17 +1,22 @@
 <div class="rooms-centered">
     <section class="cards">
-        
+        <div class="title"><h1><%=current_user.campus if current_user%></h1></div>
         <% @rooms.each do |room| %>
             <article>
-                <h4><%=room.name%> <span style="font-weight: normal;">(<%=room.status%>)</span></h4>
-                <h5>White list - <%=room.white_lists.count%> [<% room.white_lists.each do |elem| %> <%= elem.user.login %> <%end%>]</h5>
+                <h2><%=room.name%></h2>
+                <h4>Capacity: <%=room.capacity%> - <%=room.description%></h4>
                 <footer><%=room.campus%></footer>
-                <details>(Max Cap. <%=room.capacity%>) <%=room.description%> [<%=room.status%>]</details>
+                <details>
+                    <summary>Show Reservations (<%= room.reservations.all.count %>)</summary>
+                    <% room.reservations.each do |res| %>
+                    <ul>
+                        <li>
+                            <%= res %>
+                        </li>
+                    </ul>
+                    <% end %> 
+                </details>
             </article>
         <% end %>
-
-<!--         <article class="card">
-        <p>content card example</p>
-        </article> -->
     </section>
 </div>

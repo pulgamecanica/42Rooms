@@ -1,4 +1,4 @@
-class WhiteList < ApplicationRecord
+class BlackList < ApplicationRecord
   belongs_to :user
   belongs_to :room
 end
