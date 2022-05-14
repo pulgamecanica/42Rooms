@@ -79,3 +79,7 @@ gem "oauth2", "~> 1.4"
 gem 'dotenv-rails', groups: [:development, :test]
 # Fake data
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+#Friendly Id's for the routes
+gem 'friendly_id', '~> 5.4.0'
+#Calendar Display :)
+gem "simple_calendar", "~> 2.4"

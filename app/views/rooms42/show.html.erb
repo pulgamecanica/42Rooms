@@ -1,0 +1,29 @@
+<div class="rooms-centered">
+    <div class="cards2">
+        <article class="single-room-card">
+            <h2><%=@room.name%></h2>
+            <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
+            <footer><%=@room.campus%></footer>
+            <details>
+                <summary>Show Reservations (<%= @room.reservations.all.count %>)</summary>
+                <% @room.reservations.each do |res| %>
+                <ul>
+                    <li>
+                        <%= res %>
+                    </li>
+                </ul>
+                <% end %> 
+            </details>
+        </article>
+        <div class="calendar">
+            <%= month_calendar(attribute: :beginnig, events: @room.reservations) do |date, reservations| %>
+              <%= date.strftime("%d/%m") %>
+              <% reservations.each do |reservation| %>
+                <div>
+                  <%= reservation.beginnig.strftime("%H:%M") %> - <%= reservation.ending.strftime("%H:%M")  %>
+                </div>
+              <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
