@@ -40,3 +40,18 @@ if lisbon
 	end
 	puts "Finished, created #{rooms_count} rooms"
 end
+
+porto = Campus.find_by_name("Porto")
+rooms_count = 5
+if porto
+	puts "Creating 42Porto Rooms"
+	rooms_count.times do
+		r = Room.new(
+			name: Faker::Movies::LordOfTheRings.unique.location,
+			description: Faker::Movies::LordOfTheRings.unique.quote,
+			campus: porto,
+			capacity: rand(4..10))
+		r.save
+	end
+	puts "Finished, created #{rooms_count} rooms"
+end

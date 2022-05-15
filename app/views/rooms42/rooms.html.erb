@@ -1,8 +1,8 @@
 <div class="rooms-centered">
-    <section class="cards">
-        <div class="title"><h1><%=current_user.campus if current_user%></h1></div>
+    <section class="rooms-cards">
+        <div class="campus-card"><h1><%=current_user.campus if current_user%></h1></div>
         <% @rooms.each do |room| %>
-            <article class="room-card">
+            <article class="room-card-small">
                 <%= link_to room_path(room) do %>
                     <h2><%=room.name%></h2>
                     <h4>Capacity: <%=room.capacity%> - <%=room.description%></h4>
@@ -10,26 +10,9 @@
                 <% end %>
                 <details>
                     <summary>Show Reservations (<%= room.reservations.all.count %>)</summary>
-                    <ul>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                            <li><p>res</p></li>
-                        </ul>
+                    <ul><li><p>res</p></li><li><p>res</p></li></ul>
                     <% room.reservations.each do |res| %>
-                        <ul>
-                            <li>
-                                <%= res %>
-                            </li>
-                        </ul>
+                        <ul><li><%= res %></li></ul>
                     <% end %> 
                 </details>
             </article>

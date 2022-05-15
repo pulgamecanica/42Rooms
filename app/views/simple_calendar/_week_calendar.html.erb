@@ -1,0 +1,60 @@
+<div class="simple-calendar">
+  <div class="calendar-heading">
+
+    <% if calendar.number_of_weeks == 1 %>
+      <span class="calendar-week-number"><%= t('simple_calendar.week', default: 'Week') %><%= calendar.week_number %></span>
+    <% else %>
+      <%= calendar.week_number %> - <%= calendar.end_week %></span>
+    <% end %>
+
+
+    <span class="calendar-title"><h1><%= Date::MONTHNAMES[start_date.month] %></h1></span>
+
+
+    <h1 class="calendar-next-prev">
+      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %><%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    </h1>
+    
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="1"></th>
+        <% date_range.slice(0, 7).each do |day| %>
+          <th><%= t('date.abbr_day_names')[day.wday] %> <%= day.strftime("%m/%d")%></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <th colspan="1" class="time">
+            <table>
+              <% 24.times.each do |t| %>
+                <tr>
+                  <th>
+                    <%= "%02d:00" % [t, t + 1]%>
+                  </th>
+                </tr>
+              <% end %>
+            </table>
+          </th>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+              <% else %>
+                <% passed_block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+

@@ -1,5 +1,5 @@
 <div class="rooms-centered">
-    <div class="cards2">
+    <div class="room-card-big">
         <article class="single-room-card">
             <h2><%=@room.name%></h2>
             <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
@@ -7,22 +7,33 @@
             <details>
                 <summary>Show Reservations (<%= @room.reservations.all.count %>)</summary>
                 <% @room.reservations.each do |res| %>
-                <ul>
-                    <li>
-                        <%= res %>
-                    </li>
-                </ul>
+                    <ul><li><%= res %></li></ul>
                 <% end %> 
             </details>
         </article>
         <div class="calendar">
-            <%= month_calendar(attribute: :beginnig, events: @room.reservations) do |date, reservations| %>
-              <%= date.strftime("%d/%m") %>
-              <% reservations.each do |reservation| %>
-                <div>
-                  <%= reservation.beginnig.strftime("%H:%M") %> - <%= reservation.ending.strftime("%H:%M")  %>
-                </div>
-              <% end %>
+            <%= week_calendar(attribute: :beginnig, events: @room.reservations) do |date, reservations| %>
+                <table class="reservations-slots">
+                    <tbody>
+                    <% 24.times.each do |t| %>
+                        <tr>
+                          <th>
+                            <% if current_user %>
+                                <%= link_to root_path do%>
+                                    <span class="dot-1"></span>
+                                <% end %>
+                            <% else %>
+                                <span class="dot-1"></span>
+                            <% end %>
+                          </th>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                </table>
+                <% reservations.each do |reservation| %>
+                    <span class="dot-1"></span>
+                    <%= reservation.beginnig.strftime("%H:%M") %> - <%= reservation.ending.strftime("%H:%M")  %>
+                <% end %>
             <% end %>
         </div>
     </div>

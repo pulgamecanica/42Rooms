@@ -1,67 +1,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>42Rooms Error(404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 100vw;
+    padding: 0;
     margin: 0;
+    background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
+    font-family: 'Montserrat', sans-serif;
   }
 
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
+  main {
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    z-index: 11;
+    transform: translate(-50%, -50%);
+    padding: 3rem;
+    min-height: 50vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    /*max-width: 50vw;*/
   }
 
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  h1 {
+    overflow: hidden;
+    width: 100vw;
+    color: #e7ebf2;
+    letter-spacing: .10em;
+    margin: .025em 0;
+    text-shadow: .05em .05em 0 rgba(0,0,0,.25);
+    white-space: nowrap;
   }
 
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
+  h1 > span {
+      animation: spooky 2s alternate infinite linear;
+      animation: upsidedown 5s alternate infinite linear;
+      color: #528cce;
+      display: inline-block;
   }
 
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  h2 {
+    color: #e7ebf2;
+    margin-bottom: .40em;
+  }
+
+
+  p {
+    color: #ccc;
+    margin-top: 0;
+  }
+
+  @keyframes spooky {
+    from {
+      transform: translatey(.20em) scaley(.95);
+    }
+    to {
+      transform: translatey(-.15em);
+    }
+  }
+
+  @keyframes upsidedown {
+    33% {
+      transform: rotate(120deg);
+    }
+    66% {
+      transform: rotate(240deg);
+    }
+    100% {
+      transform: rotate(360deg);
+      filter: invert(58%) sepia(40%) saturate(6310%) hue-rotate(161deg) brightness(94%) contrast(101%);
+    }
+  }
+  @media(min-width: 651rem) {
+    h1 { font-size: 12.5rem;}
+    h1 > span > svg {
+      width: auto;
+      height: 12.5rem;
+    }
+  }
+  @media(max-width: 650rem) {
+    h1 { font-size: 8.5rem;}
+    h1 > span > svg {
+      width: auto;
+      height: 8.5rem;
+    }
+  }
+
+  @media(max-width: 500px) {
+    h1 { font-size: 5rem;}
+    h1 > span > svg {
+      width: auto;
+      height: 5rem;
+    }
+  }
+
+  @media(max-width: 270px) {
+    h1 { font-size: 3rem;}
+    h1 > span > svg {
+      width: auto;
+      height: 3rem;
+    }
   }
   </style>
 </head>
 
 <body class="rails-default-error-page">
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
-    </div>
+  <main>
+    <h1>
+      4
+      <span>
+      <svg x="0px" y="0px" viewBox="0 0 492.5 492.5"
+        >
+        <a href="http://localhost:3000">
+        <path d="M184.646,0v21.72H99.704v433.358h31.403V53.123h53.539V492.5l208.15-37.422v-61.235V37.5L184.646,0z M222.938,263.129
+          c-6.997,0-12.67-7.381-12.67-16.486c0-9.104,5.673-16.485,12.67-16.485s12.67,7.381,12.67,16.485
+          C235.608,255.748,229.935,263.129,222.938,263.129z"/>
+        </a>
+      </svg>
+      </span>
+      4
+    </h1>
+    <h2>The page you were looking for doesn't exist.</h2>
+    <p>You may have mistyped the address or the page may have moved.</p>
     <p>If you are the application owner check the logs for more information.</p>
-  </div>
+  </main>
 </body>
 </html>

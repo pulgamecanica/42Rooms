@@ -2,41 +2,63 @@
 
 // $bg-blue: #22D399;
 $intra-blue: #00b0b2;
+$intra-green: #5cb85c;
+$intra-red: rgb(216, 99, 111);
 $bg-light: #292D39;
 $bg-dark: #121212;
+$bg-transparent-dark: rgba(32, 32, 38, 0.5);
+$bg-secondary: #bbbbbb;
 $text-light: #f9f9f9;
 
+/*General*/
 * {
 	box-sizing: border-box;
 	color: $text-light;
 }
-
+/*Page Box Full*/
 html {
 	width: 100vw;
 	min-height: 100vh;
 }
-
+/*body 100% general configurations*/
 body {
 	margin: 0;
 	padding: 0;
 	width: 100vw;
 	min-height: 100vh;
-	background-color: $bg-dark;
 	position: relative;
 	background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 }
-
+/*Pages*/
 body {
-	#log-in-out {
+	/*[LAYOUT]When user is not authenticated, 42logo fixed on top of screen*/
+	#home-logo { 
+		position: fixed;
+	  	top: 0;
+  		right: 48%;
+		a {
+			svg {
+				width: 50px;
+				height: 50px;
+				fill: $bg-dark;
+			}
+			&:hover svg {
+				fill: $intra-blue;
+			}
+		}
+	}
+	/*[LAYOUT]Circle Buttons, Authentication, Logout, General*/
+	#coin-buttons{
 		opacity: 0.8;
 		position: fixed;
 		right: 0;
 		top: 0;
 		padding: 1rem;
 		padding-bottom: 0;
+		z-index: 100;
 		a {
 			background-color: $bg-light;
 			border-radius: 50%;
@@ -52,20 +74,13 @@ body {
 				height: 70px;
 				fill: $text-light;
 			}
-			#coin-exit {
-				width: 80px;
-				height: 80px;
-			}
-			&:hover svg {
-				transform: scale(0.95);
-			}
-			&:hover .user-card {
+			&:hover .hoverable-card {
 				display: block;
 			}
-			.user-card {
+			.hoverable-card {
+				display: none;
 				opacity: 0.95;
 				position: absolute;
-				display: none;
 				background-color: $bg-light;
 				margin: 0;
 				padding: 0.5rem;
@@ -77,16 +92,16 @@ body {
 				white-space: nowrap;
 				li {
 					padding: 0.5rem;
-					display: block;
-					&:hover {
-						opacity: 0.5;
-					}
 				}
+			}
+			&:hover {
+				border: 2px white dotted;
 			}
 		}
 	}
+	/*[HOME PAGE, root_path]Display HUGE centered card buttons*/
 	#card-buttons {
-		background-color: rgba(32, 32, 38, 0.5);
+		background-color: $bg-transparent-dark;
 		margin: auto;
 		width: 100vw;
 		min-height: 100vh;
@@ -95,19 +110,16 @@ body {
 		justify-content: center;
 		flex-direction: column;
 		gap: 1rem;
-		padding: 2rem;
 		a {
-			border: 1px solid &intra-blue;
 			margin: auto;
-			border-radius: 1rem;
-			padding: 0.5rem;
+			border-radius: 0.5rem;
 			min-width: 90%;
 			min-height: 20vh;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-wrap: wrap;
-			gap: 5rem;
+			gap: 5%;
 			flex-direction: row;
 			background-color: $intra-blue;
 			color: $text-light;
@@ -127,30 +139,31 @@ body {
 			}
 		}
 	}
+	/*[ROOMS INDEX, rooms_path & ROOM SHOW, room_path[:id]]Centered Box with max widht 1600px*/
 	.rooms-centered {
 		min-height: 100vh;
 		max-width: 1600px;
 		margin: auto;
-		background-color: rgba(32, 32, 38, 0.5);
-		.cards {
+		background-color: $bg-transparent-dark;
+		/*[ROOMS INDEX, rooms_path] Display all rooms with even columns centered*/
+		.rooms-cards {
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
 			min-height: 100vh;
 			cursor: pointer;
-			.title {
-				width: 50%;
-				h1 {
-					color: $text-light;
-					text-align: center;
-					border-radius: 0.5rem;
-					margin: 1rem;
-					padding: 5rem 0;
-					background-color: $intra-blue;
-				}
+			.campus-card, .room-card-small {
+				width: 33.33%;
 			}
-			.room-card {
-				width: 50%;
+			.campus-card h1 {
+				color: $text-light;
+				text-align: center;
+				border-radius: 0.5rem;
+				margin: 1rem;
+				padding: 5rem 0;
+				background-color: $intra-blue;
+			}
+			.room-card-small {
 				padding: 1rem 0.5rem;
 				text-align: center;
 				h2, h4 {
@@ -162,7 +175,9 @@ body {
 			}
 			
 		}
-		.cards2 {
+		/*[ROOM SHOW, room_path[:id]]Centered Room Information*/
+		.room-card-big {
+			margin-bottom: 5rem;
 			min-height: 100vh;
 			flex-direction: column;
 			.single-room-card {
@@ -171,12 +186,175 @@ body {
 				padding: 2rem 0.5rem;
 				text-align: center;
 			}
+			/*Calendar Box!!!*/
 			.calendar {
 				margin: 0.25rem;
-				padding: 0.25rem;
 				border-radius: 0.25rem;
-				background-color: $intra-blue;
+				/* background-color: $intra-blue;*/
+				background-color: rgba(255, 255, 255, 0.1);
+				.reservations-slots {
+					margin: 0;
+					padding: 0;
+					border: none;
+					* {
+						border: none;
+					}
+					tbody {
+						tr {
+							height: 30.5px !important;
+							th {
+								max-height: 30.5px;
+								display: flex;
+								justify-content: end;
+								gap: 1rem;
+								flex-wrap: wrap;
+								flex-direction: row;
+							}
+							a {
+								text-decoration: none;
+							}
+							&:nth-child(even) {
+								background-color: rgba(0, 0, 0 , 0.2);
+	   					}
+	   				}
+					}
+				}
 			}
+		}
+	}
+}
+.dot-1, .dot-2, .dot-3 {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  &:hover {
+  	background-color: $intra-blue;
+  }
+}
+
+.dot-1 {background-color: yellow;}
+.dot-2 {background-color: orange;}
+.dot-3 {background-color: pink;}
+
+/* CALENDAR STYLE :D */
+.simple-calendar {
+  min-height: 70vh;
+  .calendar-heading {
+  	text-align: center;
+	position: relative;
+  	h1 {
+  		text-decoration: underline;
+  		display: inline;
+  		padding: 0;
+  		margin: 0;
+  	}
+  	.calendar-week-number {
+  		position: absolute;
+  		top: 50%;
+  		left: 2.5%;
+  		transform: translate(2.5%, -50%);
+  	}
+  	.calendar-next-prev {
+  		position: absolute;
+  		right: 0;
+  		border-radius: 0 0.5rem 0 0;
+  		background-color: $bg-secondary;
+  		text-decoration: none !important;
+  		a {
+  			padding: 0 1rem;
+  			color: gray;
+  			text-decoration: none !important;
+  			&:nth-child(1) {
+  				border-right: 1px solid gray;
+  			}
+  			&:nth-child(2) {
+  				border-left: 1px solid gray;
+  			}
+  		}
+  	}
+  }
+  .table {
+  	thead tr th{
+  		text-align: center;
+  		border-left: none;
+  		border-right: none;
+  	}
+    tbody {
+   		tr .time {
+   			border: none;
+   			padding: 0;
+   			min-width: 100px;
+   			* {
+   				text-align: center;
+   				white-space: nowrap;
+   				border: none;
+   			}
+   			table * {
+   				border: none;
+   			}
+   			table tr {
+   				height: 30.5px !important;
+   				padding: 0;
+   			}
+   			table tr:nth-child(even) {
+   				background-color: rgba(0, 0, 0 , 0.2);
+   			}
+   		} 	
+    }
+  }
+
+  .day {
+  	padding: 0;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+  	background-color: $intra-green;
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+  .prev-month {}
+  .prev-month, .next-month {
+  	background-color: $bg-secondary;
+  	color: transparent;
+  }
+  .next-month {}
+  .current-month {}
+
+  .has-events {}
+}
+
+@media (max-width: 950px) {
+	body {
+		/*Make coins smaller on smaller screens*/
+		#coin-buttons{
+			a {
+				width: 50px;
+				height: 50px;
+				background-color: $intra-blue;
+				svg {
+					width: 30px !important;
+					height: 30px !important;
+				}
+				.hoverable-card{
+					top: 120px;
+				}
+			}
+		}
+		/*Reduce amount of column on the rooms index*/
+		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
+			width: 50%;
 		}
 	}
 }

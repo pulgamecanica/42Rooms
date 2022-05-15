@@ -5,8 +5,11 @@ class Rooms42Controller < ApplicationController
   end
 
   def show
-    @room = Room.friendly.find(params[:id])
-    #RENDER ERROR IF PAGE NOT FOUNDED
+    begin
+      @room = Room.friendly.find(params[:id])
+    rescue
+      render :file => 'public/404.html', :status => :not_found, :layout => false
+    end
   end
 
   def rooms
