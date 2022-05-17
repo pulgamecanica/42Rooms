@@ -55,3 +55,20 @@ if porto
 	end
 	puts "Finished, created #{rooms_count} rooms"
 end
+
+puts "Started Seeding reservations"
+subjects = {0=>"Club Related", 1=>"Staff Related", 2=>"Guests Related", 3=>"Internship Related", 4=>"Meeting Related"}
+200.times do |n|
+	s = rand(0..4)
+	r = rand(1..10)
+	d = rand(-2..5)
+	h = rand(-12..12)
+	m = rand(15..60)
+	Reservation.create!(
+		starts_at: Time.now + d.days + h.hours,
+		ends_at: Time.now + d.days + h.hours + m.minutes,
+		subject: subjects[s],
+		user: User.first,
+		room_id: r)
+end
+puts "Seeded 50 Reservations"

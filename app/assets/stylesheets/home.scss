@@ -169,6 +169,10 @@ body {
 				h2, h4 {
 					margin: 0.5rem;
 				}
+				details {
+					max-height: 50vh;
+					overflow: scroll;
+				}
 				&:hover {
 					background-color: $bg-light;
 				}
@@ -177,7 +181,6 @@ body {
 		}
 		/*[ROOM SHOW, room_path[:id]]Centered Room Information*/
 		.room-card-big {
-			margin-bottom: 5rem;
 			min-height: 100vh;
 			flex-direction: column;
 			.single-room-card {
@@ -220,15 +223,44 @@ body {
 					}
 				}
 			}
+			.dot-content {
+				padding: 1rem;
+				margin: auto;
+				span {
+					margin-left: 1rem;
+				}
+			}
 		}
 	}
 }
-.dot-1, .dot-2, .dot-3 {
+.dot-1, .dot-2, .dot-3, .dot-4, .dot-5 {
   height: 15px;
   width: 15px;
   border-radius: 50%;
   display: inline-block;
   position: relative;
+  .reservation-info {
+  	position: absolute;
+  	background-color: $bg-light;
+		white-space: nowrap;
+		margin: auto;
+		text-align: center;
+		min-width: 150px;
+		max-width: 150px;
+		overflow: scroll;
+		left: -150px;
+		top: 0;
+		border-radius: 1rem;
+		padding: 0.5rem 0.15rem;
+		display: none;
+		p {
+			margin: 0.15rem;
+			color: $intra-blue;
+		}
+  }
+  &:hover .reservation-info {
+  	display: inline-block;
+  }
   &:hover {
   	background-color: $intra-blue;
   }
@@ -237,13 +269,16 @@ body {
 .dot-1 {background-color: yellow;}
 .dot-2 {background-color: orange;}
 .dot-3 {background-color: pink;}
+.dot-4 {background-color: brown;}
+.dot-5 {background-color: cyan;}
 
 /* CALENDAR STYLE :D */
 .simple-calendar {
+	overflow-x: scroll;
   min-height: 70vh;
   .calendar-heading {
   	text-align: center;
-	position: relative;
+		position: relative;
   	h1 {
   		text-decoration: underline;
   		display: inline;

@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_15_123423) do
-  create_table "black_lists", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "room_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_black_lists_on_room_id"
-    t.index ["user_id"], name: "index_black_lists_on_user_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_195421) do
   create_table "campus", force: :cascade do |t|
     t.string "name"
     t.string "country"
@@ -41,8 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_123423) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.datetime "beginnig"
-    t.datetime "ending"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.string "subject"
     t.boolean "finished", default: false
     t.integer "user_id", null: false
@@ -75,20 +66,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_123423) do
     t.string "login"
     t.integer "campus_id"
     t.index ["campus_id"], name: "index_users_on_campus_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "white_lists", force: :cascade do |t|
-    t.integer "room_id", null: false
     t.integer "user_id", null: false
+    t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_white_lists_on_room_id"
     t.index ["user_id"], name: "index_white_lists_on_user_id"
   end
 
-  add_foreign_key "black_lists", "rooms"
-  add_foreign_key "black_lists", "users"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "users"
   add_foreign_key "rooms", "campus", column: "campus_id"

@@ -2,39 +2,47 @@
     <div class="room-card-big">
         <article class="single-room-card">
             <h2><%=@room.name%></h2>
-            <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
-            <footer><%=@room.campus%></footer>
             <details>
-                <summary>Show Reservations (<%= @room.reservations.all.count %>)</summary>
-                <% @room.reservations.each do |res| %>
+                <summary>More info</summary>
+                    <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
+                    <footer><%=@room.campus%></footer>
+                <% @room.reservations.order(starts_at: :asc).each do |res| %>
                     <ul><li><%= res %></li></ul>
                 <% end %> 
             </details>
         </article>
         <div class="calendar">
-            <%= week_calendar(attribute: :beginnig, events: @room.reservations) do |date, reservations| %>
+            <%= week_calendar(attribute: :starts_at, events: @room.reservations) do |date, reservations| %>
                 <table class="reservations-slots">
                     <tbody>
                     <% 24.times.each do |t| %>
                         <tr>
                           <th>
-                            <% if current_user %>
-                                <%= link_to root_path do%>
-                                    <span class="dot-1"></span>
+                            <% reservations.each do |reservation| %>
+                                <% if reservation.starts_at.hour == t %>
+                                    <% if current_user %>
+                                        <%= link_to root_path do%>
+                                            <span class="dot-<%= reservation.subject_number %>">
+                                                <span class="reservation-info">
+                                                    <p>Subject: <%= reservation.subject %></p>
+                                                    <p>By <%= reservation.user.login %></p>
+                                                    <p>Until <%= reservation.ends_at.strftime("%H:%M") %></p>
+                                                </span>
+                                            </span>
+                                        <% end %>
+                                    <% else %>
+                                        <span class="dot-<%= reservation.subject_number %>"></span>
+                                    <% end %>
                                 <% end %>
-                            <% else %>
-                                <span class="dot-1"></span>
                             <% end %>
                           </th>
                         </tr>
                       <% end %>
                     </tbody>
                 </table>
-                <% reservations.each do |reservation| %>
-                    <span class="dot-1"></span>
-                    <%= reservation.beginnig.strftime("%H:%M") %> - <%= reservation.ending.strftime("%H:%M")  %>
-                <% end %>
             <% end %>
         </div>
+        <h5 class="dot-content"><span class="dot-1"></span> club <span class="dot-2"></span> staff <span class="dot-3"></span> guest <span class="dot-4"></span> internship <span class="dot-5"></span> meeting </h5>
     </div>
+    
 </div>

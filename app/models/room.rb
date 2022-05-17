@@ -4,7 +4,10 @@ class Room < ApplicationRecord
   has_many :white_lists
   enum status: {active: 0, inactive: 1, hidden: 2}
   enum room_type: {staff_room: 0,  normal_room: 1, club_room: 2}
-  validates_presence_of :description, :name, :capacity
+  validates :name, length: { in: 5..20 }
+  validates :description, length: { in: 5..100 }
+  validates :capacity, numericality: { greater_than: 1 }
+  validates_presence_of :description, :name, :capacity, :room_type, :status
   #Friendly id for the routes
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]

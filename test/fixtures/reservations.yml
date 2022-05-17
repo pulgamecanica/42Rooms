@@ -1,15 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  beginnig: 2022-05-10 15:20:06
-  ending: 2022-05-10 15:20:06
-  finished: false
-  user: one
-  room: one
+# one:
+#   starts_at: 2022-05-10 15:20:06
+#   ends_at: 2022-05-10 15:40:06
+#   finished: false
+#   subject: Club Related
+#   user: one
+#   room: one
 
-two:
-  beginnig: 2022-05-10 15:20:06
-  ending: 2022-05-10 15:20:06
-  finished: false
-  user: two
-  room: two
+# two:
+#   starts_at: 2022-05-11 15:20:06
+#   ends_at: 2022-05-11 15:50:06
+#   finished: false
+#   subject: Club Related
+#   user: one
+#   room: one
