@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   #Root
-  root 'rooms42#home'
+  root 'rooms42#rooms'
   #User routes
   devise_for :users
   devise_scope :user do
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'authentication42api', to: 'authentication#authenticate' #authentication42api_path
   get 'authentication42api/callback', to: 'authentication#authentication_callback'#authentication42api_callback_path
   #Website Routes
-  get 'rooms', to: 'rooms42#rooms'
+  # get 'rooms', to: 'rooms42#rooms'
   get '/rooms/:id', to: 'rooms42#show', as: 'room'
+  resources :reservations, only: [:update, :create, :edit]
 end

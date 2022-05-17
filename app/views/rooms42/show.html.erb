@@ -19,14 +19,14 @@
                         <tr>
                           <th>
                             <% reservations.each do |reservation| %>
-                                <% if reservation.starts_at.hour == t %>
+                                <% if reservation.starts_at.hour <= t && reservation.ends_at.hour >= t %>
                                     <% if current_user %>
                                         <%= link_to root_path do%>
                                             <span class="dot-<%= reservation.subject_number %>">
                                                 <span class="reservation-info">
                                                     <p>Subject: <%= reservation.subject %></p>
                                                     <p>By <%= reservation.user.login %></p>
-                                                    <p>Until <%= reservation.ends_at.strftime("%H:%M") %></p>
+                                                    <p><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></p>
                                                 </span>
                                             </span>
                                         <% end %>
@@ -35,6 +35,11 @@
                                     <% end %>
                                 <% end %>
                             <% end %>
+                            <span class="add-reservation-button">
+                                <button onclick="create_reservation('<%= date.to_datetime + t.hours %>')">
+                                    <%= render 'partials/plus' %>
+                                </button>
+                            </span>
                           </th>
                         </tr>
                       <% end %>
@@ -44,5 +49,12 @@
         </div>
         <h5 class="dot-content"><span class="dot-1"></span> club <span class="dot-2"></span> staff <span class="dot-3"></span> guest <span class="dot-4"></span> internship <span class="dot-5"></span> meeting </h5>
     </div>
-    
 </div>
+<div id="reservation-form">
+ññññ
+</div>
+<script>
+function create_reservation(time) {
+    $("reservation-form").html("<%= j render 'new_reservation' %>");
+}
+</script>

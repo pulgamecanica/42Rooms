@@ -5,20 +5,9 @@ class AuthenticationController < ApplicationController
   end
 
 	def authenticate
-		return redirect_to action: "ft_auth" if params.key?(:error)
-    client = OAuth2::Client.new(ENV['API_42_UID'], ENV['API_42_SECRET'], site: "https://api.intra.42.fr")
-    token = client.client_credentials.get_token
-    begin
-      token.post('/oauth/token', {body: {
-        grant_type: "authorization_code",
-        client_id: ENV['API_42_UID'],
-        client_secret: ENV['API_42_SECRET'],
-        code: params[:code],
-        redirect_uri: "http://localhost:3000/authentication42api/callback"
-      }})
-    rescue
-      redirect_to action: "ft_auth"
-    end
+    return redirect_to action: "ft_auth" if params.key?(:error)
+
+    redirect_to action: "ft_auth"
 	end
 
 	def authentication_callback

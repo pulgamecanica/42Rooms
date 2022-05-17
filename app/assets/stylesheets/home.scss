@@ -204,17 +204,59 @@ body {
 					}
 					tbody {
 						tr {
-							height: 30.5px !important;
+							display: block;
+							height: 30.5px !important; 
 							th {
+								position: relative;
 								max-height: 30.5px;
 								display: flex;
-								justify-content: end;
+								justify-content: start;
 								gap: 1rem;
-								flex-wrap: wrap;
+								flex-wrap: no-wrap;
 								flex-direction: row;
+								.add-reservation-button {
+									z-index: 1;
+									display: none;
+									height: 20px;
+									background-color: $intra-blue;
+									border-radius: 50%;
+									button, button svg {
+										background-color: transparent;
+										display: block;
+										margin: 0;
+										padding: 0;
+										width: 20px;
+										height: 20px;
+										fill: $text-light;
+										cursor: pointer;
+									}
+									.reservation-form {
+										position: fixed;
+										background-color: $bg-light;
+										border: 5px $intra-blue solid;
+										border-radius: 1rem;
+										height: 80vh;
+										width: 60vw;
+										left: 20%;
+										top: 10%;
+										overflow-y: scroll;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										flex-wrap: wrap;
+										flex-direction: column;
+										color: $intra-blue !important;										
+										* {
+											color: $intra-blue !important;
+										}
+									}
+								}
 							}
 							a {
 								text-decoration: none;
+							}
+							&:hover .add-reservation-button {
+								display: block;
 							}
 							&:nth-child(even) {
 								background-color: rgba(0, 0, 0 , 0.2);
@@ -234,12 +276,13 @@ body {
 	}
 }
 .dot-1, .dot-2, .dot-3, .dot-4, .dot-5 {
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
   display: inline-block;
   position: relative;
   .reservation-info {
+  	z-index: 10;
   	position: absolute;
   	background-color: $bg-light;
 		white-space: nowrap;
