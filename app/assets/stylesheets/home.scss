@@ -215,7 +215,6 @@ body {
 								flex-wrap: no-wrap;
 								flex-direction: row;
 								.add-reservation-button {
-									z-index: 1;
 									display: none;
 									height: 20px;
 									background-color: $intra-blue;
@@ -229,26 +228,6 @@ body {
 										height: 20px;
 										fill: $text-light;
 										cursor: pointer;
-									}
-									.reservation-form {
-										position: fixed;
-										background-color: $bg-light;
-										border: 5px $intra-blue solid;
-										border-radius: 1rem;
-										height: 80vh;
-										width: 60vw;
-										left: 20%;
-										top: 10%;
-										overflow-y: scroll;
-										display: flex;
-										align-items: center;
-										justify-content: center;
-										flex-wrap: wrap;
-										flex-direction: column;
-										color: $intra-blue !important;										
-										* {
-											color: $intra-blue !important;
-										}
 									}
 								}
 							}
@@ -272,6 +251,72 @@ body {
 					margin-left: 1rem;
 				}
 			}
+		}
+	}
+	#reservation-form {
+		z-index: 190;
+		opacity: 0.98;
+		position: fixed;
+		background-color: $bg-light;
+		border: 5px $intra-blue solid;
+		border-radius: 1rem;
+		height: 80vh;
+		width: 40vw;
+		left: 30%;
+		top: 10%;
+		overflow-y: scroll;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		flex-direction: column;
+		color: $intra-blue !important;
+		text-align: center;
+		.field {
+			padding: 1rem;
+			margin-bottom: 0.5rem;
+			label {
+				display: block;
+				text-align: center;
+				padding: 0.5rem;
+				font-size: 110%;
+				text-decoration: underline;
+			}
+			select {
+				font-size: 110%;
+				padding: 0.5rem;
+			}
+			.date-input {
+				font-size: 150%;
+			}
+		}
+		.submit-button {
+			padding: 1rem;
+			background-color: $intra-green;
+			color: $text-light !important;
+			border-radius: 1rem;
+			border: none;
+			cursor: pointer;
+			font-size: 110%;
+			&:hover {
+				opacity: 0.6;
+			}
+			&:focus {
+				opacity: 1;
+			}
+		}
+		.close-form {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1rem;
+			background-color: $intra-red;
+			border: none;
+			border-radius: 0 0 0 1rem;
+			color: $text-light !important;
+		}
+		* {
+			color: $intra-blue !important;
 		}
 	}
 }
@@ -433,6 +478,12 @@ body {
 		/*Reduce amount of column on the rooms index*/
 		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
 			width: 50%;
+		}
+		#reservation-form {
+			height: 80vh;
+			width: 95vw;
+			left: 2.5%;
+			top: 10%;
 		}
 	}
 }

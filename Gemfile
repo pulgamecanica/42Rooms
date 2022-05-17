@@ -85,3 +85,4 @@ gem 'friendly_id', '~> 5.4.0'
 #Calendar Display :)
 gem "simple_calendar", "~> 2.4"
 #JQuery JS 
+gem 'jquery-rails'

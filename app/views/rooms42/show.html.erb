@@ -36,7 +36,7 @@
                                 <% end %>
                             <% end %>
                             <span class="add-reservation-button">
-                                <button onclick="create_reservation('<%= date.to_datetime + t.hours %>')">
+                                <button onclick="create_reservation('<%= (date.to_datetime + t.hours).strftime("%Y-%m-%dT%H:%M") %>', '<%= (date.to_datetime + t.hours + 30.minutes).strftime("%Y-%m-%dT%H:%M") %>')">
                                     <%= render 'partials/plus' %>
                                 </button>
                             </span>
@@ -51,10 +51,22 @@
     </div>
 </div>
 <div id="reservation-form">
-ññññ
+    
 </div>
 <script>
-function create_reservation(time) {
-    $("reservation-form").html("<%= j render 'new_reservation' %>");
+function create_reservation(starts_at, ends_at) {
+    $("#reservation-form").html("<%= j render 'new_reservation' %>");
+    $("#reservation_starts_at").val(starts_at);
+    $("#reservation_ends_at").val(ends_at);
+    $("#reservation-form").css("display", "flex");
+    var close = $('<button/>',
+    {
+        text: 'X',
+        click: function () {
+            $("#reservation-form").css("display", "none");
+        }
+    });
+    close.addClass("close-form");
+    $("#reservation-form").append(close);
 }
 </script>

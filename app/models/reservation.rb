@@ -5,6 +5,9 @@ class Reservation < ApplicationRecord
   validates :ends_at, comparison: { greater_than: :starts_at }
 
   def to_s
+    if self.errors
+      return super()
+    end
     return "#{starts_at.strftime("%d/%m/%y")} (#{starts_at.strftime("%H:%M")}-#{ends_at.strftime("%H:%M")}), #{subject}"
   end
   def is_club_reservation?

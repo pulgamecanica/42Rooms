@@ -7,9 +7,7 @@ class Rooms42Controller < ApplicationController
   def show
     begin
       @room = Room.friendly.find(params[:id])
-      if current_user
-        @new_reservation = @room.reservations.build(user: current_user)
-      end
+      @new_reservation = @room.reservations.build(user: current_user)
     rescue
       render :file => 'public/404.html', :status => :not_found, :layout => false
     end
