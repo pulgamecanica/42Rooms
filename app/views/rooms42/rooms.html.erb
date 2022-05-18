@@ -1,12 +1,12 @@
 <div class="rooms-centered">
     <section class="rooms-cards">
-        <div class="campus-card"><h1><%=current_user.campus if current_user%></h1></div>
+        <% if current_user %>
+            <div class="campus-card"><h1><%= current_user.campus %></h1></div>
+        <% end %>
         <% @rooms.each do |room| %>
             <article class="room-card-small">
-                <%= link_to room_path(room) do %>
-                    <h2><%=room.name%></h2>
-                    <h4>Capacity: <%=room.capacity%> - <%=room.description%></h4>
-                <% end %>
+                <%= image_tag '42Lisboa' if room.campus.name == "Lisboa"%>
+                <%= link_to room_path(room) do %><h2><%=room.name%></h2><h4>Capacity: <%=room.capacity%> - <%=room.description%></h4><% end %>
                 <details>
                     <summary>Show Reservations (<%= room.reservations.all.count %>)</summary>
                     <% room.reservations.order(starts_at: :asc).each do |res| %>

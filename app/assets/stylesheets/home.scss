@@ -141,6 +141,7 @@ body {
 	}
 	/*[ROOMS INDEX, rooms_path & ROOM SHOW, room_path[:id]]Centered Box with max widht 1600px*/
 	.rooms-centered {
+		text-align: center;
 		min-height: 100vh;
 		max-width: 1600px;
 		margin: auto;
@@ -166,10 +167,21 @@ body {
 			.room-card-small {
 				padding: 1rem 0.5rem;
 				text-align: center;
+				position: relative;
+				img {
+					position: absolute;
+					width: 20%;
+					height: auto;
+					top: 0;
+					left: 0;
+					z-index: 1;
+				}
 				h2, h4 {
+					z-index: 4;
 					margin: 0.5rem;
 				}
 				details {
+					z-index: 4;
 					max-height: 50vh;
 					overflow: scroll;
 				}
@@ -191,8 +203,9 @@ body {
 			}
 			/*Calendar Box!!!*/
 			.calendar {
-				margin: 0.25rem;
+				margin: 0.25rem auto;
 				border-radius: 0.25rem;
+				max-width: 1000px;
 				/* background-color: $intra-blue;*/
 				background-color: rgba(255, 255, 255, 0.1);
 				.reservations-slots {

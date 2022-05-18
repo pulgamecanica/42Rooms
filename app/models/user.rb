@@ -4,8 +4,8 @@ class User < ApplicationRecord
   # devise :omniauthable, omniauth_providers: [:marvin]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   belongs_to :campus, optional: true
-  has_many :white_lists
-  has_many :reservations
+  has_many :white_lists, dependent: :delete_all
+  has_many :reservations, dependent: :delete_all
   devise :authenticatable
   enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3}
   validates :email, presence: true, length: { maximum: 255 },

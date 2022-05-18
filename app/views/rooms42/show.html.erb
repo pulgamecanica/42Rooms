@@ -2,13 +2,9 @@
     <div class="room-card-big">
         <article class="single-room-card">
             <h2><%=@room.name%></h2>
-            <details>
-                <summary>More info</summary>
-                    <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
-                    <footer><%=@room.campus%></footer>
-                <% @room.reservations.order(starts_at: :asc).each do |res| %>
-                    <ul><li><%= res %></li></ul>
-                <% end %> 
+            <details> <summary>More info</summary>
+                <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4><footer><%=@room.campus%></footer>
+                <% @room.reservations.order(starts_at: :asc).each do |res| %><ul><li><%= res %></li></ul><% end %> 
             </details>
         </article>
         <div class="calendar">
@@ -24,9 +20,7 @@
                                         <%= link_to root_path do%>
                                             <span class="dot-<%= reservation.subject_number %>">
                                                 <span class="reservation-info">
-                                                    <p>Subject: <%= reservation.subject %></p>
-                                                    <p>By <%= reservation.user.login %></p>
-                                                    <p><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></p>
+                                                    <p>Subject: <%= reservation.subject %></p><p>By <%= reservation.user.login %></p><p><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></p>
                                                 </span>
                                             </span>
                                         <% end %>
@@ -37,7 +31,10 @@
                             <% end %>
                             <span class="add-reservation-button">
                                 <button onclick="create_reservation('<%= (date.to_datetime + t.hours).strftime("%Y-%m-%dT%H:%M") %>', '<%= (date.to_datetime + t.hours + 30.minutes).strftime("%Y-%m-%dT%H:%M") %>')">
-                                    <%= render 'partials/plus' %>
+                                    <svg x="0px" y="0px" viewBox="0 0 52 52">
+                                        <path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26 S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"/>
+                                        <path d="M38.5,25H27V14c0-0.553-0.448-1-1-1s-1,0.447-1,1v11H13.5c-0.552,0-1,0.447-1,1s0.448,1,1,1H25v12c0,0.553,0.448,1,1,1 s1-0.447,1-1V27h11.5c0.552,0,1-0.447,1-1S39.052,25,38.5,25z"/>
+                                    </svg>
                                 </button>
                             </span>
                           </th>
@@ -50,9 +47,7 @@
         <h5 class="dot-content"><span class="dot-1"></span> club <span class="dot-2"></span> staff <span class="dot-3"></span> guest <span class="dot-4"></span> internship <span class="dot-5"></span> meeting </h5>
     </div>
 </div>
-<div id="reservation-form">
-    
-</div>
+<div id="reservation-form"></div>
 <script>
 function create_reservation(starts_at, ends_at) {
     $("#reservation-form").html("<%= j render 'new_reservation' %>");
