@@ -9,8 +9,7 @@ class User < ApplicationRecord
   devise :authenticatable
   enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3}
   validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX }
-
+                    format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   after_save :set_white_list
 
   def is_admin?

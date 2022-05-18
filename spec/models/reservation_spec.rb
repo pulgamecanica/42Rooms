@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Reservation, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   context "doesn't accept invalid parameters or incorrect dates" do
-    c = Campus.create!(name: "CampusTest", country: "Mars", language: "LunaticLang", address: "Mars Street, Mars (Right next to the Earth)")
-    r = Room.create!(campus: c, name: "TRoom", description: "This is a reasonable description...", capacity: 10)
-    u = User.create!(login: "test", email: "user@test.com")
-    WhiteList.create!(user: u, room: r)
+    c = Campus.any? ? Campus.first : Campus.create!(name: "CampusTest", country: "Mars", language: "LunaticLang", address: "Mars Street, Mars (Right next to the Earth)")
+    r = Room.any? ? Room.first : Room.create!(campus: c, name: "TRoom", description: "This is a reasonable description...", capacity: 10)
+    u = User.any? ?  User.first : User.create!(login: "test", email: "user@test.com")
+    w = WhiteList.create!(user: u, room: r)
 
     it "validates ends_at > starts_at " do
       date = Time.now + 1.hour
@@ -66,7 +66,7 @@ RSpec.describe Reservation, type: :model do
 
     it "validates that a user belongs to the white list" do
       test_user = User.create!(login: "another-test", email: "anotheruser@test.com")
-      expect {Reservation.create!(subject: :club, starts_at: Time.now + 20.minutes, ends_at: Time.now + 50.minutes, user: u, room: r)}.to raise_error(ActiveRecord::RecordInvalid)
+      expect {Reservation.create!(subject: :club, starts_at: Time.now + 20.minutes, ends_at: Time.now + 50.minutes, user: test_user, room: r)}.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

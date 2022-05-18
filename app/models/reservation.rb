@@ -3,7 +3,7 @@ class Reservation < ApplicationRecord
   belongs_to :room
   enum subject: {club: "Club Related", staff42: "Staff Related", guest: "Guests Related", internship: "Internship Related", meeting: "Meeting Related"}
   validates :ends_at, comparison: { greater_than: :starts_at }
-  validate :reservation_starts_at_least_10min_from_now, :check_overlapping
+  validate :reservation_starts_at_least_10min_from_now, :check_overlapping, :reservation_duration, :check_list
 
   scope :active, -> { where(finished: false) }
 
@@ -22,6 +22,23 @@ class Reservation < ApplicationRecord
       end
     end
   end
+
+  def reservation_duration
+    if ends_at - starts_at < 10.minutes
+      errors.add(:starts_at, "Reservation must be at least 10 minutes long")
+      errors.add(:ends_at, "Reservation must be at least 10 minutes long")
+    elsif ends_at - starts_at > 2.hours
+      errors.add(:starts_at, "Reservation can't be more than 2 hours long")
+      errors.add(:ends_at, "Reservation can't be more than 2 hours long")
+    end
+  end
+
+  def check_list
+    if room.white_lists.where(user: user).empty? && !user.is_admin?
+      errors.add(:user, "User must belong to the white list in order to add a reservation")
+    end
+  end
+
   def to_s
     if self.errors
       return super()
