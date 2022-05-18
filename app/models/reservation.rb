@@ -3,6 +3,13 @@ class Reservation < ApplicationRecord
   belongs_to :room
   enum subject: {club: "Club Related", staff42: "Staff Related", guest: "Guests Related", internship: "Internship Related", meeting: "Meeting Related"}
   validates :ends_at, comparison: { greater_than: :starts_at }
+  validate :reservation_starts_at_least_10min_from_now
+
+  def reservation_starts_at_least_10min_from_now
+    if starts_at < Time.now + 10.minutes
+      errors.add(:starts_at, "Reservation start time must be at least 10 min from now!")
+    end
+  end
 
   def to_s
     if self.errors
