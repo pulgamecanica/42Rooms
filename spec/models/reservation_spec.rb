@@ -66,7 +66,7 @@ RSpec.describe Reservation, type: :model do
 
     it "validates that a user belongs to the white list" do
       test_user = User.create!(login: "another-test", email: "anotheruser@test.com")
-      expect {Reservation.create!(subject: :club, starts_at: Time.now + 20.minutes, ends_at: Time.now + 50.minutes, user: test_user, room: r)}.to raise_error(ActiveRecord::RecordInvalid)
+      expect {Reservation.create!(subject: :club, starts_at: Time.now + 20.minutes, ends_at: Time.now + 50.minutes, user: test_user , room: r)}.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

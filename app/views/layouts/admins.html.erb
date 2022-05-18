@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rooms42</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <meta charset="UTF-8">
+    <meta name="description" content="Room Manager for 42Lisboa">
+    <meta name="keywords" content="42Rooms, RoR, Ruby, Ruby on Rails, RoomsManager">
+    <meta name="author" content="pulgamecanica">
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body id="admin-body">
+    <% if !alert.nil? || !notice.nil? %>
+      <span class="alerts">
+        <span><%= notice %></span>
+        <span><%= alert %></span>
+      </span>
+    <% end %>
+    <nav id="admin-bar">
+      <div class="menu">
+        <%= link_to "Website", root_path %>
+        <%= link_to "Rooms", home_path %>
+        <%= link_to "Users", root_path %>
+        <%= link_to "Notifications", root_path %>
+      </div>
+    </nav>
+    <div id="admin-container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

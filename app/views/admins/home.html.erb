@@ -1,0 +1,25 @@
+<div class="container">
+	<% @campuses.each do |campus| %>
+		<% if campus.rooms.any? %>
+			<div class="card">
+				<div class="card-body">
+					<h3><%= campus %></h3>
+					<% campus.rooms.each do |room| %>
+						<%= link_to edit_room_path(room) do %>
+							<div class="card-element">
+								<p>
+									<%= room.name %> 
+								</p>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+	<div class="card">
+		<div class="card-body">
+			<h1><%= link_to '+', new_room_path %></h1>
+		</div>
+	</div>
+</div>

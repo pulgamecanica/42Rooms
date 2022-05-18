@@ -19,16 +19,16 @@
     <% if not current_user %><span id="home-logo"><%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %></span><% end %>
     <nav id="coin-buttons">
       <% if current_user %>
-        <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %><% end %>
-        <%= link_to root_path do %>
-          <%= render 'partials/coin_api42' %>
+        <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %>
           <ul class="hoverable-card">
-              <li><%= current_user.role %></li>
-              <li><%= current_user.login %></li>
-              <li><%= current_user.email %></li>
-              <li><%= current_user.campus %></li>
+            <li><%= current_user.role %></li>
+            <li><%= current_user.login %></li>
+            <li><%= current_user.email %></li>
+            <li><%= current_user.campus %></li>
           </ul>
-          </div>
+        <% end %>
+        <% if current_user.is_admin? %>
+          <%= link_to home_path do %><%= render 'partials/coin_api42' %><% end %>
         <% end %>
       <% else %>
         <%= link_to authentication42api_path do %><%= render 'partials/coin_login' %><% end %>

@@ -1,0 +1,45 @@
+<div class="form-group">
+  <%= form_with model: [@room] do |form| %> 
+  
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :capacity %>
+    <%= form.number_field :capacity  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :room_type %>
+    <% if @room.persisted? %>
+      <%= form.select :room_type, options_for_select(Room.room_types.map {|name, id| [name.capitalize, name]}, selected: @room.room_type) %>
+    <% else %>
+      <%= form.select :room_type, options_for_select(Room.room_types.map {|name, id| [name.capitalize, name]}) %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <% if @room.persisted? %>
+      <%= form.select :status, options_for_select(Room.statuses.map {|name, id| [name.capitalize, name]}, selected: @room.status) %>
+    <% else %>
+      <%= form.select :status, options_for_select(Room.statuses.map {|name, id| [name.capitalize, name]}) %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :campus_id %>
+    <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}) %>
+  </div>
+
+	<%= form.submit class: "submit-button" %>
+  <% end %>
+</div>

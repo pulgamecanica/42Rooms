@@ -12,6 +12,14 @@ Rails.application.routes.draw do
   get 'authentication42api/callback', to: 'authentication#authentication_callback'#authentication42api_callback_path
   #Website Routes
   # get 'rooms', to: 'rooms42#rooms'
-  get '/rooms/:id', to: 'rooms42#show', as: 'room'
+  get '/rooms42/:id', to: 'rooms42#show', as: 'room'
   resources :reservations, only: [:update, :create, :edit]
+
+
+  get '/home', to: 'admins#home'
+  scope module: 'admins' do
+    resources :rooms, only: [:new, :create, :edit, :update, :destroy] do 
+      resources :white_lists, only: [:create, :destroy]
+    end
+  end
 end
