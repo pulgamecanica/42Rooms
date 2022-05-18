@@ -3,7 +3,9 @@ class Reservation < ApplicationRecord
   belongs_to :room
   enum subject: {club: "Club Related", staff42: "Staff Related", guest: "Guests Related", internship: "Internship Related", meeting: "Meeting Related"}
   validates :ends_at, comparison: { greater_than: :starts_at }
-  validate :reservation_starts_at_least_10min_from_now
+  validate :reservation_starts_at_least_10min_from_now, :check_overlapping
+
+  scope :active, -> { where(finished: false) }
 
   def reservation_starts_at_least_10min_from_now
     if starts_at < Time.now + 10.minutes
@@ -11,6 +13,15 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def check_overlapping
+    room.reservations.active.without(self).each do |res|
+      if starts_at < res.starts_at && ends_at > res.starts_at
+        errors.add(:ends_at, "Reservation overlaps another reservation, finished in the middle of another reservation")
+      elsif starts_at > res.starts_at && starts_at < res.ends_at
+        errors.add(:starts_at, "Reservation overlaps another reservation, starts in the middle of another reservation")
+      end
+    end
+  end
   def to_s
     if self.errors
       return super()
