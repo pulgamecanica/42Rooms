@@ -14,7 +14,7 @@
     <%= form.datetime_field :ends_at, class: "date-input" %>
   </div>
   <div class="field">
-    <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}) %>
+    <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: @new_reservation.subject) %>
   </div>
 	<%= form.submit class: "submit-button" %>
   <% end %>

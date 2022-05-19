@@ -16,6 +16,7 @@ class ReservationsController < ApplicationController
   end
   
   def update
+    @reservation = Reservation.find(params[:id])
     respond_to do |format|
       if @reservation.update(reservation_params)
         format.html { redirect_to edit_reservation_path(@reservation), notice: "Reservation was successfully updated." }

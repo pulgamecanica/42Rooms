@@ -197,7 +197,7 @@ body {
 			border: 5px $intra-blue solid;
 			border-radius: 1rem;
 			height: 80vh;
-			width: 40vw;
+			max-width: 1000px !important;
 			display: flex;
 			overflow-y: scroll;
 			align-items: center;
