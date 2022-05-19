@@ -15,9 +15,9 @@ class Reservation < ApplicationRecord
 
   def check_overlapping
     room.reservations.active.without(self).each do |res|
-      if starts_at < res.starts_at && ends_at > res.starts_at
+      if starts_at <= res.starts_at && ends_at >= res.starts_at
         errors.add(:ends_at, "Reservation overlaps another reservation, finished in the middle of another reservation")
-      elsif starts_at > res.starts_at && starts_at < res.ends_at
+      elsif starts_at >= res.starts_at && starts_at <= res.ends_at
         errors.add(:starts_at, "Reservation overlaps another reservation, starts in the middle of another reservation")
       end
     end
