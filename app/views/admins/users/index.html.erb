@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="container-head">
+		<span class="breadcrumb"><%= link_to 'ROOMS', home_path %> / <%= link_to 'USERS', users_path %></span>
+		<div class="content">
+			<h1 class="title">Users</h1>
+			<div class="buttons"><div class="add-button"><%= link_to 'New User', new_user_path %></div></div>
+		</div>
+	</div>
+	<div class="table-container">
+		<table>
+			<tr class="table-head"><th> ACTIONS </th><th>ROLE</th><th>LOGIN</th><th>EMAIL</th><th>CAMPUS</th></tr>
+			<% @users.order(:campus).each do |user| %>
+				<tr>
+					<td class="list">
+						<div class="card-element">
+							<div class="room-buttons">
+								<%= link_to edit_user_path(user) do %>EDIT<% end %>
+								<%= link_to user_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"} do %>DELETE<% end %>
+							</div>
+						</div>
+					</td>
+					<td><%= user.role %></td>
+					<td><%= user.login %></td>
+					<td><%= user.email %></td>
+					<td><%= user.campus.name %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

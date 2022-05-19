@@ -15,20 +15,22 @@
   </head>
 
   <body id="admin-body">
+    <nav id="admin-bar">
+      <div class="menu">
+        <%= link_to root_path do %>
+          <%= render "partials/coin_api42" %>
+        <% end %>
+        <%= link_to "Rooms", home_path %>
+        <%= link_to "Users", users_path %>
+        <%= link_to "Notifications", root_path %>
+      </div>
+    </nav>
     <% if !alert.nil? || !notice.nil? %>
       <span class="alerts">
         <span><%= notice %></span>
         <span><%= alert %></span>
       </span>
     <% end %>
-    <nav id="admin-bar">
-      <div class="menu">
-        <%= link_to "Website", root_path %>
-        <%= link_to "Rooms", home_path %>
-        <%= link_to "Users", root_path %>
-        <%= link_to "Notifications", root_path %>
-      </div>
-    </nav>
     <div id="admin-container">
       <%= yield %>
     </div>

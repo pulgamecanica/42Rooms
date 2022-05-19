@@ -3,7 +3,7 @@ class Reservation < ApplicationRecord
   belongs_to :room
   enum subject: {club: "Club Related", staff42: "Staff Related", guest: "Guests Related", internship: "Internship Related", meeting: "Meeting Related"}
   validates :ends_at, comparison: { greater_than: :starts_at }
-  validate :reservation_starts_at_least_10min_from_now, :check_overlapping, :reservation_duration, :check_list
+  validate :reservation_starts_at_least_10min_from_now, :check_overlapping, :reservation_duration, :check_list, on: :create
 
   scope :active, -> { where(finished: false) }
 

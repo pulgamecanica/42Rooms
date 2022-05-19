@@ -1,7 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :campus
-  has_many :reservations
-  has_many :white_lists
+  has_many :reservations, dependent: :delete_all
+  has_many :white_lists, dependent: :delete_all
   enum status: {active: 0, inactive: 1, hidden: 2}
   enum room_type: {staff_room: 0,  normal_room: 1, club_room: 2}
   validates :name, length: { in: 5..20 }

@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-  # before_action :set_finished
+  
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -32,16 +32,6 @@ class ReservationsController < ApplicationController
   end
 
   private
-	  # def set_finished
-	  #   Reservation.active_reservations.each do |r|
-	  #     if (r.starts_at < DateTime.now && r.ends_at < DateTime.now)
-	  #       r.update(finished: true)
-	  #       if not r.save
-	  #         puts r.errors.full_messages
-	  #       end
-	  #     end
-	  #   end
-	  # end
 
 	  def reservation_params
 			params.require(:reservation).permit(:room_id, :user_id, :starts_at, :ends_at, :subject, :finished)

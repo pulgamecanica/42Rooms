@@ -1,6 +1,5 @@
 module Admins
 	class RoomsController < AdminsController
-		before_action :set_room
 		before_action :set_room, only: %i[ edit update destroy ]
 
 		def new
@@ -9,6 +8,11 @@ module Admins
 
 		def edit
       @white_list = @room.white_lists.build
+      if (params[:all].nil?)
+        @reservations = @room.reservations.active
+      else
+        @reservations = @room.reservations
+      end
     end
 
 		def create
@@ -41,7 +45,7 @@ module Admins
       @room.destroy
 
       respond_to do |format|
-        format.html { redirect_to rooms_url, notice: "Room was successfully destroyed." }
+        format.html { redirect_to rooms_path, notice: "Room was successfully destroyed." }
         format.json { head :no_content }
       end
     end

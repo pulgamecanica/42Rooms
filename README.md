@@ -57,7 +57,7 @@ Application for managing rooms at 42Lisboa.
 ***
 
 ## List :page_with_curl: 
-- [x] Create my first HackMD note (this one!)
+- [x] Create my first HackMD note
 
 ## Validations :thumbsup:
 - [X] User email is valid.
@@ -65,10 +65,10 @@ Application for managing rooms at 42Lisboa.
 - [X] Room type is mandatory.
 - [X] Room description is between 5-100 characters.
 - [X] Room capacity is positive number.
-- [ ] Reservation starts at least 10 minutes after Present time.
-- [ ] Reservation ends at most 2 hours after it starts.
-- [ ] Reservation doesn't overlaps another reservation.
-- [ ] (Reservation) User belongs to the reservation white list.
+- [X] Reservation starts at least 10 minutes after Present time.
+- [X] Reservation ends at most 2 hours after it starts.
+- [X] Reservation doesn't overlaps another reservation.
+- [X] (Reservation) User belongs to the reservation white list.
 - [ ] (Reservation) Room is active in order to reservate.
 - [ ] Black list User and Black list Room unique.
 - [ ] White list User and Black list Room unique.
@@ -85,7 +85,5 @@ Application for managing rooms at 42Lisboa.
   - 42 background
 
 #### See Reservations
-  - List of Reservations by campus.
-  - Reservations by Room.
-  - Room card with all reservations (pagination enable)
+  - ADMIN -> Finish Reservation TODO
 

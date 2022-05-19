@@ -1,12 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
+  c = Campus.any? ? Campus.first : Campus.create!(name: "CampusTest", country: "Mars", language: "LunaticLang", address: "Mars Street, Mars (Right next to the Earth)")
+  r = Room.any? ? Room.first : Room.create!(campus: c, name: "TRoom", description: "This is a reasonable description...", capacity: 10)
+  u = User.any? ?  User.first : User.create!(login: "test", email: "user@test.com")
+  w = WhiteList.create!(user: u, room: r)
   # pending "add some examples to (or delete) #{__FILE__}"
+  context "can be created succesfully" do
+
+  end
+
   context "doesn't accept invalid parameters or incorrect dates" do
-    c = Campus.any? ? Campus.first : Campus.create!(name: "CampusTest", country: "Mars", language: "LunaticLang", address: "Mars Street, Mars (Right next to the Earth)")
-    r = Room.any? ? Room.first : Room.create!(campus: c, name: "TRoom", description: "This is a reasonable description...", capacity: 10)
-    u = User.any? ?  User.first : User.create!(login: "test", email: "user@test.com")
-    w = WhiteList.create!(user: u, room: r)
 
     it "validates ends_at > starts_at " do
       date = Time.now + 1.hour

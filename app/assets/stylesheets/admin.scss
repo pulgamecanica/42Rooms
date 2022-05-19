@@ -5,129 +5,202 @@ $bg-light: #292D39;
 $bg-dark: #121212;
 $bg-transparent-dark: rgba(32, 32, 38, 0.5);
 $bg-secondary: #bbbbbb;
+$text-secondary: rgb(94, 100, 105);
 $text-light: #f9f9f9;
 
+
+
 #admin-body {
-	.alerts {
-		position: absolute;
-		top: 0;
-		background-color: $intra-red;
-		padding: 1rem;
-		display: inline-block;
-		opacity: 0;
-		animation: fade_out 5s linear 1;
-		&:hover {
-			opacity: 1;
-		}
-	}
-	@keyframes fade_out {
-	  0%   {opacity: 1}
-	  80%  {opacity: 1}
-	  100% {opacity: 0}
-	}
-	margin: 0;
-	padding: 0;
 	#admin-bar {
+		position: relative;
 		background-color: $bg-light;
-		width: 20vw;
-		max-width: 200px;
-		min-height: 100vh;
-		display: inline-block;
-		overflow-x: scroll;
+		z-index: 20;
 		.menu {
-			min-height: 100vh;
 			display: flex;
-			flex-wrap: wrap;
-			flex-direction: column;
-			align-items: start;
-			align-content: center;
-			justify-content: center;
-			gap: 5rem;
+			justify-content: space-around;
+			align-items: center;
 			a {
 				text-decoration: none;
-				text-align: center;
-				width: 90%;
-				padding: 5%;
-				border-radius: 1rem;
-				background-color: $intra-blue;
+				color: $text-light;
+				border-radius: 0.1rem;
 				&:hover {
-					background-color: rgba(0, 0, 0, 0.5);
-					text-decoration: underline;
+					color: $bg-dark;
+					background-color: white;
 				}
+			}
+			svg {
+				height: 35px;
+				width: 35px;
+
 			}
 		}
 	}
+	.alerts {
+		background-color: $intra-blue;
+		display: block;
+		text-align: center;
+		padding: 0.5rem;
+	}
 	#admin-container {
-		min-height: 100vh;
-		width: 80vw;
-		max-width: 1600px;
-		float: right;
+		margin: 0;
 		padding: 0;
+		display: block;
+		background-color: $bg-transparent-dark;
+		min-height: 100vh;
 		.container {
-			min-height: 100vh;
-			background-color: $bg-transparent-dark;
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 1rem;
-			align-items: center;
-			form {
-				background-color: $intra-blue;
-				padding: 1rem;
-				color: black !important;
-				margin: auto;
+			.container-head {
+				padding: 0.5rem 1rem;
+				background-color: $bg-secondary;
 				* {
-					padding: 0.5rem;
+					color: $text-secondary;
 				}
-				input, select, textarea {
-					color: black;
+				.breadcrumb {
+					font-size: 75%;
 				}
-				textarea {
-					min-height: 100px;
-				}
-				.submit-button {
-					background-color: $intra-green;
-					border: 1px solid $bg-transparent-dark;
-					border-radius: 0.25rem;
-					width: 100%;
-				}
-			}
-			.white-list {
-				background-color: $bg-light;
-				text-align: center;
-				min-height: 300px;
-				min-width: 200px;
-				.remove-user {
-					background-color: $intra-red;
-					border-radius: 0.2rem;
-					padding: 2px;
-					&:hover {
-						opacity: 0.8;
+				.content {
+					padding: 0 0.5rem;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.title {
+						margin: 0.5rem 0;
 					}
-				}
-			}
-			.card {
-				margin: auto;
-				.card-body {
-					border-radius: 0.25rem;
-					text-align: center;
-					padding: 1rem;
-					background-color: $intra-blue;
-					h1 {
+					.buttons {
+						.delete-button a {
+							background-color: $intra-red !important;
+						}
 						a {
-							padding: 3rem;
+							background-color: $intra-blue;
+							color: $text-light;
+							padding: 1rem;
+							border-radius: 1rem;
 							text-decoration: none;
 						}
 					}
-					.card-element {
-						padding: 0.15rem;
-						&:hover {
-							background-color: rgba(0, 0, 0 ,0.5);
-							border-radius: 0.25rem;
+				}
+			}
+			.table-container {
+				overflow: scroll;
+				padding: 1rem;
+				text-align: center;
+				margin: auto;
+				max-width: 1400px;
+				table {
+					background-color: $intra-blue;
+					border-radius: 0.5rem;
+					border-collapse: collapse;
+					width: 100%;
+					tr {
+						border-bottom: 1px white solid;
+						&:last-child {
+							border: none;
+						}
+						th {
+							padding: 1rem;
+						}
+						td {
+							&:nth-child(even) {
+  								background-color: rgba(0, 0, 0, 0.25);
+							}
+						}
+						.list {
+							.card-element {
+								display: flex;
+								flex-direction: row;
+								gap: 0.5rem;
+								justify-content: center;
+								align-items: center;
+								padding-right: 1rem;
+								> a {
+									padding: 1rem;
+								}
+								a {
+									text-decoration: none;
+									display: block;
+									margin: auto;
+									&:hover {
+										background-color: $intra-green;
+									}
+									&:last-child:hover {
+										background-color: $intra-red;
+									}
+								}
+								.room-buttons {
+									a {
+										padding: 0.25rem;
+										border-radius: 0.2rem;
+									}
+								}
+								&:hover {
+									background-color: $bg-transparent-dark;
+								}
+							}
+						}
+					}
+				}
+			}
+			form {
+				max-width: 1200px;
+				margin: auto;
+				display: block;
+				background-color: $intra-blue;
+				.field {
+					padding: 1rem;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					label {
+						padding: 0.25rem;
+						font-size: 110%;
+					}
+					input {
+						padding: 0.5rem;
+						color: black;
+					}
+					textarea {
+						color: black;
+						min-width: 300px;
+						min-height: 100px;
+					}
+					select {
+						color: black;
+						height: 50px;
+					}
+				}
+				.submit-button {
+					background-color: $intra-green;
+					border: none;
+					width: 100%;
+					padding: 1rem;
+				}
+			}
+			.white-list {
+				max-width: 600px;
+				margin: 1rem auto;
+				display: block;
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 0.5rem;
+				padding: 0.5rem;
+				text-align: center;
+				* {
+					color: $bg-light;
+				}
+				ul li {
+					padding: 0.1rem;
+					&:hover {
+						background-color: rgba(0, 0, 0, 0.3);
+					}
+					.remove-user {
+						background-color: $intra-red;
+						border-radius: 0.25rem;
+						a {
+							padding: 0.25rem;
+							text-decoration: none;
 						}
 					}
 				}
 			}
 		}
-	}
+	}	
+
 }

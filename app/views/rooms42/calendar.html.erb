@@ -1,14 +1,15 @@
 <div class="rooms-centered">
     <div class="room-card-big">
         <article class="single-room-card">
+            <h1><%= link_to root_path, class: "go-back" do %><%= render 'partials/go_back' %><% end %></h1>
             <h2><%=@room.name%></h2>
             <details> <summary>More info</summary>
                 <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4><footer><%=@room.campus%></footer>
-                <% @room.reservations.order(starts_at: :asc).each do |res| %><ul><li><%= res %></li></ul><% end %> 
+                <% @room.reservations.active.order(starts_at: :asc).each do |res| %><ul><li><%= res %></li></ul><% end %> 
             </details>
         </article>
         <div class="calendar">
-            <%= week_calendar(attribute: :starts_at, events: @room.reservations) do |date, reservations| %>
+            <%= week_calendar(attribute: :starts_at, events: @room.reservations.active) do |date, reservations| %>
                 <table class="reservations-slots">
                     <tbody>
                     <% 24.times.each do |t| %>
@@ -17,7 +18,7 @@
                             <% reservations.each do |reservation| %>
                                 <% if reservation.starts_at.hour <= t && reservation.ends_at.hour >= t %>
                                     <% if current_user %>
-                                        <%= link_to root_path do%>
+                                        <%= link_to reservation_path(reservation) do%>
                                             <span class="dot-<%= reservation.subject_number %>">
                                                 <span class="reservation-info">
                                                     <p>Subject: <%= reservation.subject %></p><p>By <%= reservation.user.login %></p><p><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></p>

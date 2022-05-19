@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="container-head">
+		<span class="breadcrumb"><%= link_to 'ROOMS', home_path %> / <%= link_to @room.name, edit_room_path(@room) %></span>
+		<div class="content">
+			<h1>Edit Room</h1>
+			<div class="buttons"><div class="delete-button"><%= link_to room_path(@room), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this room?"} do %>DELETE<% end %></div></div>
+		</div>
+	</div>
+	<%= render 'room_form', room: @room %>
+	<div class="white-list">
+		<h1>White List</h1>
+		<ul>
+		<% @room.white_lists.each do |elem| %>
+			<% if elem.persisted? %>
+				<li>
+					<p><%= link_to elem.user, edit_user_path(elem.user) %> <span class="remove-user"><%= link_to 'Remove', room_white_list_path(@room, elem), class: 'btn btn-danger', data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"} %></span></p>
+				</li>
+			<% end %>
+		<% end %>
+		</ul>
+		<%= render 'white_list_form' %>
+	</div>
+	<div class="container-head">
+		<span class="breadcrumb"><%= link_to 'ROOMS', home_path %> / <%= link_to @room.name, edit_room_path(@room) %> / reservations </span>
+		<div class="content">
+			<h1>Reservations</h1>
+			<div class="buttons"><%= link_to 'SHOW ALL', edit_room_path(@room, all: true)%><%= link_to 'New Reservation', room_calendar_path(@room) %></div>
+		</div>
+	</div>
+	<div class="table-container">
+		<table>
+			<tr class="table-head"><th> ACTIONS </th><th> USER </th><th>SUBJECT</th><th>DATE</th><th>TIME</th></tr>
+			<% @reservations.order(:starts_at).each do |reservation| %>
+				<tr>
+					<td class="list">
+						<div class="card-element">
+							<div class="room-buttons">
+								<%= link_to edit_reservation_path(reservation) do %>EDIT<% end %>
+								<%= link_to root_path do %>FINISH<% end %>
+							</div>
+						</div>
+					</td>
+					<td><%= reservation.user %></td>
+					<td><%= reservation.subject %></td>
+					<td><%= reservation.starts_at.strftime("%D") %></td>
+					<td><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
