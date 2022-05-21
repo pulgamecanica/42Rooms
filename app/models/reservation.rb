@@ -2,6 +2,8 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :room
   enum subject: {club: "Club Related", staff42: "Staff Related", guest: "Guests Related", internship: "Internship Related", meeting: "Meeting Related"}
+  validates :user, presence: true
+  validates :room, presence: true
   validates :ends_at, comparison: { greater_than: :starts_at }
   validate :reservation_starts_at_least_10min_from_now, :check_overlapping, :reservation_duration, :check_list, on: :create
 
@@ -34,13 +36,15 @@ class Reservation < ApplicationRecord
   end
 
   def check_list
-    if room.white_lists.where(user: user).empty? && !user.is_admin?
+    if user.nil?
+      errors.add(:user, "User must exist")
+    elsif room.white_lists.where(user: user).empty? && !user.is_admin?
       errors.add(:user, "User must belong to the white list in order to add a reservation")
     end
   end
 
   def to_s
-    if self.errors
+    if self.errors.any?
       return super()
     end
     return "#{starts_at.strftime("%d/%m/%y")} (#{starts_at.strftime("%H:%M")}-#{ends_at.strftime("%H:%M")}), #{subject}"

@@ -34,24 +34,32 @@ body {
 }
 /*Pages*/
 body {
-	/*[LAYOUT]When user is not authenticated, 42logo fixed on top of screen*/
-	#home-logo { 
-		position: fixed;
-	  	top: 0;
-  		right: 48%;
-		a {
-			svg {
-				width: 50px;
-				height: 50px;
-				fill: $bg-dark;
-			}
-			&:hover svg {
-				fill: $intra-blue;
-			}
+	.alerts {
+		position: fixed;	
+		top: 0;
+		z-index: 1000;
+		background-color: $intra-red;
+		padding: 1rem;
+		margin: 0;
+		width: 100%;
+		text-align: center;
+		transform: translateY(-50px);
+		animation: fadeout 10s linear 1;
+		display: block;
+	}
+	@keyframes fadeout {
+		0% {
+			transform: translateY(0px);
+		}
+		80% {
+			transform: translateY(0px);
+		}
+		100% {
+			transform: translateY(-50px);
 		}
 	}
 	/*[LAYOUT]Circle Buttons, Authentication, Logout, General*/
-	#coin-buttons{
+	#coin-buttons {
 		opacity: 0.8;
 		position: fixed;
 		right: 0;
@@ -165,7 +173,8 @@ body {
 				background-color: $intra-blue;
 			}
 			.room-card-small {
-				padding: 1rem 0.5rem;
+				background-color: rgba(0, 0, 0, 0.1);
+				padding: 3rem 0.5rem;
 				text-align: center;
 				position: relative;
 				img {

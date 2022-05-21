@@ -15,8 +15,9 @@
   </head>
 
   <body>
-    <%= notice %><%= alert %>
-    <% if not current_user %><span id="home-logo"><%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %></span><% end %>
+    <% if !alert.nil? || !notice.nil? %>
+      <div class="alerts"><%= notice %><%= alert %></div>
+    <% end %>
     <nav id="coin-buttons">
       <% if current_user %>
         <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %>
