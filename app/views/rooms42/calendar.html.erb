@@ -1,13 +1,14 @@
-<div class="rooms-centered">
-    <div class="room-card-big">
-        <article class="single-room-card">
-            <h1><%= link_to root_path, class: "go-back" do %><%= render 'partials/go_back' %><% end %></h1>
+<div class="container-body">
+    <div class="rooms-cards">
+        <article class="room-card center">
             <h2><%=@room.name%></h2>
             <details> <summary>More info</summary>
                 <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4><footer><%=@room.campus%></footer>
                 <% @room.reservations.active.order(starts_at: :asc).each do |res| %><ul><li><%= res %></li></ul><% end %> 
             </details>
         </article>
+    </div>
+    <div class="calendar-container">
         <div class="calendar">
             <%= week_calendar(attribute: :starts_at, events: @room.reservations.active) do |date, reservations| %>
                 <table class="reservations-slots">

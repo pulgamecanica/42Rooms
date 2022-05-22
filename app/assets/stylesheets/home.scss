@@ -1,420 +1,385 @@
 @import "simple_calendar";
-
-// $bg-blue: #22D399;
 $intra-blue: #00b0b2;
 $intra-green: #5cb85c;
 $intra-red: rgb(216, 99, 111);
-$bg-light: #292D39;
-$bg-dark: #121212;
+$bg-dark: #292D39;
+$bg-darker: #121212;
 $bg-transparent-dark: rgba(32, 32, 38, 0.5);
 $bg-secondary: #bbbbbb;
 $text-light: #f9f9f9;
+$text-secondary: #424242;
 
-/*General*/
-* {
-	box-sizing: border-box;
-	color: $text-light;
+.bg-light {
+		/* Works on Firefox */
+	* {
+	  scrollbar-width: thin;
+		scrollbar-color: gray transparent;
+	}
+	/* Works on Chrome, Edge, and Safari */
+	*::-webkit-scrollbar {
+	  width: 5px;
+	  height: 100%;
+	}
+	*::-webkit-scrollbar-track {
+	  background: transparent;
+	}
+	*::-webkit-scrollbar-thumb {
+	  background-color: $bg-dark;
+	  border-radius: 20px;
+	  border: 3px solid transparent;
+	}
+	* {
+		color: $text-secondary;
+	}	
+	.rooms42-container {
+		outline: 2px darkgray solid;
+		background-color: rgba(255, 255, 255, 0.9);
+	}
+	.hoverable:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	.calendar-container .calendar {
+		background-color: rgba(100, 140, 120, 0.5);
+		outline: 1px gray solid;
+	}
 }
-/*Page Box Full*/
-html {
-	width: 100vw;
-	min-height: 100vh;
+
+.bg-dark {
+	/* Works on Firefox */
+	* {
+	  scrollbar-width: thin;
+		scrollbar-color: rebeccapurple transparent;
+	}
+	/* Works on Chrome, Edge, and Safari */
+	*::-webkit-scrollbar {
+	  width: 5px;
+	  height: 100%;
+	}
+	*::-webkit-scrollbar-track {
+	  background: transparent;
+	}
+	*::-webkit-scrollbar-thumb {
+	  background-color: rebeccapurple;
+	  border-radius: 20px;
+	  border: 3px solid transparent;
+	}
+	* {
+		color: $text-light;
+		fill: $text-light;
+	}
+	.rooms42-container {
+		background-color: rgba(18, 18, 18, 0.9);
+	}
+	.hoverable:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+	.calendar-container .calendar {
+		background-color: rgba(255, 255, 255, 0.1);
+		outline: 1px white solid;
+	}
 }
-/*body 100% general configurations*/
+
 body {
+	position: absolute;
+	width: 100vw;
+	max-height: 100vh;
 	margin: 0;
 	padding: 0;
-	width: 100vw;
-	min-height: 100vh;
-	position: relative;
-	background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-}
-/*Pages*/
-body {
-	.alerts {
-		position: fixed;	
-		top: 0;
-		z-index: 1000;
-		background-color: $intra-red;
-		padding: 1rem;
-		margin: 0;
-		width: 100%;
+	box-sizing: border-box;
+	.center {
+		margin: auto;
 		text-align: center;
-		transform: translateY(-50px);
-		animation: fadeout 10s linear 1;
+	}
+	.alerts42-box {
 		display: block;
+		width: 100%;
+		font-size: 30px;
+		text-align: center;
+		color: $text-secondary;
+		// opacity: 0.5;
+		* {
+			display: block;
+		}
+		.notice-box {
+			background-color: $intra-green;
+		}
+		.alert-box {
+			background-color: $intra-red;
+		}
 	}
-	@keyframes fadeout {
-		0% {
-			transform: translateY(0px);
-		}
-		80% {
-			transform: translateY(0px);
-		}
-		100% {
-			transform: translateY(-50px);
-		}
-	}
-	/*[LAYOUT]Circle Buttons, Authentication, Logout, General*/
-	#coin-buttons {
-		opacity: 0.8;
+	.rooms42-navbar {
+		z-index: 5;
 		position: fixed;
-		right: 0;
-		top: 0;
-		padding: 1rem;
-		padding-bottom: 0;
-		z-index: 100;
+		height: 50px;
+		width: 100vw;
+		margin: 0;
+		display: flex;
+		justify-content: space-around;
+		background-color: $bg-dark;
 		a {
-			background-color: $bg-light;
-			border-radius: 50%;
-			width: 100px;
-			height: 100px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			margin-bottom: 0.5rem;
-			svg {
-				width: 70px;
-				height: 70px;
-				fill: $text-light;
+			display: block;
+			height: 50px;
+			padding: 0 1rem;
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.3);
 			}
-			&:hover .hoverable-card {
+			&:hover .user-card {
 				display: block;
 			}
-			.hoverable-card {
-				display: none;
-				opacity: 0.95;
-				position: absolute;
-				background-color: $bg-light;
-				margin: 0;
-				padding: 0.5rem;
-				text-align: right;
-				list-style: none;
-				top: 220px;
-				right: 10px;
-				border-radius: 1rem;
-				white-space: nowrap;
-				li {
-					padding: 0.5rem;
-				}
-			}
-			&:hover {
-				border: 2px white dotted;
-			}
-		}
-	}
-	/*[HOME PAGE, root_path]Display HUGE centered card buttons*/
-	#card-buttons {
-		background-color: $bg-transparent-dark;
-		margin: auto;
-		width: 100vw;
-		min-height: 100vh;
-		max-width: 1000px;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		gap: 1rem;
-		a {
-			margin: auto;
-			border-radius: 0.5rem;
-			min-width: 90%;
-			min-height: 20vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-wrap: wrap;
-			gap: 5%;
-			flex-direction: row;
-			background-color: $intra-blue;
-			color: $text-light;
-			h1	{
-				margin: 0;
-				padding: 0;
-				color: $text-light;
-				font-size: 50px;
-			}
 			svg {
-				width: 100px;
-				height: 100px;
-				fill: $text-light;
+				height: 50px;
+				fill: $intra-blue;
 			}
-			&:hover {
-				background-color: rgba(255, 255, 255, 0.5);
+			.user-card {
+				position: absolute;
+				display: none;
+				min-width: 20vw;
+				top: 34px;
+				right: 0;
+				background-color: $bg-secondary;
+				li {
+					color: $text-secondary;
+				}
 			}
 		}
 	}
-	/*[ROOMS INDEX, rooms_path & ROOM SHOW, room_path[:id]]Centered Box with max widht 1600px*/
-	.rooms-centered {
-		text-align: center;
-		min-height: 100vh;
-		max-width: 1600px;
+	.background {
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		position: absolute;
+		z-index: 1;
+		div {
+			width: 200vw;
+			height: 200vh;
+			background-size: cover;
+			animation: 80s background-animation ease-in-out infinite;
+			background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
+		}
+		@keyframes background-animation {
+			0% {transform: translate(-10%, -10%);}
+			10% {transform: translate(-20%, 0%);}
+			20% {transform: translate(-50%, -40%);}
+			30% {transform: translate(-20%, -20%);}
+			40% {transform: translate(-5%, -5%);}
+			50% {transform: translate(-15%, 0);}
+			60% {transform: translate(-50%, -20%);}
+			70% {transform: translate(-30%, -50%);}
+			80% {transform: translate(-20%, -40%);}
+			90% {transform: translate(0%, -10%);}
+			100% {transform: translate(0, 0);}
+		}
+	}
+	.rooms42-container {
+		position: relative;
+		z-index: 2;
 		margin: auto;
-		background-color: $bg-transparent-dark;
-		/*[ROOMS INDEX, rooms_path] Display all rooms with even columns centered*/
-		.rooms-cards {
-			display: flex;
-			flex-wrap: wrap;
-			align-items: center;
-			min-height: 100vh;
-			cursor: pointer;
-			.campus-card, .room-card-small {
-				width: 33.33%;
-			}
-			.campus-card h1 {
-				color: $text-light;
-				text-align: center;
-				border-radius: 0.5rem;
-				margin: 1rem;
-				padding: 5rem 0;
-				background-color: $intra-blue;
-			}
-			.room-card-small {
-				background-color: rgba(0, 0, 0, 0.1);
-				padding: 3rem 0.5rem;
-				text-align: center;
-				position: relative;
-				img {
-					position: absolute;
-					width: 20%;
-					height: auto;
-					top: 0;
-					left: 0;
-					z-index: 1;
+		max-width: 1600px;
+		height: 100vh;
+		overflow: scroll; 
+		.container-body {
+			margin-top: 50px;
+			padding: 0 1rem 1rem 1rem;
+			.rooms-cards {
+				.campus-card {
+					padding: 0.25rem;
 				}
-				h2, h4 {
-					z-index: 4;
-					margin: 0.5rem;
-				}
-				details {
-					z-index: 4;
-					max-height: 50vh;
-					overflow: scroll;
-				}
-				&:hover {
-					background-color: $bg-light;
-				}
-			}
-			
-		}
-		/*[ROOM SHOW, room_path[:id]]Centered Room Information*/
-		.dark-card {
-			background-color: $bg-light;
-			border: 5px $intra-blue solid;
-			border-radius: 1rem;
-			height: 80vh;
-			max-width: 1000px !important;
-			display: flex;
-			overflow-y: scroll;
-			align-items: center;
-			justify-content: center;
-			flex-wrap: wrap;
-			flex-direction: column;
-			color: $intra-blue !important;
-			text-align: center;
-			.field {
-				padding: 1rem;
-				margin-bottom: 0.5rem;
-				label {
-					display: block;
-					text-align: center;
-					padding: 0.5rem;
-					font-size: 110%;
-					text-decoration: underline;
-				}
-				select {
-					font-size: 110%;
-					padding: 0.5rem;
-					color: $bg-light;
-				}
-				.date-input {
-					color: $bg-light;
-					font-size: 150%;
-				}
-			}
-			.submit-button {
-				padding: 1rem;
-				background-color: $intra-green;
-				color: $text-light !important;
-				border-radius: 1rem;
-				border: none;
-				cursor: pointer;
-				font-size: 110%;
-				&:hover {
-					opacity: 0.6;
-				}
-				&:focus {
-					opacity: 1;
-				}
-			}
-		}
-		.room-card-big {
-			min-height: 100vh;
-			flex-direction: column;
-			.single-room-card {
-				max-width: 1600px;
-				margin: auto;
-				padding: 2rem 0.5rem;
-				text-align: center;
-				> h1 {
-					float: left;
-					padding: 0;
-					margin: 0;
-					a svg {
-						height: 50px;
-						width: 50px;
-						border-radius: 0.5rem;
-						fill: $intra-blue;
-						&:hover {
-							background-color: $bg-transparent-dark;
+				.room-card {
+					padding: 0 1rem 1rem 1rem;
+					* {
+						text-decoration: none;
+					}
+					&:hover * {
+						text-decoration: underline;
+					}
+					.flex-separator {
+						display: flex !important;
+						flex-direction: row;
+						justify-content: space-between;
+						align-items: center;
+						flex-wrap: wrap;
+						gap: 1rem;
+						.stats { 
+							svg {
+								width: 50px;
+								height: auto;
+								&:hover {
+									background-color: purple;
+								}
+							}
+							&:active .popup {
+								display: block;
+							}
+							.popup {
+								display: none;
+								position: fixed;
+								z-index: 15;
+								top: 20vh;
+								left: 0;
+								padding: 0;
+								border: 0;
+								text-align: center;
+								background-color: lightgray;
+								overflow: hidden;
+								width: 100vw;
+								height: auto;
+								min-height: 400px;
+							}
+						}
+					}
+					.flex-separator .info {
+						width: 400px;
+						h2 {}
+						h4 {}
+						h5 {
+							margin: 0.5rem 0;
+						}
+						h6 {
+							margin: 0;
+						}
+					}
+					details {
+						summary {
+							font-size: 110%;
+						}
+						ul {
+							li {
+
+							}
 						}
 					}
 				}
 			}
-			.reservation {
-				padding-top: 5rem;
-				* {
-					padding: 1rem;
-				}
-				a {
-					background-color: $intra-blue;
-					padding: 1rem;
-					border-radius: 1rem;
-				}
-			}
-			/*Calendar Box!!!*/
-			.calendar {
-				margin: 0.25rem auto;
-				border-radius: 0.25rem;
-				max-width: 1000px;
-				/* background-color: $intra-blue;*/
-				background-color: rgba(255, 255, 255, 0.1);
-				.reservations-slots {
-					margin: 0;
-					padding: 0;
-					border: none;
-					* {
+			.calendar-container {
+				text-align: center;
+				.calendar {
+					margin: 0.25rem auto;
+					border-radius: 0.5rem;
+					max-width: 1000px;
+					.reservations-slots {
+						margin: 0;
+						padding: 0;
 						border: none;
-					}
-					tbody {
-						tr {
-							display: block;
-							height: 30.5px !important; 
-							th {
-								position: relative;
-								max-height: 30.5px;
-								display: flex;
-								justify-content: start;
-								gap: 1rem;
-								flex-wrap: no-wrap;
-								flex-direction: row;
-								.add-reservation-button {
-									display: none;
-									height: 20px;
-									background-color: $intra-blue;
-									border-radius: 50%;
-									button, button svg {
-										background-color: transparent;
-										display: block;
-										margin: 0;
-										padding: 0;
-										width: 20px;
+						* {
+							border: none;
+						}
+						tbody {
+							tr {
+								display: block;
+								height: 30.5px !important; 
+								th {
+									position: relative;
+									max-height: 30.5px;
+									display: flex;
+									justify-content: start;
+									gap: 1rem;
+									flex-wrap: no-wrap;
+									flex-direction: row;
+									.add-reservation-button {
+										display: none;
 										height: 20px;
-										fill: $text-light;
-										cursor: pointer;
+										background-color: $intra-blue;
+										border-radius: 50%;
+										button, button svg {
+											background-color: transparent;
+											display: block;
+											margin: 0;
+											padding: 0;
+											width: 20px;
+											height: 20px;
+											fill: $text-light;
+											cursor: pointer;
+										}
 									}
 								}
-							}
-							a {
-								text-decoration: none;
-							}
-							&:hover .add-reservation-button {
-								display: block;
-							}
-							&:nth-child(even) {
-								background-color: rgba(0, 0, 0 , 0.2);
-	   					}
-	   				}
+								a {
+									text-decoration: none;
+								}
+								&:hover .add-reservation-button {
+									display: block;
+								}
+								&:nth-child(even) {
+									background-color: rgba(0, 0, 0 , 0.2);
+		   					}
+		   				}
+						}
 					}
 				}
-			}
-			.dot-content {
-				padding: 1rem;
-				margin: auto;
-				span {
-					margin-left: 1rem;
+				.dot-content {
+					padding: 1rem;
+					margin: auto;
+					span {
+						margin-left: 1rem;
+					}
 				}
 			}
 		}
 	}
-	#reservation-form {
-		z-index: 190;
-		opacity: 0.98;
-		position: fixed;
-		background-color: $bg-light;
-		border: 5px $intra-blue solid;
-		border-radius: 1rem;
-		height: 80vh;
-		width: 40vw;
-		left: 30%;
-		top: 10%;
-		overflow-y: scroll;
-		display: none;
-		align-items: center;
-		justify-content: center;
-		flex-wrap: wrap;
-		flex-direction: column;
-		color: $intra-blue !important;
-		text-align: center;
-		.field {
-			padding: 1rem;
-			margin-bottom: 0.5rem;
-			label {
-				display: block;
-				text-align: center;
-				padding: 0.5rem;
-				font-size: 110%;
-				text-decoration: underline;
-			}
-			select {
-				font-size: 110%;
-				padding: 0.5rem;
-			}
-			.date-input {
-				font-size: 150%;
-			}
-		}
-		.submit-button {
-			padding: 1rem;
-			background-color: $intra-green;
-			color: $text-light !important;
-			border-radius: 1rem;
-			border: none;
-			cursor: pointer;
+}
+#reservation-form {
+	z-index: 20;
+	opacity: 0.98;
+	position: fixed;
+	background-color: $bg-dark;
+	border: 5px $intra-blue solid;
+	border-radius: 1rem;
+	height: 80vh;
+	width: 40vw;
+	left: 30%;
+	top: 10%;
+	// overflow-y: scroll;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	color: $intra-blue !important;
+	text-align: center;
+	.field {
+		padding: 1rem;
+		margin-bottom: 0.5rem;
+		label {
+			display: block;
+			text-align: center;
+			padding: 0.5rem;
 			font-size: 110%;
-			&:hover {
-				opacity: 0.6;
-			}
-			&:focus {
-				opacity: 1;
-			}
+			text-decoration: underline;
 		}
-		.close-form {
-			position: absolute;
-			top: 0;
-			right: 0;
-			padding: 1rem;
-			background-color: $intra-red;
-			border: none;
-			border-radius: 0 0 0 1rem;
-			color: $text-light !important;
+		select {
+			font-size: 110%;
+			padding: 0.5rem;
 		}
-		* {
-			color: $intra-blue !important;
+		.date-input {
+			font-size: 150%;
 		}
+	}
+	.submit-button {
+		padding: 1rem;
+		background-color: $intra-green;
+		color: $text-light !important;
+		border-radius: 1rem;
+		border: none;
+		cursor: pointer;
+		font-size: 110%;
+		&:hover {
+			opacity: 0.6;
+		}
+		&:focus {
+			opacity: 1;
+		}
+	}
+	.close-form {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 1rem;
+		background-color: $intra-red;
+		border: none;
+		border-radius: 0 10px 0 1rem;
+		color: $text-light !important;
+	}
+	* {
+		color: $intra-blue !important;
 	}
 }
 .dot-1, .dot-2, .dot-3, .dot-4, .dot-5 {
@@ -426,7 +391,7 @@ body {
   .reservation-info {
   	z-index: 10;
   	position: absolute;
-  	background-color: $bg-light;
+  	background-color: $bg-secondary;
 		white-space: nowrap;
 		margin: auto;
 		text-align: center;
@@ -456,9 +421,9 @@ body {
 .dot-3 {background-color: pink;}
 .dot-4 {background-color: brown;}
 .dot-5 {background-color: cyan;}
-
 /* CALENDAR STYLE :D */
 .simple-calendar {
+	overflow-y: hidden;
 	overflow-x: scroll;
   min-height: 70vh;
   .calendar-heading {
@@ -553,34 +518,4 @@ body {
   .current-month {}
 
   .has-events {}
-}
-
-@media (max-width: 950px) {
-	body {
-		/*Make coins smaller on smaller screens*/
-		#coin-buttons{
-			a {
-				width: 50px;
-				height: 50px;
-				background-color: $intra-blue;
-				svg {
-					width: 30px !important;
-					height: 30px !important;
-				}
-				.hoverable-card{
-					top: 120px;
-				}
-			}
-		}
-		/*Reduce amount of column on the rooms index*/
-		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
-			width: 50%;
-		}
-		#reservation-form {
-			height: 80vh;
-			width: 95vw;
-			left: 2.5%;
-			top: 10%;
-		}
-	}
 }

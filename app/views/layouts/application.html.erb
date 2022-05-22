@@ -14,27 +14,51 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-light">
     <% if !alert.nil? || !notice.nil? %>
-      <div class="alerts"><%= notice %><%= alert %></div>
+      <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
     <% end %>
-    <nav id="coin-buttons">
+    <nav class="rooms42-navbar">
+      <%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %>      
       <% if current_user %>
+        <% if current_user.is_admin? %>
+          <%= link_to home_path do %><%= render 'partials/admin' %><% end %>
+        <% end %>
+        <a onclick="changeTheme()"><%= render 'partials/theme' %></a>
         <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %>
-          <ul class="hoverable-card">
+          <ul class="user-card">
             <li><%= current_user.role %></li>
             <li><%= current_user.login %></li>
             <li><%= current_user.email %></li>
             <li><%= current_user.campus %></li>
           </ul>
         <% end %>
-        <% if current_user.is_admin? %>
-          <%= link_to home_path do %><%= render 'partials/coin_api42' %><% end %>
-        <% end %>
       <% else %>
         <%= link_to authentication42api_path do %><%= render 'partials/coin_login' %><% end %>
       <% end %>
     </nav>
+    <div class="background"><div></div></div>
+    <div class="rooms42-container">
     <%= yield %>
+    </div>
   </body>
 </html>
+
+<script type="text/javascript">
+  function changeTheme() {
+    let element = document.body.classList;
+    let removed = "";
+    let added = "";
+    if (element[0] == "bg-dark")
+    {
+      removed = "bg-dark";
+      added = "bg-light";
+    }
+    else if (element[0] == "bg-light"){
+      removed = "bg-light";
+      added = "bg-dark"; 
+    }
+    element.remove(removed);
+    element.add(added)
+  };
+</script>
