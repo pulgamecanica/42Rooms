@@ -17,9 +17,13 @@ class AuthenticationController < ApplicationController
     begin
       response = token.get("/v2/me")
       puts "Response: (should be 200): #{response.status.to_s}"
+      c = Campus.find_by_name(response.parsed["campus"].first["name"])
       @user = User.find_or_create_by(login: response.parsed["login"]) do |user|
         user.email = response.parsed["email"]
-        user.campus = Campus.find_by_name(response.parsed["campus"].first["name"])
+        user.campus = c
+      end
+      if !c.nil?
+        @user.update(campus: c)
       end
       if @user.persisted?
         sign_in @user, event: :authentication

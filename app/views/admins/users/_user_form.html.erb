@@ -17,7 +17,7 @@
 </div>
 <div class="field">
   <%= form.label :campus_id %>
-  <% if @user.persisted? %>
+  <% if @user.persisted? && !@user.campus.nil? %>
     <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: @user.campus.id) %>
   <% else %>
     <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: 23) %>

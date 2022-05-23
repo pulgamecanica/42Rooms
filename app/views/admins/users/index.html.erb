@@ -15,35 +15,39 @@
 	</div>
 	<div class="box">
 		<div class="squeeze-table">
-			<details>
-			<summary><h5 style="display: inline-block;">Options</h5></summary>
-			<h6>Items per page:
-				<%= link_to "1", users_path(page: 1, limit: 1), class: "control btn btn-blue" %>
-				<%= link_to "5", users_path(page: 1, limit: 5), class: "control btn btn-blue" %>
-				<%= link_to "10", users_path(page: 1, limit: 10), class: "control btn btn-blue" %>
-				<%= link_to "15", users_path(page: 1, limit: 15), class: "control btn btn-blue" %>
-				<%= link_to "50", users_path(page: 1, limit: 50), class: "control btn btn-blue" %>
-				<%= link_to "100", users_path(page: 1, limit: 100), class: "control btn btn-blue" %>
-				</details>
-			</h6>
-			<%= render 'users_table', users: @users %>
-			<div class="pagination">
-				<%= link_to "Prev", users_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
-				<%= link_to "Prev", users_path(page: @page, limit: @limit), class: "control" if @page <= 1%>
-				<% get_middle((1..(@total.to_f / @limit.to_f).ceil), 4, @page).each do |n| %>
-					<% if n == @page %>
-						<%= link_to n, users_path(page: n, limit: @limit), class: "page active" %>
-					<% else %>
-						<%= link_to n, users_path(page: n, limit: @limit), class: "page" %>
+			<% if @users.empty? %>
+				<h2>No Rooms, create a Room with the button <%= link_to 'New Room', new_room_path, class: "btn btn-blue" %></h2>
+			<% else %>
+				<details>
+				<summary><h5 style="display: inline-block;">Options</h5></summary>
+				<h6>Items per page:
+					<%= link_to "1", users_path(page: 1, limit: 1), class: "control btn btn-blue" %>
+					<%= link_to "5", users_path(page: 1, limit: 5), class: "control btn btn-blue" %>
+					<%= link_to "10", users_path(page: 1, limit: 10), class: "control btn btn-blue" %>
+					<%= link_to "15", users_path(page: 1, limit: 15), class: "control btn btn-blue" %>
+					<%= link_to "50", users_path(page: 1, limit: 50), class: "control btn btn-blue" %>
+					<%= link_to "100", users_path(page: 1, limit: 100), class: "control btn btn-blue" %>
+					</details>
+				</h6>
+				<%= render 'users_table', users: @users %>
+				<div class="pagination">
+					<%= link_to "Prev", users_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
+					<%= link_to "Prev", users_path(page: @page, limit: @limit), class: "control" if @page <= 1%>
+					<% get_middle((1..(@total.to_f / @limit.to_f).ceil), 4, @page).each do |n| %>
+						<% if n == @page %>
+							<%= link_to n, users_path(page: n, limit: @limit), class: "page active" %>
+						<% else %>
+							<%= link_to n, users_path(page: n, limit: @limit), class: "page" %>
+						<% end %>
 					<% end %>
-				<% end %>
-				<%= link_to "Next", users_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
-				<%= link_to "Next", users_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
-			</div>
-			<div class="resources flex-between">
-				<div class="downloads">Download:<%= link_to "CSV", {}, {class: "btn btn-blue"} %><%= link_to "JSON", {}, {class: "btn btn-blue"} %><%= link_to "XML", {}, {class: "btn btn-blue"} %></div>
-				<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
-			</div>
+					<%= link_to "Next", users_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
+					<%= link_to "Next", users_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
+				</div>
+				<div class="resources flex-between">
+					<div class="downloads">Download:<%= link_to "CSV", {}, {class: "btn btn-blue"} %><%= link_to "JSON", {}, {class: "btn btn-blue"} %><%= link_to "XML", {}, {class: "btn btn-blue"} %></div>
+					<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

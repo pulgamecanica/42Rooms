@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
     t.integer "campus_id"
     t.integer "theme", default: 0
     t.index ["campus_id"], name: "index_users_on_campus_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "white_lists", force: :cascade do |t|

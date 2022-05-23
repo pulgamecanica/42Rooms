@@ -9,7 +9,7 @@ module Admins
         @limit = @total
       end
       @page = params[:page].nil? ? 1 : params[:page].to_i
-      if (@page - 1) * @limit >= Room.all.count || @limit == 0
+      if (((@page - 1) * @limit >= Room.all.count || @limit == 0) && @total != 0)
         return render :file => 'public/404.html', :status => :not_found, :layout => false
       end
       @rooms = Room.all.offset((@page - 1) * @limit).limit(@limit).order(:id)

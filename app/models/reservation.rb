@@ -16,6 +16,7 @@ class Reservation < ApplicationRecord
   end
 
   def check_overlapping
+    return errors.add(:room, "Room must exist") if room.nil?
     room.reservations.active.without(self).each do |res|
       if starts_at <= res.starts_at && ends_at >= res.starts_at
         errors.add(:ends_at, "Reservation overlaps another reservation, finished in the middle of another reservation")
@@ -36,6 +37,7 @@ class Reservation < ApplicationRecord
   end
 
   def check_list
+    return errors.add(:room, "Room must exist") if room.nil?
     if user.nil?
       errors.add(:user, "User must exist")
     elsif room.white_lists.where(user: user).empty? && !user.is_admin?
