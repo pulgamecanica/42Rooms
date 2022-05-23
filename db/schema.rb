@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_195421) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
   create_table "campus", force: :cascade do |t|
     t.string "name"
     t.string "country"
@@ -65,7 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_195421) do
     t.integer "role", default: 0
     t.string "login"
     t.integer "campus_id"
+    t.integer "theme", default: 0
     t.index ["campus_id"], name: "index_users_on_campus_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "white_lists", force: :cascade do |t|

@@ -4,7 +4,7 @@ class AdminsController < ApplicationController
 	layout 'admins'
 
 	def home
-		@campuses = Campus.all
+		@reservations = Reservation.all.active.order(:starts_at)
 	end
 
 	def authenticate_admin

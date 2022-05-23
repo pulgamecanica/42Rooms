@@ -1,29 +1,27 @@
-<div class="form-group">
-  <%= form_with model: [@user] do |form| %>   
-  <div class="field">
-    <%= form.label :login %>
-    <%= form.text_field :login %>
-  </div>
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-  <div class="field">
-    <%= form.label :role %>
-    <% if @user.persisted? %>
-      <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}, selected: @user.role) %>
-    <% else %>
-      <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}) %>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= form.label :campus_id %>
-    <% if @user.persisted? %>
-      <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: @user.campus.id) %>
-    <% else %>
-      <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: 23) %>
-    <% end %>
-  </div>
-	<%= form.submit class: "submit-button" %>
+<%= form_with model: [@user] do |form| %>   
+<div class="field">
+  <%= form.label :login %>
+  <%= form.text_field :login %>
+</div>
+<div class="field">
+  <%= form.label :email %>
+  <%= form.text_field :email %>
+</div>
+<div class="field">
+  <%= form.label :role %>
+  <% if @user.persisted? %>
+    <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}, selected: @user.role) %>
+  <% else %>
+    <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}) %>
   <% end %>
 </div>
+<div class="field">
+  <%= form.label :campus_id %>
+  <% if @user.persisted? %>
+    <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: @user.campus.id) %>
+  <% else %>
+    <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: 23) %>
+  <% end %>
+</div>
+<%= form.submit class: "submit-button btn btn-blue" %>
+<% end %>

@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   #Admin Routes
   get '/home', to: 'admins#home'
   scope module: 'admins' do
-    resources :rooms, only: [:new, :create, :edit, :update, :destroy] do 
+    get 'search_room', to: 'rooms#search'
+    get 'search_user', to: 'users#search'
+    resources :rooms, only: [:new, :create, :edit, :update, :destroy, :index] do 
       resources :white_lists, only: [:create, :destroy]
     end
     resources :users, only: [:new, :create, :edit, :update, :destroy, :index]

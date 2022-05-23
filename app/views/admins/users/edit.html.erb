@@ -1,10 +1,38 @@
-<div class="container">
-	<div class="container-head">
-		<span class="breadcrumb"><%= link_to 'ROOMS', home_path %> / <%= link_to 'USERS', users_path %> / <%= @user.login %></span>
-		<div class="content">
-			<h1>EDIT USER</h1>
+<div class="container-lead flex-between">
+	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', rooms_path %> / <span class="active-page"><%= link_to @user.login, edit_user_path(@user) %> </span></div>
+	<div class="buttons">
+		<div class="btn btn-blue"><%= link_to 'Delete', user_path(@user), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this user?"} %></div>
+	</div>
+</div>
+<div class="container-body">
+	<div class="filters">
+		<div class="card">
+			<h3 class="card-title">Info</h3>
+			<div class="card-body">
+				<ul>
+					<li>WARNING, the login of the user is used to authenticate with the API.</li>
+					<li>User roles allow users to subscribe to diffrent rooms.</li>
+					<li>We don't update the user API information, very soon a button will be able to update user accordingly.</li>
+				</ul>
+			</div>
 		</div>
 	</div>
-	<h3 style="text-align: center;">WARNING, the login of the user is used to authenticate with the API</h3>
-	<%= render 'user_form' %>
+	<div class="box">
+		<div class="squeeze-table">
+			<%= render 'user_form', room: @room %>
+		</div>
+	</div>
+</div>
+<div class="container-body">
+	<div class="filters">
+		<div class="card">
+			<h3 class="card-title">Reservations</h3>
+			<div class="card-body">
+				<div class="card-buttons">
+					<%= link_to 'Show all', edit_user_path(@user, all: true), class: "btn btn-blue" %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render 'reservations_layout', reservations: @reservations, title: @user.login, first: @first, last: @last, total: @total, option: 0 %>
 </div>

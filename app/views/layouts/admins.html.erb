@@ -15,15 +15,13 @@
   </head>
 
   <body id="admin-body">
-    <nav id="admin-bar">
-      <div class="menu">
-        <%= link_to root_path do %>
-          <%= render "partials/coin_api42" %>
-        <% end %>
-        <%= link_to "Rooms", home_path %>
-        <%= link_to "Users", users_path %>
-        <%= link_to "Notifications", root_path %>
-      </div>
+    <nav id="admin-navbar" class="flex-around">
+      <%= link_to root_path do %>
+        <%= render "partials/coin_api42" %>
+      <% end %>
+      <%= link_to home_path do %><%= render 'partials/admin' %><% end %>
+      <%= link_to "Rooms", rooms_path %>
+      <%= link_to "Users", users_path %>
     </nav>
     <% if !alert.nil? || !notice.nil? %>
       <span class="admin-alerts">
@@ -34,5 +32,8 @@
     <div id="admin-container">
       <%= yield %>
     </div>
+    <footer>
+      with ❤️ by 42Lisboa 
+    </footer>
   </body>
 </html>

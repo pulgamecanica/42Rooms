@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :delete_all
   devise :authenticatable
   enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3}
+  enum theme: {light: 0, dark: 1}
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   after_save :set_white_list

@@ -14,7 +14,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-light">
+  <body class="bg-<%= current_user.nil? ? "light" : current_user.theme %>">
     <% if !alert.nil? || !notice.nil? %>
       <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
     <% end %>

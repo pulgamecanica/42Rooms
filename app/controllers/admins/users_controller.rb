@@ -3,7 +3,18 @@ module Admins
 		before_action :set_user, only: %i[ edit update destroy ]
 
     def index
-      @users = User.all
+      @limit = params[:limit].nil? ? 5 : params[:limit].to_i
+      @total = User.all.count
+      if @limit >= @total
+        @limit = @total
+      end
+      @page = params[:page].nil? ? 1 : params[:page].to_i
+      if (@page - 1) * @limit >= User.all.count || @limit == 0
+        return render :file => 'public/404.html', :status => :not_found, :layout => false
+      end
+      @users = User.all.offset((@page - 1) * @limit).limit(@limit).order(:id)
+      @first = (@page - 1) * @limit
+      @last = @first + @users.count
     end
 
 		def new
@@ -12,6 +23,11 @@ module Admins
 
 		def edit
       @white_list = @user.white_lists.build
+      if (params[:all].nil?)
+        @reservations = @user.reservations.active
+      else
+        @reservations = @user.reservations
+      end
     end
 
 		def create

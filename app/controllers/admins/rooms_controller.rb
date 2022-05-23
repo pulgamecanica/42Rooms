@@ -2,6 +2,22 @@ module Admins
 	class RoomsController < AdminsController
 		before_action :set_room, only: %i[ edit update destroy ]
 
+    def index
+      @limit = params[:limit].nil? ? 5 : params[:limit].to_i
+      @total = Room.all.count
+      if @limit >= @total
+        @limit = @total
+      end
+      @page = params[:page].nil? ? 1 : params[:page].to_i
+      if (@page - 1) * @limit >= Room.all.count || @limit == 0
+        return render :file => 'public/404.html', :status => :not_found, :layout => false
+      end
+      @rooms = Room.all.offset((@page - 1) * @limit).limit(@limit).order(:id)
+      @first = (@page - 1) * @limit
+      @last = @first + @rooms.count
+      @pages = 0
+    end
+
 		def new
       @room = Room.new
     end

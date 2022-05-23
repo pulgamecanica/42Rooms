@@ -1,0 +1,11 @@
+<table class="admin-table">
+	<thead>
+		<tr><th>id</th><th>name</th><th>capacity</th><th>campus</th><th>status</th><th></th></tr>
+	</thead>
+	<tbody>
+		<% rooms.each do |room| %>
+			<tr><td><%= room.id %></td><td><%= link_to room.name, edit_room_path(room) %></td><td><%= room.capacity %></td><td><%= room.campus.name %></td><td><%= room.status %></td><td><%= link_to 'Edit', edit_room_path(room) %> <%= link_to 'Delete', room_path(room), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want delete this Room?"} %>
+</td></tr>
+		<% end %>
+	</tbody>
+</table>

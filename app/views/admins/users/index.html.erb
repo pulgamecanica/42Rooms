@@ -1,30 +1,49 @@
-<div class="container">
-	<div class="container-head">
-		<span class="breadcrumb"><%= link_to 'ROOMS', home_path %> / <%= link_to 'USERS', users_path %></span>
-		<div class="content">
-			<h1 class="title">Users</h1>
-			<div class="buttons"><div class="add-button"><%= link_to 'New User', new_user_path %></div></div>
+<div class="container-lead flex-between">
+	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <span class="active-page"><%= link_to 'USERS', users_path %> </span></div>
+	<div class="buttons">
+		<div><%= link_to 'New User', new_user_path, class: "btn btn-blue" %></div>
+	</div>
+</div>
+<div class="container-body">
+	<div class="filters">
+		<div class="card">
+			<p class="card-title">Filters</p>
+			<div class="card-body">
+				<%= render 'users_filter' %>
+			</div>
 		</div>
 	</div>
-	<div class="table-container">
-		<table>
-			<tr class="table-head"><th> ACTIONS </th><th>ROLE</th><th>LOGIN</th><th>EMAIL</th><th>CAMPUS</th></tr>
-			<% @users.order(:campus).each do |user| %>
-				<tr>
-					<td class="list">
-						<div class="card-element">
-							<div class="room-buttons">
-								<%= link_to edit_user_path(user) do %>EDIT<% end %>
-								<%= link_to user_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"} do %>DELETE<% end %>
-							</div>
-						</div>
-					</td>
-					<td><%= user.role %></td>
-					<td><%= user.login %></td>
-					<td><%= user.email %></td>
-					<td><%= user.campus.name %></td>
-				</tr>
-			<% end %>
-		</table>
+	<div class="box">
+		<div class="squeeze-table">
+			<details>
+			<summary><h5 style="display: inline-block;">Options</h5></summary>
+			<h6>Items per page:
+				<%= link_to "1", users_path(page: 1, limit: 1), class: "control btn btn-blue" %>
+				<%= link_to "5", users_path(page: 1, limit: 5), class: "control btn btn-blue" %>
+				<%= link_to "10", users_path(page: 1, limit: 10), class: "control btn btn-blue" %>
+				<%= link_to "15", users_path(page: 1, limit: 15), class: "control btn btn-blue" %>
+				<%= link_to "50", users_path(page: 1, limit: 50), class: "control btn btn-blue" %>
+				<%= link_to "100", users_path(page: 1, limit: 100), class: "control btn btn-blue" %>
+				</details>
+			</h6>
+			<%= render 'users_table', users: @users %>
+			<div class="pagination">
+				<%= link_to "Prev", users_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
+				<%= link_to "Prev", users_path(page: @page, limit: @limit), class: "control" if @page <= 1%>
+				<% get_middle((1..(@total.to_f / @limit.to_f).ceil), 4, @page).each do |n| %>
+					<% if n == @page %>
+						<%= link_to n, users_path(page: n, limit: @limit), class: "page active" %>
+					<% else %>
+						<%= link_to n, users_path(page: n, limit: @limit), class: "page" %>
+					<% end %>
+				<% end %>
+				<%= link_to "Next", users_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
+				<%= link_to "Next", users_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
+			</div>
+			<div class="resources flex-between">
+				<div class="downloads">Download:<%= link_to "CSV", {}, {class: "btn btn-blue"} %><%= link_to "JSON", {}, {class: "btn btn-blue"} %><%= link_to "XML", {}, {class: "btn btn-blue"} %></div>
+				<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
+			</div>
+		</div>
 	</div>
 </div>
