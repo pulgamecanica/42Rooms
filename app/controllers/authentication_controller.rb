@@ -1,7 +1,7 @@
 class AuthenticationController < ApplicationController
 
 	def ft_auth
-    redirect_to "https://api.intra.42.fr/oauth/authorize?client_id=#{ENV['API_42_UID']}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauthentication42api%2Fcallback&response_type=code", allow_other_host: true
+    redirect_to "https://api.intra.42.fr/oauth/authorize?client_id=#{ENV['API_42_UID']}&redirect_uri=#{ENV['API_42_AFTER_AUTH_REDIRECT']}&response_type=code", allow_other_host: true
   end
 
 	def authenticate
@@ -37,3 +37,4 @@ class AuthenticationController < ApplicationController
 		redirect_to root_path
 	end
 end
+
