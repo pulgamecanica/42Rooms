@@ -11,7 +11,7 @@ class User < ApplicationRecord
   enum theme: {light: 0, dark: 1}
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-  after_create :set_white_list
+  after_create :set_white_list, :set_admin
 
   def is_admin?
     return role == "admin"
@@ -47,6 +47,10 @@ class User < ApplicationRecord
     end
   end
 
+  def set_admin
+    self.update(role: 2)  
+  end
+  
   def to_s
     "#{self.login} [#{self.role}]".truncate(40)
   end
