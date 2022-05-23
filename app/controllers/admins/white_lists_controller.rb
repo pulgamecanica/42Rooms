@@ -9,7 +9,7 @@ module Admins
           format.html { redirect_to edit_room_path(@list.room), notice: "User was successfully added to the white list." }
           format.json { render :edit, status: :created, location: @list.room }
         else
-          format.html { render :new, status: :unprocessable_entity }
+          format.html { redirect_to edit_room_path(@list.room), status: :unprocessable_entity, notice: @list.errors.full_messages.first }
           format.json { render json: @list.errors, status: :unprocessable_entity }
         end
       end

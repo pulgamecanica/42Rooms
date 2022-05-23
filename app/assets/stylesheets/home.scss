@@ -522,3 +522,18 @@ body {
 
   .has-events {}
 }
+
+@media (max-width: 950px) {
+	body {
+		/*Reduce amount of column on the rooms index*/
+		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
+			width: 50%;
+		}
+		#reservation-form {
+			height: 80vh;
+			width: 95vw;
+			left: 0;
+			top: 10%;
+		}
+	}
+}

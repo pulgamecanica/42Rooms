@@ -51,7 +51,7 @@ module Admins
           format.html { redirect_to edit_room_path(@room), notice: "Room was successfully updated." }
           format.json { render :edit, status: :ok, location: @room }
         else
-          format.html { redirect_to edit_room_path(@room), status: :unprocessable_entity, notice: "ERROR Room was not updated"}
+          format.html { redirect_to edit_room_path(@room), status: :unprocessable_entity, notice: @room.errors.full_messages}
           format.json { render json: @room.errors, status: :unprocessable_entity }
         end
       end

@@ -22,7 +22,7 @@ class ReservationsController < ApplicationController
         format.html { redirect_to edit_reservation_path(@reservation), notice: "Reservation was successfully updated." }
         format.json { render :edit, status: :ok, location: @reservation }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity,  notice: @reservation.errors.full_messages.first }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end

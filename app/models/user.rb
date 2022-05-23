@@ -11,7 +11,7 @@ class User < ApplicationRecord
   enum theme: {light: 0, dark: 1}
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-  after_save :set_white_list
+  after_create :set_white_list
 
   def is_admin?
     return role == "admin"
@@ -28,13 +28,21 @@ class User < ApplicationRecord
   def set_white_list
     if is_staff?
       Room.where(campus: self.campus).each do |r|
-        wl = self.white_lists.build(room: r)
-        wl.save!
+        begin
+          wl = self.white_lists.build(room: r)
+          wl.save!
+        rescue StandardError => e
+          e.message
+        end
       end
     elsif is_user42?
       Room.where(campus: self.campus).where(room_type: "normal_room").each do |r|
-        wl = self.white_lists.build(room: r)
-        wl.save!
+        begin
+          wl = self.white_lists.build(room: r)
+          wl.save!
+        rescue StandardError => e
+          e.message
+        end
       end
     end
   end

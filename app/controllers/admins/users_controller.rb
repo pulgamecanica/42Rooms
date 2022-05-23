@@ -50,7 +50,7 @@ module Admins
           format.html { redirect_to edit_user_path(@user), notice: "User was successfully updated." }
           format.json { render :edit, status: :ok, location: @user }
         else
-          format.html { redirect_to edit_user_path(@user), status: :unprocessable_entity, notice: "ERROR User was not updated"}
+          format.html { redirect_to edit_user_path(@user), status: :unprocessable_entity, notice: @user.errors.full_messages }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
