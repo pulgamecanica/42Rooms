@@ -483,7 +483,9 @@ body {
    				border: none;
    			}
    			table tr {
-   				height: 30.5px !important;
+   				max-height: 30.5px !important;
+   				min-height: 30.5px !important;
+   				overflow: hidden;
    				padding: 0;
    			}
    			table tr:nth-child(even) {
