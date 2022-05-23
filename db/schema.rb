@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "campus", force: :cascade do |t|
     t.string "name"
     t.string "country"
@@ -36,8 +39,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
     t.datetime "ends_at"
     t.string "subject"
     t.boolean "finished", default: false
-    t.integer "user_id", null: false
-    t.integer "room_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_reservations_on_room_id"
@@ -47,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "campus_id", null: false
+    t.bigint "campus_id", null: false
     t.integer "room_type", default: 0
     t.integer "status", default: 0
     t.integer "capacity"
@@ -64,14 +67,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_011735) do
     t.datetime "updated_at", null: false
     t.integer "role", default: 0
     t.string "login"
-    t.integer "campus_id"
+    t.bigint "campus_id"
     t.integer "theme", default: 0
     t.index ["campus_id"], name: "index_users_on_campus_id"
   end
 
   create_table "white_lists", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "room_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_white_lists_on_room_id"
