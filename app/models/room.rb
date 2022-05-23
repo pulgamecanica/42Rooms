@@ -16,4 +16,5 @@ class Room < ApplicationRecord
   scope :available, ->(campus = 0..Campus.all.count) { where(campus: campus).where(status: 0) }
   scope :restricted, ->(campus = 0..Campus.all.count) { where(campus: campus).where(room_type: 0) }
   scope :unrestricted, -> (campus = 0..Campus.all.count) { where(campus: campus).where(room_type: 1..2) }
+
 end

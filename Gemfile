@@ -86,3 +86,7 @@ gem 'friendly_id', '~> 5.4.0'
 gem "simple_calendar", "~> 2.4"
 #JQuery JS 
 gem 'jquery-rails'
+#Graphs
+gem "chartkick"
+#Agroupations
+gem "groupdate"

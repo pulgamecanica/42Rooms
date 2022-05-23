@@ -17,30 +17,38 @@
 			<div class="card-buttons"><%= link_to "My User", edit_user_path(current_user), class: "btn btn-blue" %></div>
 		</div>
 	</div>
-	<br>
-	<hr>
-	<br>
+</div>
+<br>
+<hr>
+<br>
+<div class="container-home">
 	<div class="card">
 		<div class="card-title">
 			Stats
 		</div>
 		<div class="card-body">
 			<h3><%= @reservations.count %> Active Reservations</h3>
-			<% if @reservations.empty? %>
-				<h3>No upcoming reservations</h3>
-			<% else %>
-				<h3>Next Reservations:</h3>
-				<ul>
+			<details>
+				<% if @reservations.empty? %>
+					<summary>No upcoming reservations</summary>
+				<% else %>
+				<summary>Next Reservations:</summary>
 					<% @reservations.limit(5).each do |res| %>
-					<li style="text-align: left;">
-                    	In <%= distance_of_time_in_words(res.starts_at, Time.now) %> at <%= link_to res.room.name, edit_room_path(res.room) %>.
-					</li>
+						<%= link_to edit_room_path(res.room), {class: "btn btn-blue", style: "display: inline-block; margin: 0.5rem 0;"} do %>
+	                    	In <%= distance_of_time_in_words(res.starts_at, Time.now) %> at <%= res.room.name %>.
+						<% end %>
 					<% end %>
-				</ul>
-			<% end %>
+				<% end %>
+			</details>
+			<hr>
+			<h3>Room Subject Distribution</h3>
+			<%= pie_chart Reservation.group(:subject).count %>
+			<hr>
+			<h3>Rooms Trafic</h3>
+			<%= bar_chart Room.joins(:reservations).group(:name, :id).count %>
+			<hr>
+			<h3>Week Distribution</h3>
+			<%= line_chart Room.joins(:reservations).group(:name).group_by_week(:starts_at).count %>
 		</div>
 	</div>
-
-
-	
 </div>
