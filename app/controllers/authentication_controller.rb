@@ -12,8 +12,8 @@ class AuthenticationController < ApplicationController
 
 	def authentication_callback
     client = OAuth2::Client.new(ENV['API_42_UID'], ENV['API_42_SECRET'], site: "https://api.intra.42.fr")
-    client.auth_code.authorize_url(:redirect_uri => "http://localhost:3000/authentication42api/callback")
-    token = client.auth_code.get_token(params[:code], :redirect_uri => "http://localhost:3000/authentication42api/callback")
+    client.auth_code.authorize_url(:redirect_uri => ENV['API_42_REDIRECT'])
+    token = client.auth_code.get_token(params[:code], :redirect_uri => ENV['API_42_REDIRECT'])
     begin
       response = token.get("/v2/me")
       puts "Response: (should be 200): #{response.status.to_s}"
