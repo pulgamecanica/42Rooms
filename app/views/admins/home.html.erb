@@ -48,7 +48,7 @@
 			<%= bar_chart Room.joins(:reservations).group(:name, :id).count %>
 			<hr>
 			<h3>Week Distribution</h3>
-			<%= line_chart Room.joins(:reservations).group(:name).group_by_week(:starts_at).count %>
+			<%= line_chart Room.joins(:reservations).group(:name).group_by_day(:starts_at).count %>
 		</div>
 	</div>
 </div>

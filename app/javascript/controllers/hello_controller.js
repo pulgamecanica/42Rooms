@@ -2,6 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    this.element.textContent = "Hello World!"
+
+  }
+  change_theme() {
+    fetch("/change_theme", {
+      method:'GET',
+      dataType:"html",
+      data: {},
+      success:function(result){
+        alert("Theme changed :D");
+      }
+    });
   }
 }

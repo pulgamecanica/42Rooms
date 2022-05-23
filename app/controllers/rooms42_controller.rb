@@ -12,6 +12,16 @@ class Rooms42Controller < ApplicationController
     end
   end
 
+  def change_theme
+    if !current_user.nil?
+      theme = current_user.theme == "light" ? "dark" : "light"
+      current_user.update(theme: theme)
+      render json: @current_user
+    else
+      render status: :forbidden
+    end
+  end
+
   def reservation
   end
 

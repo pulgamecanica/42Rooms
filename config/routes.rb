@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/reservations/:id', to: 'rooms42#reservation', as: "reservation"
   get '/reservations/:id/edit', to: 'rooms42#edit_reservation', as: "edit_reservation"
   get '/rooms/:id/calendar', to: 'rooms42#calendar', as: 'room_calendar'
+  get '/change_theme', to: 'rooms42#change_theme'
   resources :reservations, only: [:update, :create, :edit]
 
   #Admin Routes
