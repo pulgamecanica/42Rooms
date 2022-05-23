@@ -9,7 +9,7 @@ class ReservationsController < ApplicationController
         format.html { redirect_to room_path(@reservation.room), notice: "Reservation was successfully created." }
         format.json { render :edit, status: :created, location: @reservation }
       else
-        format.html { redirect_to root_path, status: :unprocessable_entity, notice: @reservation.errors }
+        format.html { redirect_to root_path, status: :unprocessable_entity, notice: @reservation.errors.full_messages.first }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
