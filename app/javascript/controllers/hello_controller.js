@@ -10,7 +10,7 @@ export default class extends Controller {
       dataType:"html",
       data: {},
       success:function(result){
-        alert("Theme changed :D");
+        alert("Theme changed successfully :D");
       }
     });
   }

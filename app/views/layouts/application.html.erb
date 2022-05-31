@@ -39,7 +39,11 @@
     </nav>
     <div class="background"><div></div></div>
     <div class="rooms42-container">
-    <%= yield %>
+      <%= yield %>
+      <footer class="center" style="margin-bottom: 1.5rem;">
+        <p><span class="btn btn-blue" id="time-container"><%= render partial: 'partials/date'%></span></p>
+        <p>with ❤️ by 42Lisboa</p>
+      </footer>
     </div>
   </body>
 </html>

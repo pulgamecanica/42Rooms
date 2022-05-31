@@ -57,7 +57,26 @@ $bg-admin: rgb(242, 242, 242);
 		background-color: #009091;
 	}
 }
-
+.btn-dark {
+	background-color: #313131;
+}
+.bg-dark {
+	.card {
+		.card-body {
+			background: $bg-dark !important;
+		}
+		* {
+			color: $text-light !important;
+		}
+		input, select {
+			background: rgba(0, 0, 0, 0.25);
+			border: none;
+		}
+		a {
+			background-color: #313131 !important;
+		}
+	}
+}
 .card {
 	.card-title {
 		border-radius: 0.25rem 0.25rem 0 0;
@@ -71,6 +90,9 @@ $bg-admin: rgb(242, 242, 242);
 		border-radius: 0 0 0.25rem 0.25rem;
 		padding: 0.5rem;
 		background: white;
+		a {
+			background-color: $bg-secondary;
+		}
 		form {
 			.field {
 				padding: 0.25rem 0;
@@ -82,9 +104,15 @@ $bg-admin: rgb(242, 242, 242);
 					color: $text-secondary;
 				}
 				input, select {
+					font-size: 120%;
+					margin: 1rem 0;
+					text-align: center;
 					width: 100%;
 					padding: 0.25rem 0;
 				}
+			}
+			.submit-button {
+				padding: 1rem;
 			}
 			.form-buttons {
 				padding: 1rem 0;

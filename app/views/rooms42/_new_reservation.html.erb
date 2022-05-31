@@ -1,21 +1,19 @@
-<div class="form-group">
-  <%= form_with model: [@new_reservation] do |form| %> 
-  <h2> <%= @new_reservation.room.name %> </h2>
-  <% if @new_reservation.user %>
-    <%= form.hidden_field :user_id, value: @new_reservation.user.id %>
-  <% end %>
-  <%= form.hidden_field :room_id, value: @new_reservation.room.id %>
-  <div class="field">
-    <%= form.label :starts_at %>
-    <%= form.datetime_field :starts_at, class: "date-input" %>
-  </div>
-  <div class="field">
-    <%= form.label :ends_at %>
-    <%= form.datetime_field :ends_at, class: "date-input" %>
-  </div>
-  <div class="field">
-    <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: @new_reservation.subject) %>
-  </div>
-	<%= form.submit class: "submit-button" %>
-  <% end %>
+<%= form_with model: [@new_reservation] do |form| %> 
+<h2> <%= @new_reservation.room.name %> </h2>
+<% if @new_reservation.user %>
+  <%= form.hidden_field :user_id, value: @new_reservation.user.id %>
+<% end %>
+<%= form.hidden_field :room_id, value: @new_reservation.room.id %>
+<div class="field">
+  <%= form.label :starts_at %>
+  <%= form.datetime_field :starts_at, class: "date-input" %>
 </div>
+<div class="field">
+  <%= form.label :ends_at %>
+  <%= form.datetime_field :ends_at, class: "date-input" %>
+</div>
+<div class="field">
+  <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: @new_reservation.subject) %>
+</div>
+<%= form.submit class: "submit-button" %>
+<% end %>

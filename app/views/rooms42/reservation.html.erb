@@ -1,17 +1,21 @@
-<div class="rooms-centered">
-    <div class="room-card-big">
-        <div class="single-room-card dark-card reservation">
-            <h2><%= @reservation.room.name %> reservation</h2>
-            <% if current_user %>
-                <h2>By <%= @reservation.user.login %></h2>
-                <h2>Subject: <%= @reservation.subject %></h2>
-            <% end %>
-            <h3><%= @reservation.starts_at.strftime("%D") %></h3>
-            <h3><%= @reservation.starts_at.strftime("%H:%M") %> - <%= @reservation.ends_at.strftime("%H:%M") %></h3>
-            <% if current_user %>
-                <h5>Contact: <%= @reservation.user.email %></h5>
-                <%= link_to 'EDIT', edit_reservation_path(@reservation) unless current_user != @reservation.user %>
-            <% end %>
+<div class="container-body">
+    <div class="rooms-cards">
+        <div class="reservation-card card">
+            <div class="card-body">
+                <h2><%= @reservation.room.name %> reservation</h2>
+                <% if current_user %>
+                    <h2>By <%= @reservation.user.login %></h2>
+                    <h2>Subject: <%= @reservation.subject %></h2>
+                <% end %>
+                <h3><%= @reservation.starts_at.strftime("%D") %></h3>
+                <h3><%= @reservation.starts_at.strftime("%H:%M") %> - <%= @reservation.ends_at.strftime("%H:%M") %></h3>
+                <% if current_user %>
+                    <h5>Contact: <%= @reservation.user.email %></h5>
+                    <%= link_to 'EDIT', edit_reservation_path(@reservation), class: "btn btn-blue" unless current_user != @reservation.user %>
+                <% end %>
+                <br>
+                <br>
+            </div>
         </div>
     </div>
 </div>

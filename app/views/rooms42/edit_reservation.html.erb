@@ -1,7 +1,10 @@
-<div class="rooms-centered">
-    <div class="room-card-big">
-        <div class="single-room-card dark-card" >
-            <%= render 'new_reservation' %>
+<div class="container-body">
+    <div class="rooms-cards">
+        <div class="reservation-card card">
+            <div class="card-body">
+                <%= link_to 'Back', reservation_path(@reservation), class: "btn card-buttons" %>
+                <%= render 'new_reservation' %>
+            </div>
         </div>
     </div>
 </div>

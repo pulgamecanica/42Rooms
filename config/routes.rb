@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'clock/get_time'
   #Root
   root 'rooms42#rooms'
   #User routes

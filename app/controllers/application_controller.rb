@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 	before_action :set_finished
+	before_action :set_time
 
   private
 	  def set_finished
@@ -11,5 +12,9 @@ class ApplicationController < ActionController::Base
 	        end
 	      end
 	    end
+	  end
+
+	  def set_time
+	  	@time  = Time.now.strftime("%H:%M:%S ")
 	  end
 end

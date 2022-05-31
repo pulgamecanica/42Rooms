@@ -9,6 +9,9 @@ $bg-secondary: #bbbbbb;
 $text-light: #f9f9f9;
 $text-secondary: #424242;
 
+* {
+}
+
 .bg-light {
 		/* Works on Firefox */
 	* {
@@ -128,7 +131,7 @@ body {
 			}
 			svg {
 				height: 50px;
-				fill: $intra-blue;
+				fill: $text-light;
 			}
 			.user-card {
 				position: absolute;
@@ -176,13 +179,19 @@ body {
 		margin: auto;
 		max-width: 1600px;
 		height: 100vh;
-		overflow: scroll; 
+		overflow: scroll;
 		.container-body {
 			margin-top: 50px;
 			padding: 0 1rem 1rem 1rem;
 			.rooms-cards {
 				.campus-card {
 					padding: 0.25rem;
+				}
+				.reservation-card {
+					padding-top: 1rem; 
+					text-align: center;
+					margin: auto;
+					max-width: 800px;
 				}
 				.room-card {
 					padding: 0 1rem 1rem 1rem;
@@ -516,8 +525,7 @@ body {
   .start-date {}
   .prev-month {}
   .prev-month, .next-month {
-  	background-color: $bg-secondary;
-  	color: transparent;
+		background-color: transparent;
   }
   .next-month {}
   .current-month {}

@@ -5,3 +5,12 @@ import "jquery"
 import "jquery_ujs"
 import "chartkick"
 import "Chart.bundle"
+
+
+ $(document).ready(function () {
+    if ($('#time-container').length) {
+    	setInterval(function () {
+    	$('#time-container').load('/clock/get_time');
+    	}, 1000);
+	}
+});
