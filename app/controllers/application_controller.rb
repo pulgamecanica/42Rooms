@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
 	before_action :set_finished
-	before_action :set_time
+	# before_action :set_time
 
   private
 	  def set_finished
-	    Reservation.all.each do |r|
+	    Reservation.where(finished: false).each do |r|
 	      if (r.starts_at < DateTime.now && r.ends_at < DateTime.now)
 	        r.update(finished: true)
 	        if not r.save

@@ -32,10 +32,10 @@
         <tr>
           <th colspan="1" class="time">
             <table>
-              <% 24.times.each do |t| %>
+              <% (0..60).each.each do |t| %>
                 <tr>
                   <th>
-                    <%= "%02d:00" % [t, t + 1]%>
+                    <%= Time.new(0, 1, 1, 8 + (t / 4), (t) * 15 % 60).strftime("%H:%M") if t % 4 == 0 || t % 4 == 2%>
                   </th>
                 </tr>
               <% end %>

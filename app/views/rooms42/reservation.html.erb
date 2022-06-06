@@ -2,7 +2,7 @@
     <div class="rooms-cards">
         <div class="reservation-card card">
             <div class="card-body">
-                <h2><%= @reservation.room.name %> reservation</h2>
+                <h2><%= link_to @reservation.room.name, room_calendar_path(@reservation.room) %> reservation</h2>
                 <% if current_user %>
                     <h2>By <%= @reservation.user.login %></h2>
                     <h2>Subject: <%= @reservation.subject %></h2>

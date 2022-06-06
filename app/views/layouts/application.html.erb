@@ -15,9 +15,6 @@
   </head>
 
   <body class="bg-<%= current_user.nil? ? "light" : current_user.theme %>">
-    <% if !alert.nil? || !notice.nil? %>
-      <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
-    <% end %>
     <nav class="rooms42-navbar">
       <%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %>      
       <% if current_user %>
@@ -37,11 +34,14 @@
         <%= link_to authentication42api_path do %><%= render 'partials/coin_login' %><% end %>
       <% end %>
     </nav>
+    <% if !alert.nil? || !notice.nil? %>
+      <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
+    <% end %>
     <div class="background"><div></div></div>
     <div class="rooms42-container">
       <%= yield %>
       <footer class="center" style="margin-bottom: 1.5rem;">
-        <p><span class="btn btn-blue" id="time-container"><%= render partial: 'partials/date'%></span></p>
+        <!-- <p><span class="btn btn-blue" id="time-container"><= render partial: 'partials/date'></span></p> -->
         <p>with ❤️ by 42Lisboa</p>
       </footer>
     </div>

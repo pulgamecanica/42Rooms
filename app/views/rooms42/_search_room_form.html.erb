@@ -1,0 +1,13 @@
+<%= form_with(url: search_user_path, method: "get") do |form| %>   
+<div class="field">
+  <%= form.label :starts_at %>
+  <%= form.datetime_field :starts_at, class: "date-input" %>
+</div>
+<div class="field">
+  <%= form.label :ends_at %>
+  <%= form.datetime_field :ends_at, class: "date-input" %>
+</div>
+<div class="form-buttons">
+  <%= form.submit "Search", {class: "submit-button btn"} %>
+</div>
+<% end %>

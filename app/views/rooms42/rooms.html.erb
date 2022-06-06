@@ -1,6 +1,12 @@
 <div class="container-body">
     <section class="rooms-cards">
-        <% if current_user %><div class="campus-card hoverable"><h1>Welocme <%= current_user.login %></h1><h2><%= current_user.campus %></h2><hr></div><% end %>
+        <% if current_user %><div class="campus-card hoverable"><h1>Welcome <%= current_user.login %></h1><h2><%= current_user.campus %></h2><hr></div><% end %>
+        <div class="calendar-container card">
+            <div class="calendar card-body">
+                <div class="match-form"><%= render 'search_room_form'%></div>
+                <div class="results"><%= render 'best_results' %></div>
+            </div>
+        </div>
         <% @rooms.each do |room| %>
             <article class="room-card hoverable">
                 <%= link_to room_calendar_path(room), class: "flex-separator" do %>
