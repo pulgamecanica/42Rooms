@@ -1,9 +1,6 @@
 class Rooms42Controller < ApplicationController
   before_action :set_reservation, only: %i[ reservation edit_reservation ]
 
-  def home
-    
-  end
 
   def edit_reservation
     @new_reservation = @reservation
@@ -23,6 +20,15 @@ class Rooms42Controller < ApplicationController
   end
 
   def reservation
+  end
+
+  def find_reservation
+    @rooms = Room.all
+    @rooms = @rooms.where(campus: current_user.campus).or(@rooms) if current_user
+    s_at = params['starts_at']
+    e_at = params['ends_at']
+    @match_rooms = Room.all
+    render :rooms, status: :ok
   end
 
   def calendar

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'authentication42api/callback', to: 'authentication#authentication_callback'#authentication42api_callback_path
   
   #Website Routes
-
+  get '/find_reservation', to: "rooms42#find_reservation"
   get '/reservations/:id', to: 'rooms42#reservation', as: "reservation"
   get '/reservations/:id/edit', to: 'rooms42#edit_reservation', as: "edit_reservation"
   get '/rooms/:id/calendar', to: 'rooms42#calendar', as: 'room_calendar'
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   scope module: 'admins' do
     get 'search_room', to: 'rooms#search'
     get 'search_user', to: 'users#search'
+    post 'import_users', to: 'users#import'
+    get 'import_users', to: 'users#index'
     resources :rooms, only: [:new, :create, :edit, :update, :destroy, :index] do 
       resources :white_lists, only: [:create, :destroy]
     end

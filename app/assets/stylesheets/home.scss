@@ -206,6 +206,10 @@ body {
 			.rooms-cards {
 				.campus-card {
 					padding: 0.25rem;
+					h1, hr {
+						margin: 0;
+						padding: 0;
+					}
 				}
 				.reservation-card {
 					padding-top: 1rem; 
@@ -281,6 +285,9 @@ body {
 						}
 					}
 				}
+			}
+			.smart-search {
+				margin-top: 1rem !important;
 			}
 			.calendar-container {
 				text-align: center;
@@ -575,7 +582,7 @@ body {
 	width: 40vw;
 	left: 30%;
 	top: 10%;
-	// overflow-y: scroll;
+	margin: auto;
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -644,10 +651,9 @@ body {
 			width: 50%;
 		}
 		#reservation-form {
-			height: 80vh;
-			width: 95vw;
+			min-width: 100vw;
 			left: 0;
-			top: 10%;
+			margin: auto;
 		}
 	}
 }

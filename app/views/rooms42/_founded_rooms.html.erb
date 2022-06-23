@@ -1,0 +1,20 @@
+<% if not rooms.nil? %>
+    <% if rooms.empty? %>
+        <p>No Results :(</p>
+    <% else %>
+        <hr>
+        <%= params['ends_at'] %>
+        <p><%= rooms.length %> Results</p>
+        <% rooms.each do |room| %>
+            <div class="card">
+            <div class="card-body flex-around">
+                <span><%= room %></span>
+                <span>
+                    <button>schedule now</button>
+                </span>
+            </div>
+            <br>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>

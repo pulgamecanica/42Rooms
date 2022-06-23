@@ -72,8 +72,32 @@ $bg-admin: rgb(242, 242, 242);
 			background: rgba(0, 0, 0, 0.25);
 			border: none;
 		}
-		a {
+		a, button {
 			background-color: #313131 !important;
+			border: none;
+		}
+	}
+}
+.card-dark {
+	padding-top: 2rem;
+	.card-title {
+		background-color: rgba(200, 200, 200, 0.5) !important;
+		color: $text-secondary !important;
+	}
+	.card-body {
+		background-color: $bg-dark !important;
+		* {
+			color: $text-light;
+		}
+		a:last-child {
+			background-color: white !important;
+			color: $text-secondary;
+		}
+		label {
+			color: $text-light !important;
+		}
+		select {
+			color: $text-secondary;
 		}
 	}
 }
@@ -90,7 +114,14 @@ $bg-admin: rgb(242, 242, 242);
 		border-radius: 0 0 0.25rem 0.25rem;
 		padding: 0.5rem;
 		background: white;
-		a {
+		ul {
+			padding-inline-start: 0;
+			padding: 0 0.5rem;
+			li {
+				padding-bottom: 0.25rem;
+			}
+		}
+		a:last-child {
 			background-color: $bg-secondary;
 		}
 		form {
@@ -238,6 +269,7 @@ $bg-admin: rgb(242, 242, 242);
 			justify-content: space-between;
 			padding-bottom: 2.5rem;
 			.box {
+				height: auto !important;
 				background: white;
 				height: fit-content;
 				.squeeze-table
@@ -320,7 +352,7 @@ $bg-admin: rgb(242, 242, 242);
 						* {
 							font-size: 80%;
 						}
-						a {
+						button {
 							margin: 0 0.15rem;
 						}
 					}
@@ -331,6 +363,32 @@ $bg-admin: rgb(242, 242, 242);
 				.card {
 					margin: 0 1rem;
 				}
+			}
+		}
+		#curtain {
+			display: none;
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(42, 42, 42, 0.9);
+			cursor: zoom-out;
+		}
+		#csv-form {
+			z-index: 20;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			display: none;
+			transform: translate(-50%, -50%);
+			form {
+				margin: auto;
+				display: inline-block;
+				background-color: $bg-admin;
+				border-radius: 0.5rem;
+				padding: 1.5rem 1rem;
 			}
 		}
 	}

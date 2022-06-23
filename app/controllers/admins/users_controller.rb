@@ -1,6 +1,45 @@
+require 'csv'
+
 module Admins
 	class UsersController < AdminsController
-		before_action :set_user, only: %i[ edit update destroy ]
+		before_action :set_user, only: %i[ edit update destroy]
+
+    def import
+      import_file = params[:file]
+      return redirect_to users_path, status: 400, alert: "File not Founded" if import_file.nil?
+      case import_file.original_filename.split(".").last.downcase
+        when "csv"          
+          begin
+            file = CSV.open(import_file.path, "r")
+            array = file.read
+            file.close
+            raise "not_closed" if not file.closed?
+            headers = array.shift.map { |header| header.chomp.strip.downcase }
+            raise "invalid_headers" if headers.sort != ["role", "login", "email"].sort
+          rescue StandardError => e 
+            return redirect_to users_path, status: 422, alert: "#{e.message}, #{import_file.original_filename} is not valid"
+          end
+          array.each do |row|
+            begin
+              u = User.new
+              3.times do |i|
+                u.send(headers[i] + "=", row[i].chomp.strip)
+              end
+              u.campus = current_user.campus
+              u.save
+            rescue StandardError => e 
+              next
+            end
+          end
+        when "json"
+          # TODO JSON
+        when "xml"
+          # TODO XML
+        else
+          return redirect_to users_path, status: 422, alert: "#{import_file.original_filename} file extention not allowed"
+      end
+      return redirect_to users_path, status: :created, notice: "successfully parsed #{import_file.original_filename}!"
+    end
 
     def index
       @limit = params[:limit].nil? ? 5 : params[:limit].to_i

@@ -44,10 +44,45 @@
 					<%= link_to "Next", users_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
 				</div>
 				<div class="resources flex-between">
-					<div class="downloads">Download:<%= link_to "CSV", {}, {class: "btn btn-blue"} %><%= link_to "JSON", {}, {class: "btn btn-blue"} %><%= link_to "XML", {}, {class: "btn btn-blue"} %></div>
+					<div class="downloads">Import:
+						<button class="btn btn-blue" onclick= "csv_form()"> CSV </button>
+						<button class="btn btn-blue" onclick= "csv_form()"> JSON </button>
+						<button class="btn btn-blue" onclick= "csv_form()"> XML </button>
+					</div>
 					<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
 				</div>
 			<% end %>
 		</div>
 	</div>
 </div>
+<span id="curtain" onclick="close_form()"></span>
+<div id="csv-form">
+	<%= form_with url: "import_users", method: :post do |form| %>
+		<%= form.file_field :file %>
+		<%= form.submit "Import" %>
+	<% end %>
+</div>
+
+<script>
+function close_form() {
+    $("#curtain").css("display", "none");
+    $("#csv-form").css("display", "none");
+}
+
+function csv_form() {
+    $("#curtain").css("display", "flex");
+    $("#csv-form").css("display", "inline-block");
+
+    // $("#reservation_ends_at").val(ends_at);
+    // $("#reservation-form").css("display", "flex");
+    // var close = $('<button/>',
+    // {
+    //     text: 'X',
+    //     click: function () {
+    //         $("#reservation-form").css("display", "none");
+    //     }
+    // });
+    // close.addClass("close-form");
+    // $("#reservation-form").append(close);
+}
+</script>
