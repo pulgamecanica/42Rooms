@@ -14,7 +14,7 @@
                 <table class="reservations-slots">
                     <tbody>
                     <% (0..60).each do |t| %>
-                        <% _t = Time.new(date.year, date.month, date.day,  8 + (t / 4 + 1), (t) * 15 % 60) %>
+                        <% _t = Time.new(date.year, date.month, date.day,  8 + (t / 4 - 1), (t) * 15 % 60) %>
                         <tr>
                           <th>
                             <% reservations.each do |reservation| %>
