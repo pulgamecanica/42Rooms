@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
   scope :active, -> { where(finished: false) }
 
   def reservation_starts_at_least_10min_from_now
-    if starts_at < Time.now + 10.minutes
+    if starts_at < Time.zone.now + 10.minutes
       errors.add(:starts_at, "Reservation start time must be at least 10 min from now!")
     end
   end

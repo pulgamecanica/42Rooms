@@ -20,7 +20,7 @@
                         <h5>Next Meetings:</h5>
                         <% if room.reservations.active.order(:starts_at).any? %>
                             <% room.reservations.active.order(:starts_at).limit(3).each do |r| %>
-                                <h6>In <%= distance_of_time_in_words(r.starts_at, Time.now) %>.</h6>
+                                <h6>In <%= distance_of_time_in_words(r.starts_at, Time.zone.now) %>.</h6>
                             <% end %>
                         <% else %>
                             <h6>- No info -</h6>

@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
 	  end
 
 	  def set_time
-	  	@time  = Time.now.strftime("%H:%M:%S ")
+	  	@time  = Time.zone.now.strftime("%H:%M:%S ")
 	  end
 end
