@@ -45,7 +45,7 @@ $calendar_row_height: 15px;
 	}
 	.calendar-container .calendar {
 		background-color: rgba(100, 140, 120, 0.5);
-		outline: 1px gray solid;
+		border: 1px darkgray solid;
 		.slot {
 			outline: 1px solid black;
 		}
@@ -293,10 +293,12 @@ body {
 				text-align: center;
 				display: block;
 				margin: auto;
+				overflow: scroll;
 				.calendar {
 					border-radius: 0.5rem;
 					margin: 0.25rem auto;
 					max-width: 1000px;
+					display: inline-block;
 					.reservations-slots {
 						border: none;
 						margin: 0;
@@ -564,10 +566,10 @@ body {
   .has-events {}
 }
 
-
-
-
-
+.schedule-card .card-body {
+	border-radius: 0 !important;
+	margin-bottom: 0.25rem;
+}
 
 #reservation-form {
 	z-index: 20;
@@ -637,12 +639,6 @@ body {
 		color: $intra-blue !important;
 	}
 }
-
-
-
-
-
-
 
 @media (max-width: 950px) {
 	body {

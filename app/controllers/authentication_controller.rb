@@ -11,10 +11,11 @@ class AuthenticationController < ApplicationController
 	end
 
 	def authentication_callback
-    client = OAuth2::Client.new(ENV['API_42_UID'], ENV['API_42_SECRET'], site: "https://api.intra.42.fr")
-    client.auth_code.authorize_url(:redirect_uri => ENV['API_42_REDIRECT'])
-    token = client.auth_code.get_token(params[:code], :redirect_uri => ENV['API_42_REDIRECT'])
+    notice = ""
     begin
+      client = OAuth2::Client.new(ENV['API_42_UID'], ENV['API_42_SECRET'], site: "https://api.intra.42.fr")
+      client.auth_code.authorize_url(:redirect_uri => ENV['API_42_REDIRECT'])
+      token = client.auth_code.get_token(params[:code], :redirect_uri => ENV['API_42_REDIRECT'])
       response = token.get("/v2/me")
       puts "Response: (should be 200): #{response.status.to_s}"
       c = Campus.find_by_name(response.parsed["campus"].first["name"])
@@ -32,9 +33,9 @@ class AuthenticationController < ApplicationController
         return redirect_to new_user_session_path
       end
     rescue
-      puts "something went wrong with API connection... :("
+      notice = "something went wrong with API connection... :("
     end
-		redirect_to root_path
+		redirect_to root_path, notice: notice
 	end
 end
 

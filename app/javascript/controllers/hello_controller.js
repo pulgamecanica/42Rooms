@@ -14,4 +14,12 @@ export default class extends Controller {
       }
     });
   }
+  items_per_page() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let input = document.querySelector("#items_per_page");
+    urlParams.set('page', '1');
+    if (input.value != '' && input.value > 0)
+      urlParams.set('limit', input.value);
+    window.location.search = urlParams;
+  }
 }

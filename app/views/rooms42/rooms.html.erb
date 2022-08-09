@@ -3,11 +3,11 @@
         <div class="campus-card hoverable">
             <% if current_user %><h1>Welcome <%= current_user.login %></h1><h2><%= current_user.campus %></h2><hr><% end %>
         </div>
-        <div class="calendar-container card smart-search">
-            <div class="calendar card-body">
+        <div class="card smart-search" style="max-width: 1000px; margin: auto; text-align: center;">
+            <div class="card-body" style="border-radius: 0.5rem;  padding: 0.5rem 1rem">
                 <h2>Find a Room</h2>
                 <div class="match-form"><%= render 'search_room_form'%></div>
-                <div id="founded-reservations"><%= render 'founded_rooms', rooms: @match_rooms %></div>
+                <div id="founded-reservations"><%= render 'founded_rooms', matches: @match_reservations %></div>
             </div>
         </div>
         <% @rooms.each do |room| %>

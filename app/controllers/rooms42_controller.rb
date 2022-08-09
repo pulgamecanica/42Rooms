@@ -25,9 +25,32 @@ class Rooms42Controller < ApplicationController
   def find_reservation
     @rooms = Room.all
     @rooms = @rooms.where(campus: current_user.campus).or(@rooms) if current_user
-    s_at = params['starts_at']
-    e_at = params['ends_at']
-    @match_rooms = Room.all
+    s_at = (params['starts_at'].to_datetime)
+    e_at = (params['ends_at'].to_datetime)
+    if (!s_at.nil? && !e_at.nil?)
+      @match_rooms = Room.all
+      @match_rooms = @match_rooms.reject do |room|
+        reject_room = false
+        room.reservations.where(finished: false).each do |res|
+          if (s_at && s_at <= res.starts_at) # When the reservation start is before
+            if (e_at && e_at >= res.starts_at) # When the reservation finishes after:
+              reject_room = true
+              break
+            else
+              next
+            end
+          elsif (e_at && e_at <= res.ends_at) # When the reservation start is between
+            reject_room = true
+            break
+          end
+        end
+        reject_room
+      end
+      @match_reservations = Array.new
+      @match_rooms.each do |room|
+        @match_reservations.push(room.reservations.build(starts_at: s_at, ends_at: e_at, user: current_user))
+      end
+    end
     render :rooms, status: :ok
   end
 

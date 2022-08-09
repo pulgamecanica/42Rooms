@@ -18,17 +18,12 @@
 			<% if @rooms.empty? %>
 			<h2>No Rooms, create a Room with the button <%= link_to 'New Room', new_room_path, class: "btn btn-blue" %></h2>
 			<% else %>
-				<details>
-				<summary><h5 style="display: inline-block;">Options</h5></summary>
-				<h6>Items per page:
-					<%= link_to "1", rooms_path(page: 1, limit: 1), class: "control btn btn-blue" %>
-					<%= link_to "5", rooms_path(page: 1, limit: 5), class: "control btn btn-blue" %>
-					<%= link_to "10", rooms_path(page: 1, limit: 10), class: "control btn btn-blue" %>
-					<%= link_to "15", rooms_path(page: 1, limit: 15), class: "control btn btn-blue" %>
-					<%= link_to "50", rooms_path(page: 1, limit: 50), class: "control btn btn-blue" %>
-					<%= link_to "100", rooms_path(page: 1, limit: 100), class: "control btn btn-blue" %>
-					</details>
-				</h6>
+				<h5>
+					<button class="btn" data-controller="hello" data-action="change->hello#items_per_page">
+						Items per page
+						<input type="text" name="items" id="items_per_page" placeholder="0">
+					</button>
+				</h5>
 				<%= render 'rooms_table', rooms: @rooms %>
 				<div class="pagination">
 					<%= link_to "Prev", rooms_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
