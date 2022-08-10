@@ -1,5 +1,5 @@
 <div class="container-lead flex-between">
-	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', rooms_path %> / <span class="active-page"><%= link_to @user.login, edit_user_path(@user) %> </span></div>
+	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', users_path %> / <span class="active-page"><%= link_to @user.login, edit_user_path(@user) %> </span></div>
 	<div class="buttons">
 		<div class="btn btn-blue"><%= link_to 'Delete', user_path(@user), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this user?"} %></div>
 	</div>

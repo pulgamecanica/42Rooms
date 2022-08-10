@@ -60,6 +60,12 @@ $bg-admin: rgb(242, 242, 242);
 .btn-dark {
 	background-color: #313131;
 }
+
+.btn-danger {
+	background-color: $intra-red !important;
+	color: $text-light;
+}
+
 .bg-dark {
 	.card {
 		.card-body {
