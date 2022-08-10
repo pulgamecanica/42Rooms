@@ -27,14 +27,6 @@
     <% else %>
       <%= form.select :status, options_for_select(Room.statuses.map {|name, id| [name.capitalize, name]}) %>
     <% end %>
-  </div>  
-  <div class="field">
-    <%= form.label :campus_id %>
-    <% if @room.persisted? %>
-      <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: @room.campus.id) %>
-    <% else %>
-      <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: 23) %>
-    <% end %>
   </div>
 	<%= form.submit class: "submit-button btn btn-blue" %>
   <% end %>

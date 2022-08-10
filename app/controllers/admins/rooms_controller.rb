@@ -73,7 +73,7 @@ module Admins
 		end
 
 		def room_params
-			params.require(:room).permit(:name, :description, :campus_id, :room_type, :status, :capacity)
+			params.require(:room).permit(:name, :description, :room_type, :status, :capacity)
     end
 	end
 end

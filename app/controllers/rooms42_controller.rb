@@ -24,7 +24,6 @@ class Rooms42Controller < ApplicationController
 
   def find_reservation
     @rooms = Room.all
-    @rooms = @rooms.where(campus: current_user.campus).or(@rooms) if current_user
     s_at = (params['starts_at'].to_datetime)
     e_at = (params['ends_at'].to_datetime)
     if (!s_at.nil? && !e_at.nil?)
@@ -65,7 +64,6 @@ class Rooms42Controller < ApplicationController
 
   def rooms
     @rooms = Room.all.where(status: 0..1)
-    @rooms = @rooms.where(campus: current_user.campus).or(@rooms) if current_user
   end
 
   private
