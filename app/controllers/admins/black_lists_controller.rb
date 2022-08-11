@@ -6,7 +6,7 @@ module Admins
 
       respond_to do |format|
         if @list.save
-          format.html { redirect_to edit_room_path(@list.room), notice: "User was successfully added to the black list." }
+          format.html { redirect_to edit_room_path(@list.room), notice: "User was successfully added to the Black List." }
           format.json { render :edit, status: :created, location: @list.room }
         else
           format.html { redirect_to edit_room_path(@list.room), status: :unprocessable_entity, notice: @list.errors.full_messages.first }
