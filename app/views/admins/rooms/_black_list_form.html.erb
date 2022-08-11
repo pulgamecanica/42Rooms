@@ -1,0 +1,10 @@
+<%= form_with model: [@room, @black_list] do |form| %> 
+<%= form.hidden_field :room_id, value: @room.id %>
+<div class="field">
+  <%= form.label :user_id %>
+  <%= form.select :user_id, options_for_select(User.all.order(:login).map {|u| [u.login, u.id]}) %>
+</div>
+<div class="form-buttons">
+  <%= form.submit 'Add User', {class: "submit-button btn btn-blue"} %>
+</div>
+<% end %>

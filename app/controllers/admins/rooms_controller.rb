@@ -24,6 +24,7 @@ module Admins
 
 		def edit
       @white_list = @room.white_lists.build
+      @black_list = @room.black_lists.build
       if (params[:all].nil?)
         @reservations = @room.reservations.active
       else

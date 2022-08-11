@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_183049) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_11_130532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "black_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_black_lists_on_room_id"
+    t.index ["user_id"], name: "index_black_lists_on_user_id"
+  end
 
   create_table "campus", force: :cascade do |t|
     t.string "name"
@@ -79,6 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_183049) do
     t.index ["user_id"], name: "index_white_lists_on_user_id"
   end
 
+  add_foreign_key "black_lists", "rooms"
+  add_foreign_key "black_lists", "users"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "users"
   add_foreign_key "users", "campus", column: "campus_id"

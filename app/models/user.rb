@@ -5,6 +5,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   belongs_to :campus, optional: true
   has_many :white_lists, dependent: :delete_all
+  has_many :black_lists, dependent: :delete_all
   has_many :reservations, dependent: :delete_all
   devise :authenticatable
   enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3}

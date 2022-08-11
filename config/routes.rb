@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get 'import_users', to: 'users#index'
     resources :rooms, only: [:new, :create, :edit, :update, :destroy, :index] do 
       resources :white_lists, only: [:create, :destroy]
+      resources :black_lists, only: [:create, :destroy]
     end
     resources :users, only: [:new, :create, :edit, :update, :destroy, :index]
   end

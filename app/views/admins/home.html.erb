@@ -45,7 +45,7 @@
 			<h3>Room Subject Distribution</h3>
 			<%= pie_chart Reservation.group(:subject).count %>
 			<hr>
-			<h3>Rooms Trafic</h3>
+			<h3>Rooms Weekly Trafic</h3>
 			<%= bar_chart Room.joins(:reservations).group(:name, :id).count %>
 			<hr>
 			<h3>Week Distribution</h3>

@@ -6,9 +6,10 @@
 </div>
 <div class="container-body">
 	<div class="filters">
+
 		<div class="card">
 			<h3 class="card-title">White List</h3>
-			<div class="card-body" style="text-align: center;">
+			<div class="card-body center">
 				<ul>
 					<% @room.white_lists.order(created_at: :desc).limit(3).each do |elem| %>
 						<% if elem.persisted? %>
@@ -39,22 +40,66 @@
 				<%= render 'white_list_form' %>
 			</div>
 		</div>
+
 		<div class="card card-dark">
 			<h3 class="card-title">Black List</h3>
-			<div class="card-body">
+			<div class="card-body center">
 				<ul>
-					<% @room.white_lists.each do |elem| %>
+					<% @room.black_lists.order(created_at: :desc).limit(3).each do |elem| %>
 						<% if elem.persisted? %>
-							<li class="flex-between"><%= link_to elem.user, edit_user_path(elem.user) %> <span class="remove-user"><%= link_to 'Remove', room_white_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to unban this user?"}, class: "btn btn-danger" %></span></li>
+							<li class="flex-between">
+								<%= link_to elem.user, edit_user_path(elem.user), class: "btn" %>
+								<span class="remove-user">
+									<%= link_to 'Remove', room_black_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn btn-danger" %>
+								</span>
+							</li>
 						<% end %>
 					<% end %>
+					<% if @room.black_lists.all.length > 3 %>
+						<details style="text-align: center;">
+							<summary>Show all (<%= @room.black_lists.all.length - 3 %> more)</summary>
+							<% @room.black_lists.order(created_at: :desc).offset(3).each do |elem| %>
+								<% if elem.persisted? %>
+									<li class="flex-between">
+										<%= link_to elem.user, edit_user_path(elem.user), class: "btn" %>
+										<span class="remove-user">
+											<%= link_to 'Remove', room_black_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn btn-danger" %>
+										</span>
+									</li>
+								<% end %>
+							<% end %>
+						</details>
+					<% end %>
 				</ul>
-				<%= render 'white_list_form' %>
+				<%= render 'black_list_form' %>
 			</div>
 		</div>
+
+
 	</div>
 	<div class="box">
-		<div class="squeeze-table">
+		<div class="squeeze-table text-secondary">
+			<div style="margin: auto; max-width: 500px;">
+				<h4 style="text-align: center; text-decoration: underline;">Info/Tips</h4>
+				<h5>
+					Room Types
+					<ul>
+						<li>Normal Room: Anyone can schedule a meeting regardless their status</li>
+						<li>Club Room: &nbsp&nbsp&nbsp Anyone can schedule a meeting regardless their status</li>
+						<li>Staff Room: &nbsp&nbsp&nbsp Only staff and admin users can schedule this room, an admin can add users to the whitelist</li>
+					</ul>
+					Rules
+					<ul>
+						<li>Users on the black list can't schedule meetings</li>
+						<li>Users on the white list can schedule meeting without restrictons</li>
+						<li>TODO: Normal Users can only schedule two rooms at the same time, and a max of 2 hrs per room</li>
+						<li>TODO: A User with banned status can't schedule anything</li>
+					</ul>
+					<p>You can use the actions to upload files and update multiple userrs/rooms</p>
+				</h5>
+			</div>
+			<hr>
+			<h3 class="center text-secondary">Edit Room</h3>
 			<%= render 'room_form', room: @room %>
 			<h5 class="resources" style="text-align: center;">
 				<hr>
