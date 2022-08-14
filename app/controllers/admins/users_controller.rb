@@ -21,7 +21,8 @@ module Admins
           end
           array.each do |row|
             begin
-              u = User.new
+              email_index = headers.find_index("email")
+              u = User.find_or_initialize_by(email: row[email_index].chomp.strip)
               3.times do |i|
                 u.send(headers[i] + "=", row[i].chomp.strip)
               end

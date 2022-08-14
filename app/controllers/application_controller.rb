@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-	#before_action :set_finished
+	before_action :set_finished
 	# before_action :set_time
 
   private
