@@ -80,25 +80,27 @@
 			<div style="margin: auto; max-width: 500px;">
 				<br>
 				<hr>
-				<h4 style="text-align: center; text-decoration: underline;">Info/Tips</h4>
-				<h5>
-					Room Types
-					<ul>
-						<li>Normal Room: Anyone can schedule a meeting</li>
-						<li>Club Room: &nbsp&nbsp&nbsp Anyone can schedule idealy a club member</li>
-						<li>Staff Room: &nbsp&nbsp&nbsp Only staff and admin users can schedule this room, an admin can add users to the whitelist</li>
-					</ul>
-					Rules
-					<ul>
-						<li>Users on the black list can't schedule meetings</li>
-						<li>Users on the white list can schedule meeting without restrictons</li>
-						<li>TODO: Normal Users can only schedule two rooms at the same time, and a max of 2 hrs per room</li>
-						<li>TODO: A User with banned status can't schedule anything</li>
-					</ul>
-					<p>You can use the actions to upload files and update multiple userrs/rooms</p>
-					<p>Click the button <%= link_to 'Show all', edit_room_path(@room, all: true), class: "text-secondary" %> to see all the hystory of reservations.</p>
-				</h5>
-				<hr>
+				<details>
+					<summary style=""><h4 style="display: inline; text-decoration: underline;">Info/Tips</h4></summary>
+					<h5>
+						<h4 style="padding: 0; margin: 0.5rem 0;">Rules</h4>
+						<p style="padding: 0; margin: 0;">At any point a user can be added to the black/white list, and this will prevent/allow the user from using the room.<br>Admin user can do anything in the application without restrictions, as long as it's a valid action.<br>Admins can belong to a white/black list if they wish to do so...<br>Staff42 will be automatically added to all the white lists of all rooms, so they will have access to all rooms.<br>User42 will be automatically aded to all the white lists of normal rooms, this way normal users will be able to schedule in normal rooms.<br>Other Users will not be added to any list automatically, an admin should add them if it's intended.</p>
+						<h4 style="padding: 0; margin: 0.5rem 0;">Restrctions</h4>
+						<p style="padding: 0; margin: 0;">Blocked users will be restricted from accessing any rooms, or actions on the application. They will only have access to the main page.</p>
+						<p style="padding: 0; margin: 0;">Hidden rooms are still visible through their url, but they will not show on the home page.<br>Inactive rooms will not be available and they will not allow any schedules.<br>Both Inactive and Hidden rooms will not throw results on the home menu fast schedule search engine.</p>
+						
+						<h4>Rules</h4>
+						<ul>
+							<li>Users on the black list can't schedule meetings</li>
+							<li>Users on the white list can schedule meeting without restrictons</li>
+							<li>TODO: Normal Users can only schedule two rooms at the same time, and a max of 2 hrs per room</li>
+							<li>TODO: A User with banned status can't schedule anything</li>
+						</ul>
+						<p>You can use the actions to upload files and update multiple users/rooms</p>
+						<p>Click the button <%= link_to 'Show all', edit_room_path(@room, all: true), class: "text-secondary" %> to see all the history of reservations.</p>
+					</h5>
+					<hr>
+				</details>
 			</div>
 			<h5 class="resources" style="text-align: center;">
 				<div class="downloads">Actions: <%= link_to "CSV", {}, {class: "btn btn-blue"} %> <%= link_to "JSON", {}, {class: "btn btn-blue"} %> <%= link_to "XML", {}, {class: "btn btn-blue"} %>
@@ -122,3 +124,41 @@
 	</div>
 	<%= render 'reservations_layout', reservations: @reservations, title: @room.name, first: @first, last: @last, total: @total, option: 1 %>
 </div>
+
+
+
+<button class="btn btn-blue" onclick= "csv_form()"> CSV </button>
+<button class="btn btn-blue" onclick= "csv_form()"> JSON </button>
+<button class="btn btn-blue" onclick= "csv_form()"> XML </button>
+
+<span id="curtain" onclick="close_form()"></span>
+<div id="csv-form">
+	<%= form_with url: "import_users_to_whitelist", method: :post do |form| %>
+		<%= form.file_field :file %>
+		<%= form.submit "Import" %>
+	<% end %>
+</div>
+
+<script>
+function close_form() {
+    $("#curtain").css("display", "none");
+    $("#csv-form").css("display", "none");
+}
+
+function csv_form() {
+    $("#curtain").css("display", "flex");
+    $("#csv-form").css("display", "inline-block");
+
+    // $("#reservation_ends_at").val(ends_at);
+    // $("#reservation-form").css("display", "flex");
+    // var close = $('<button/>',
+    // {
+    //     text: 'X',
+    //     click: function () {
+    //         $("#reservation-form").css("display", "none");
+    //     }
+    // });
+    // close.addClass("close-form");
+    // $("#reservation-form").append(close);
+}
+</script>

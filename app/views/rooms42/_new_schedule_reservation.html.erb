@@ -1,21 +1,22 @@
 <%= form_with model: [new_reservation] do |form| %>
   <div class="card schedule-card">
-    <div class="card-body flex-between">
+    <div class="card-body flex-between" style="flex-wrap: wrap; gap: 1rem;">
       <% if new_reservation.user %>
         <%= form.hidden_field :user_id, value: new_reservation.user.id %>
       <% end %>
       <%= form.hidden_field :room_id, value: new_reservation.room.id %>
       <%= form.hidden_field :starts_at, value: new_reservation.starts_at %>
       <%= form.hidden_field :ends_at, value: new_reservation.ends_at %>
-      <div class="" style="display: inline-block;">
-        <span style="color: gray; min-width: 45px; display: inline-block"> # <%= index + 1 %> </span>
-        <button style="padding: 0.5rem;"><%= new_reservation.room.name %></button>
-      
-        <div class="" style="display: inline-block; padding: 0;">
-          <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: new_reservation.subject), {}, {style: "padding: 0.5rem;"} %>
+      <div class="" style="display: inline-block; min-width: 45%;">
+        <div class="flex-between">
+          <span class="text-secondary"> # <%= index + 1 %> </span>
+          <button style="padding: 0.5rem; margin: 0 0.25rem;"><%= new_reservation.room.name %></button>
+          <div class="" style="display: inline-block; padding: 0;">
+            <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: new_reservation.subject), {}, {style: "padding: 0.5rem;"} %>
+          </div>
         </div>
       </div>
-      <%= form.submit class: "btn btn-blue" %>
+      <%= form.submit class: "btn btn-blue", style: "min-width: 45%; margin: 0 auto;" %>
     </div>
   </div>
 <% end %>

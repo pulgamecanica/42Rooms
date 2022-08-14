@@ -27,10 +27,13 @@ Rails.application.routes.draw do
     get 'search_user', to: 'users#search'
     post 'import_users', to: 'users#import'
     get 'import_users', to: 'users#index'
-    resources :rooms, only: [:new, :create, :edit, :update, :destroy, :index] do 
+    resources :rooms, only: [:new, :create, :edit, :update, :destroy, :index] do
+      post 'import_users_to_whitelist', to: 'rooms#import_to_whitelist'
+      post 'import_users_to_blacklist', to: 'rooms#import_to_blacklist'
       resources :white_lists, only: [:create, :destroy]
       resources :black_lists, only: [:create, :destroy]
     end
     resources :users, only: [:new, :create, :edit, :update, :destroy, :index]
   end
 end
+

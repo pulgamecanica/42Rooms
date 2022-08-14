@@ -8,11 +8,11 @@ class User < ApplicationRecord
   has_many :black_lists, dependent: :delete_all
   has_many :reservations, dependent: :delete_all
   devise :authenticatable
-  enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3}
+  enum role: {user42: 0, staff42: 1, admin: 2, other_user: 3, blocked: 4}
   enum theme: {light: 0, dark: 1}
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-  after_create :set_white_list, :set_admin
+  after_create :set_white_list, :set_admin #remove set ADMIN!!! THIS WAS JUST FOR TESTING....
 
   def is_admin?
     return role == "admin"
@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
   def set_white_list
     if is_staff?
-      Room.where(campus: self.campus).each do |r|
+      Room.all.each do |r|
         begin
           wl = self.white_lists.build(room: r)
           wl.save!
@@ -37,7 +37,7 @@ class User < ApplicationRecord
         end
       end
     elsif is_user42?
-      Room.where(campus: self.campus).where(room_type: "normal_room").each do |r|
+      Room.all.where(room_type: "normal_room").each do |r|
         begin
           wl = self.white_lists.build(room: r)
           wl.save!
