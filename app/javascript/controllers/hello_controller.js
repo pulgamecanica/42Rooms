@@ -4,7 +4,8 @@ export default class extends Controller {
   connect() {
 
   }
-  change_theme() {
+  change_theme(event) {
+    event.preventDefault();
     fetch("/change_theme", {
       method:'GET',
       dataType:"html",

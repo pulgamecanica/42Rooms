@@ -7,44 +7,55 @@
     <meta charset="UTF-8">
     <meta name="description" content="Room Manager for 42Lisboa">
     <meta name="keywords" content="42Rooms, RoR, Ruby, Ruby on Rails, RoomsManager">
-    <meta name="author" content="pulgamecanica">
+    <meta name="author" content="https://github.com/pulgamecanica ">
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-<%= current_user.nil? ? "light" : current_user.theme %>">
+  <body class="bg-<%= current_user.nil? ? "dark" : current_user.theme %>">
+    <!--* NAVBAR 42 ROOMS *-->
     <nav class="rooms42-navbar">
-      <%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %>      
+      <div class="navbar-item"><%= link_to root_path do %><%= render 'partials/coin_api42' %><% end %></div>
       <% if current_user %>
-        <% if current_user.is_admin? %>
-          <%= link_to home_path do %><%= render 'partials/admin' %><% end %>
-        <% end %>
-        <a data-controller="hello" data-action="click->hello#change_theme" onclick="changeTheme()"><%= render 'partials/theme' %></a>
-        <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %>
-          <ul class="user-card">
-            <li><%= current_user.role %></li>
-            <li><%= current_user.login %></li>
-            <li><%= current_user.email %></li>
-            <li><%= current_user.campus %></li>
-          </ul>
-        <% end %>
+      <% if current_user.is_admin? %>
+      <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/admin' %><% end %></div>
+      <% end %>
+      <div class="navbar-item"><a href="#" data-controller="hello" data-action="click->hello#change_theme" onclick="changeTheme()"><%= render 'partials/theme' %></a></div>
+      <div class="navbar-item navbar-item-expandible">
+        <button><%= render 'partials/three_dots' %></button>
+        <div class="expandible-container">
+          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/user' %><% end %></div>
+          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/gear' %><% end %></div>
+          <div class="navbar-item"><%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %><% end %></div>
+        </div>
+      </div>
       <% else %>
-        <%= link_to authentication42api_path do %><%= render 'partials/coin_login' %><% end %>
+      <div class="navbar-item"><%= link_to authentication42api_path do %><%= render 'partials/coin_login' %><% end %></div>
       <% end %>
     </nav>
+    <!--* END NAVBAR *-->
+
+    <!--* ALERTS 42 ROOMS *-->
     <% if !alert.nil? || !notice.nil? %>
       <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
     <% end %>
+    <!--* END ALERTS *-->
+
+    <!--* MOVING BACKGROUND 42 ROOMS *-->
     <div class="background"><div></div></div>
+    <!--* END MOVING BACKGROUND *-->
+
+    <!--* MAIN CONTAINER 42 ROOMS *-->
     <div class="rooms42-container">
       <%= yield %>
-      <footer class="center" style="margin-bottom: 1.5rem;">
-        <!-- <p><span class="btn btn-blue" id="time-container"><= render partial: 'partials/date'></span></p> -->
+      <footer class="center">
+        <p><span class="btn btn-blue" id="time-container"><%= render partial: 'partials/date'%></span></p>
         <p>with ❤️ by 42Lisboa</p>
       </footer>
     </div>
+    <!--* END MAIN CONTAINER *-->
+    
   </body>
 </html>
 

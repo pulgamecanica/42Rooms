@@ -1,655 +1,655 @@
-@import "simple_calendar";
-$intra-blue: #00b0b2;
-$intra-green: #5cb85c;
-$intra-red: rgb(216, 99, 111);
-$intra-purple: #8d66ac;
-$intra-brown: #8c5b49;
-$bg-dark: #292D39;
-$bg-darker: #121212;
-$bg-transparent-dark: rgba(32, 32, 38, 0.5);
-$bg-secondary: #bbbbbb;
-$text-light: #f9f9f9;
-$text-secondary: #424242;
-$calendar_row_height: 15px;
-* {
-}
+// @import "simple_calendar";
+// $intra-blue: #00b0b2;
+// $intra-green: #5cb85c;
+// $intra-red: rgb(216, 99, 111);
+// $intra-purple: #8d66ac;
+// $intra-brown: #8c5b49;
+// $bg-dark: #292D39;
+// $bg-darker: #121212;
+// $bg-transparent-dark: rgba(32, 32, 38, 0.5);
+// $bg-secondary: #bbbbbb;
+// $text-light: #f9f9f9;
+// $text-secondary: #424242;
+// $calendar_row_height: 15px;
+// * {
+// }
 
-.bg-light {
-		/* Works on Firefox */
-	* {
-	  scrollbar-width: thin;
-		scrollbar-color: gray transparent;
-	}
-	/* Works on Chrome, Edge, and Safari */
-	*::-webkit-scrollbar {
-	  width: 5px;
-	  height: 100%;
-	}
-	*::-webkit-scrollbar-track {
-	  background: transparent;
-	}
-	*::-webkit-scrollbar-thumb {
-	  background-color: $bg-dark;
-	  border-radius: 20px;
-	  border: 3px solid transparent;
-	}
-	* {
-		color: $text-secondary;
-	}	
-	.rooms42-container {
-		outline: 2px darkgray solid;
-		background-color: rgba(255, 255, 255, 0.9);
-	}
-	.hoverable:hover {
-		background-color: rgba(0, 0, 0, 0.1);
-	}
-	.calendar-container .calendar {
-		background-color: rgba(100, 140, 120, 0.5);
-		border: 1px darkgray solid;
-		.slot {
-			outline: 1px solid black;
-		}
-	}
-}
+// .bg-light {
+// 		/* Works on Firefox */
+// 	* {
+// 	  scrollbar-width: thin;
+// 		scrollbar-color: gray transparent;
+// 	}
+// 	/* Works on Chrome, Edge, and Safari */
+// 	*::-webkit-scrollbar {
+// 	  width: 5px;
+// 	  height: 100%;
+// 	}
+// 	*::-webkit-scrollbar-track {
+// 	  background: transparent;
+// 	}
+// 	*::-webkit-scrollbar-thumb {
+// 	  background-color: $bg-dark;
+// 	  border-radius: 20px;
+// 	  border: 3px solid transparent;
+// 	}
+// 	* {
+// 		color: $text-secondary;
+// 	}	
+// 	.rooms42-container {
+// 		outline: 2px darkgray solid;
+// 		background-color: rgba(255, 255, 255, 0.9);
+// 	}
+// 	.hoverable:hover {
+// 		background-color: rgba(0, 0, 0, 0.1);
+// 	}
+// 	.calendar-container .calendar {
+// 		background-color: rgba(100, 140, 120, 0.5);
+// 		border: 1px darkgray solid;
+// 		.slot {
+// 			outline: 1px solid black;
+// 		}
+// 	}
+// }
 
-.bg-dark {
-	/* Works on Firefox */
-	* {
-	  scrollbar-width: thin;
-		scrollbar-color: rebeccapurple transparent;
-	}
-	/* Works on Chrome, Edge, and Safari */
-	*::-webkit-scrollbar {
-	  width: 5px;
-	  height: 100%;
-	}
-	*::-webkit-scrollbar-track {
-	  background: transparent;
-	}
-	*::-webkit-scrollbar-thumb {
-	  background-color: rebeccapurple;
-	  border-radius: 20px;
-	  border: 3px solid transparent;
-	}
-	* {
-		color: $text-light;
-		fill: $text-light;
-	}
-	.rooms42-container {
-		background-color: rgba(18, 18, 18, 0.9);
-	}
-	.hoverable:hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
-	.calendar-container .calendar {
-		background-color: rgba(255, 255, 255, 0.1);
-		outline: 1px white solid;
-		.slot {
-			outline: 1px solid white;
-		}
-	}
-}
+// .bg-dark {
+// 	/* Works on Firefox */
+// 	* {
+// 	  scrollbar-width: thin;
+// 		scrollbar-color: rebeccapurple transparent;
+// 	}
+// 	/* Works on Chrome, Edge, and Safari */
+// 	*::-webkit-scrollbar {
+// 	  width: 5px;
+// 	  height: 100%;
+// 	}
+// 	*::-webkit-scrollbar-track {
+// 	  background: transparent;
+// 	}
+// 	*::-webkit-scrollbar-thumb {
+// 	  background-color: rebeccapurple;
+// 	  border-radius: 20px;
+// 	  border: 3px solid transparent;
+// 	}
+// 	* {
+// 		color: $text-light;
+// 		fill: $text-light;
+// 	}
+// 	.rooms42-container {
+// 		background-color: rgba(18, 18, 18, 0.9);
+// 	}
+// 	.hoverable:hover {
+// 		background-color: rgba(255, 255, 255, 0.1);
+// 	}
+// 	.calendar-container .calendar {
+// 		background-color: rgba(255, 255, 255, 0.1);
+// 		outline: 1px white solid;
+// 		.slot {
+// 			outline: 1px solid white;
+// 		}
+// 	}
+// }
 
-body {
-	position: absolute;
-	width: 100vw;
-	max-height: 100vh;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	.center {
-		margin: auto;
-		text-align: center;
-	}
-	.alerts42-box {
-		position: absolute;
-		z-index: 4;
-		width: 100%;
-		font-size: 125%;
-		text-align: center;
-		color: $text-secondary;
-		animation: desapear 10s ease-out;
-		* {
-			display: block;
-		}
-		.notice-box {
-			background-color: $intra-green;
-		}
-		.alert-box {
-			background-color: $intra-red;
-		}
-	}
-	@keyframes desapear {
-		0% {
-			transform: translateY(50px);
-		}
-		80%{
-			transform: translateY(50px);
-		}
-		100% {
-			transform: translateY(0);
-		}
-	}
-	.rooms42-navbar {
-		z-index: 5;
-		position: fixed;
-		height: 50px;
-		width: 100vw;
-		margin: 0;
-		display: flex;
-		justify-content: space-around;
-		background-color: $bg-dark;
-		a {
-			display: block;
-			height: 50px;
-			padding: 0 1rem;
-			&:hover {
-				background-color: rgba(0, 0, 0, 0.3);
-			}
-			&:hover .user-card {
-				display: block;
-			}
-			svg {
-				height: 50px;
-				fill: $text-light;
-			}
-			.user-card {
-				position: absolute;
-				display: none;
-				min-width: 20vw;
-				top: 34px;
-				right: 0;
-				background-color: $bg-secondary;
-				li {
-					color: $text-secondary;
-				}
-			}
-		}
-	}
-	.background {
-		width: 100vw;
-		height: 100vh;
-		overflow: hidden;
-		position: absolute;
-		z-index: 1;
-		div {
-			width: 200vw;
-			height: 200vh;
-			background-size: cover;
-			animation: 80s background-animation ease-in-out infinite;
-			background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
-		}
-		@keyframes background-animation {
-			0% {transform: translate(-10%, -10%);}
-			10% {transform: translate(-20%, 0%);}
-			20% {transform: translate(-50%, -40%);}
-			30% {transform: translate(-20%, -20%);}
-			40% {transform: translate(-5%, -5%);}
-			50% {transform: translate(-15%, 0);}
-			60% {transform: translate(-50%, -20%);}
-			70% {transform: translate(-30%, -50%);}
-			80% {transform: translate(-20%, -40%);}
-			90% {transform: translate(0%, -10%);}
-			100% {transform: translate(0, 0);}
-		}
-	}
-	.rooms42-container {
-		position: relative;
-		z-index: 2;
-		margin: auto;
-		max-width: 1600px;
-		height: 100vh;
-		overflow: scroll;
-		.container-body {
-			margin-top: 50px;
-			padding: 0 1rem 1rem 1rem;
-			.rooms-cards {
-				.campus-card {
-					padding: 0.25rem;
-					h1, hr {
-						margin: 0;
-						padding: 0;
-					}
-				}
-				.reservation-card {
-					padding-top: 1rem; 
-					text-align: center;
-					margin: auto;
-					max-width: 800px;
-				}
-				.room-card {
-					padding: 0 1rem 1rem 1rem;
-					h2 {
-						display: inline-block;
-					}
-					* {
-						text-decoration: none;
-					}
-					&:hover * {
-						text-decoration: underline;
-					}
-					.flex-separator {
-						display: flex !important;
-						flex-direction: row;
-						justify-content: space-between;
-						align-items: center;
-						flex-wrap: wrap;
-						gap: 1rem;
-						.stats { 
-							svg {
-								width: 50px;
-								height: auto;
-								&:hover {
-									background-color: purple;
-								}
-							}
-							&:active .popup {
-								display: block;
-							}
-							.popup {
-								display: none;
-								position: fixed;
-								z-index: 15;
-								top: 20vh;
-								left: 0;
-								padding: 0;
-								border: 0;
-								text-align: center;
-								background-color: lightgray;
-								overflow: hidden;
-								width: 100vw;
-								height: auto;
-								min-height: 400px;
-							}
-						}
-					}
-					.flex-separator .info {
-						width: 400px;
-						h2 {}
-						h4 {}
-						h5 {
-							margin: 0.5rem 0;
-						}
-						h6 {
-							margin: 0;
-						}
-					}
-					details {
-						summary {
-							font-size: 110%;
-						}
-						ul {
-							li {
+// body {
+// 	position: absolute;
+// 	width: 100vw;
+// 	max-height: 100vh;
+// 	margin: 0;
+// 	padding: 0;
+// 	box-sizing: border-box;
+// 	.center {
+// 		margin: auto;
+// 		text-align: center;
+// 	}
+// 	.alerts42-box {
+// 		position: absolute;
+// 		z-index: 4;
+// 		width: 100%;
+// 		font-size: 125%;
+// 		text-align: center;
+// 		color: $text-secondary;
+// 		animation: disappear 10s ease-out;
+// 		* {
+// 			display: block;
+// 		}
+// 		.notice-box {
+// 			background-color: $intra-green;
+// 		}
+// 		.alert-box {
+// 			background-color: $intra-red;
+// 		}
+// 	}
+// 	@keyframes disappear {
+// 		0% {
+// 			transform: translateY(50px);
+// 		}
+// 		80%{
+// 			transform: translateY(50px);
+// 		}
+// 		100% {
+// 			transform: translateY(0);
+// 		}
+// 	}
+// 	.rooms42-navbar {
+// 		z-index: 5;
+// 		position: fixed;
+// 		height: 50px;
+// 		width: 100vw;
+// 		margin: 0;
+// 		display: flex;
+// 		justify-content: space-around;
+// 		background-color: $bg-dark;
+// 		a {
+// 			display: block;
+// 			height: 50px;
+// 			padding: 0 1rem;
+// 			&:hover {
+// 				background-color: rgba(0, 0, 0, 0.3);
+// 			}
+// 			&:hover .user-card {
+// 				display: block;
+// 			}
+// 			svg {
+// 				height: 50px;
+// 				fill: $text-light;
+// 			}
+// 			.user-card {
+// 				position: absolute;
+// 				display: none;
+// 				min-width: 20vw;
+// 				top: 34px;
+// 				right: 0;
+// 				background-color: $bg-secondary;
+// 				li {
+// 					color: $text-secondary;
+// 				}
+// 			}
+// 		}
+// 	}
+// 	.background {
+// 		width: 100vw;
+// 		height: 100vh;
+// 		overflow: hidden;
+// 		position: absolute;
+// 		z-index: 1;
+// 		div {
+// 			width: 200vw;
+// 			height: 200vh;
+// 			background-size: cover;
+// 			animation: 80s background-animation ease-in-out infinite;
+// 			background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
+// 		}
+// 		@keyframes background-animation {
+// 			0% {transform: translate(-10%, -10%);}
+// 			10% {transform: translate(-20%, 0%);}
+// 			20% {transform: translate(-50%, -40%);}
+// 			30% {transform: translate(-20%, -20%);}
+// 			40% {transform: translate(-5%, -5%);}
+// 			50% {transform: translate(-15%, 0);}
+// 			60% {transform: translate(-50%, -20%);}
+// 			70% {transform: translate(-30%, -50%);}
+// 			80% {transform: translate(-20%, -40%);}
+// 			90% {transform: translate(0%, -10%);}
+// 			100% {transform: translate(0, 0);}
+// 		}
+// 	}
+// 	.rooms42-container {
+// 		position: relative;
+// 		z-index: 2;
+// 		margin: auto;
+// 		max-width: 1600px;
+// 		height: 100vh;
+// 		overflow: scroll;
+// 		.container-body {
+// 			margin-top: 50px;
+// 			padding: 0 1rem 1rem 1rem;
+// 			.rooms-cards {
+// 				.campus-card {
+// 					padding: 0.25rem;
+// 					h1, hr {
+// 						margin: 0;
+// 						padding: 0;
+// 					}
+// 				}
+// 				.reservation-card {
+// 					padding-top: 1rem; 
+// 					text-align: center;
+// 					margin: auto;
+// 					max-width: 800px;
+// 				}
+// 				.room-card {
+// 					padding: 0 1rem 1rem 1rem;
+// 					h2 {
+// 						display: inline-block;
+// 					}
+// 					* {
+// 						text-decoration: none;
+// 					}
+// 					&:hover * {
+// 						text-decoration: underline;
+// 					}
+// 					.flex-separator {
+// 						display: flex !important;
+// 						flex-direction: row;
+// 						justify-content: space-between;
+// 						align-items: center;
+// 						flex-wrap: wrap;
+// 						gap: 1rem;
+// 						.stats { 
+// 							svg {
+// 								width: 50px;
+// 								height: auto;
+// 								&:hover {
+// 									background-color: purple;
+// 								}
+// 							}
+// 							&:active .popup {
+// 								display: block;
+// 							}
+// 							.popup {
+// 								display: none;
+// 								position: fixed;
+// 								z-index: 15;
+// 								top: 20vh;
+// 								left: 0;
+// 								padding: 0;
+// 								border: 0;
+// 								text-align: center;
+// 								background-color: lightgray;
+// 								overflow: hidden;
+// 								width: 100vw;
+// 								height: auto;
+// 								min-height: 400px;
+// 							}
+// 						}
+// 					}
+// 					.flex-separator .info {
+// 						width: 400px;
+// 						h2 {}
+// 						h4 {}
+// 						h5 {
+// 							margin: 0.5rem 0;
+// 						}
+// 						h6 {
+// 							margin: 0;
+// 						}
+// 					}
+// 					details {
+// 						summary {
+// 							font-size: 110%;
+// 						}
+// 						ul {
+// 							li {
 
-							}
-						}
-					}
-				}
-			}
-			.smart-search {
-				margin-top: 1rem !important;
-			}
-			.calendar-container {
-				text-align: center;
-				display: block;
-				margin: auto;
-				overflow: scroll;
-				.calendar {
-					border-radius: 0.5rem;
-					margin: 0.25rem auto;
-					max-width: 1000px;
-					display: inline-block;
-					.reservations-slots {
-						border: none;
-						margin: 0;
-						padding: 0;
-						* {
-							border: none;
-						}
-						tbody {
-							tr {
-								display: block;
-								height: $calendar_row_height !important;
-								th {
-									position: relative;
-									padding: 0;
-									display: block;
-									width: 100%;
-									.past {
-			  							opacity: 0.5;
-			  							background-color: gray;
-										display: block;
-										height: $calendar_row_height;
-										width: 100%;
-									}
-									.slot {
-										font-size: $calendar_row_height;
-										text-align: center;
-										border-radius: 0.25rem;
-										display: inline-block;
-										overflow: hidden;
-										width: 100%;
-										z-index: 10;
-										position: relative;
-										background-image: image-url("42white_background.png");
-										background-size: cover;
-										background-position: center;
-										a {
-											display: block;
-											position: relative;
-											height: 100%;
-											&:hover {
-												opacity: 0.5;
-											}
-										}
-									}
-									.slot_15 {
-										font-size: $calendar_row_height - 2px !important;
-										height: $calendar_row_height;
-									}
-									.slot_30 {
-										height: $calendar_row_height * 2;
-									}
-									.slot_45 {
-										height: $calendar_row_height * 3;
-									}
-									.slot_60 {
-										height: $calendar_row_height * 4;
-									}
-									.slot_75 {
-										height: $calendar_row_height * 5;
-									}
-									.slot_90 {
-										height: $calendar_row_height * 6;
-									}
-									.slot_105 {
-										height: $calendar_row_height * 7;
-									}
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 			.smart-search {
+// 				margin-top: 1rem !important;
+// 			}
+// 			.calendar-container {
+// 				text-align: center;
+// 				display: block;
+// 				margin: auto;
+// 				overflow: scroll;
+// 				.calendar {
+// 					border-radius: 0.5rem;
+// 					margin: 0.25rem auto;
+// 					max-width: 1000px;
+// 					display: inline-block;
+// 					.reservations-slots {
+// 						border: none;
+// 						margin: 0;
+// 						padding: 0;
+// 						* {
+// 							border: none;
+// 						}
+// 						tbody {
+// 							tr {
+// 								display: block;
+// 								height: $calendar_row_height !important;
+// 								th {
+// 									position: relative;
+// 									padding: 0;
+// 									display: block;
+// 									width: 100%;
+// 									.past {
+// 			  							opacity: 0.5;
+// 			  							background-color: gray;
+// 										display: block;
+// 										height: $calendar_row_height;
+// 										width: 100%;
+// 									}
+// 									.slot {
+// 										font-size: $calendar_row_height;
+// 										text-align: center;
+// 										border-radius: 0.25rem;
+// 										display: inline-block;
+// 										overflow: hidden;
+// 										width: 100%;
+// 										z-index: 10;
+// 										position: relative;
+// 										background-image: image-url("42white_background.png");
+// 										background-size: cover;
+// 										background-position: center;
+// 										a {
+// 											display: block;
+// 											position: relative;
+// 											height: 100%;
+// 											&:hover {
+// 												opacity: 0.5;
+// 											}
+// 										}
+// 									}
+// 									.slot_15 {
+// 										font-size: $calendar_row_height - 2px !important;
+// 										height: $calendar_row_height;
+// 									}
+// 									.slot_30 {
+// 										height: $calendar_row_height * 2;
+// 									}
+// 									.slot_45 {
+// 										height: $calendar_row_height * 3;
+// 									}
+// 									.slot_60 {
+// 										height: $calendar_row_height * 4;
+// 									}
+// 									.slot_75 {
+// 										height: $calendar_row_height * 5;
+// 									}
+// 									.slot_90 {
+// 										height: $calendar_row_height * 6;
+// 									}
+// 									.slot_105 {
+// 										height: $calendar_row_height * 7;
+// 									}
 
-									.slot_120 {
-										height: $calendar_row_height * 8;
-									}
-								}
-								.add-reservation-button {
-									display: none;
-									position: absolute;
-									top: 0;
-									padding: 0;
-									width: 90%;
-									left: 5%;
-									text-align: center;
-									height: $calendar_row_height;
-									background-color: $intra-blue;
-									border-radius: 0.15rem;
-									z-index: 3;
-									button {
-										background-color: transparent;
-										width: 100%;
-										z-index: 4;
-										margin: auto;
-										padding: auto;
-										cursor: pointer;
-									}
-								}
-								a {
-									text-decoration: none;
-								}
-								&:hover .add-reservation-button {
-									display: block;
-								}
-								&:nth-child(even) {
-									background-color: rgba(0, 0, 0 , 0.2);
-		   					}
-		   				}
-						}
-					}
-				}
-				.guide-content {
-					span {
-						margin: 0 0.5rem;
-						padding: 0.5rem;
-						border-radius: 0.5rem;
-					}
-					.meeting {
-						background-color: $intra-purple;
-					}
-					.staff42 {
-						background-color: $intra-blue;
-					}
-					.club {
-						background-color: $intra-green;
-					}
-					.guest {
-						background-color: $intra-red;
-					}
-					.internship {
-						background-color: $intra-brown;
-					}
+// 									.slot_120 {
+// 										height: $calendar_row_height * 8;
+// 									}
+// 								}
+// 								.add-reservation-button {
+// 									display: none;
+// 									position: absolute;
+// 									top: 0;
+// 									padding: 0;
+// 									width: 90%;
+// 									left: 5%;
+// 									text-align: center;
+// 									height: $calendar_row_height;
+// 									background-color: $intra-blue;
+// 									border-radius: 0.15rem;
+// 									z-index: 3;
+// 									button {
+// 										background-color: transparent;
+// 										width: 100%;
+// 										z-index: 4;
+// 										margin: auto;
+// 										padding: auto;
+// 										cursor: pointer;
+// 									}
+// 								}
+// 								a {
+// 									text-decoration: none;
+// 								}
+// 								&:hover .add-reservation-button {
+// 									display: block;
+// 								}
+// 								&:nth-child(even) {
+// 									background-color: rgba(0, 0, 0 , 0.2);
+// 		   					}
+// 		   				}
+// 						}
+// 					}
+// 				}
+// 				.guide-content {
+// 					span {
+// 						margin: 0 0.5rem;
+// 						padding: 0.5rem;
+// 						border-radius: 0.5rem;
+// 					}
+// 					.meeting {
+// 						background-color: $intra-purple;
+// 					}
+// 					.staff42 {
+// 						background-color: $intra-blue;
+// 					}
+// 					.club {
+// 						background-color: $intra-green;
+// 					}
+// 					.guest {
+// 						background-color: $intra-red;
+// 					}
+// 					.internship {
+// 						background-color: $intra-brown;
+// 					}
 
-				}
-			}
-		}
-	}
-}
-.meeting {
-	a {
-		background-color: $intra-purple;
-	}
-}
-.staff42 {
-	a {
-		background-color: $intra-blue;
-	}
-}
-.club {
-	a {
-		background-color: $intra-green;
-	}
-}
-.guest {
-	a {
-		background-color: $intra-red;
-	}
-}
-.internship {
-	a {
-		background-color: $intra-brown;
-	}
-}
-/* CALENDAR STYLE :D */
-.simple-calendar {
-	overflow-y: hidden;
-	overflow-x: scroll;
-	border-radius: 0.5rem;
-	min-width: 400px;
-  .calendar-heading {
-  	text-align: center;
-		position: relative;
-  	h1 {
-  		text-decoration: underline;
-  		display: inline;
-  		padding: 0;
-  		margin: 0;
-  	}
-  	.calendar-week-number {
-  		position: absolute;
-  		top: 50%;
-  		left: 2.5%;
-  		transform: translate(2.5%, -50%);
-  	}
-  	.calendar-next-prev {
-  		position: absolute;
-  		right: 0;
-  		border-radius: 0 0.5rem 0 0;
-  		background-color: $bg-secondary;
-  		text-decoration: none !important;
-  		a {
-  			padding: 0 1rem;
-  			color: gray;
-  			text-decoration: none !important;
-  			&:nth-child(1) {
-  				border-right: 1px solid gray;
-  			}
-  			&:nth-child(2) {
-  				border-left: 1px solid gray;
-  			}
-  		}
-  	}
-  }
-  .table {
-  	border-bottom: none;
-	  border-left: none;
-  	border-right: none;  	
-  	thead tr th{
-  		text-align: center;
-  		border-bottom: 1px solid white;
-  		border-left: none;
-  		border-right: none;
-  	}
-    tbody {
-   		tr .time {
-   			border: none;
-   			padding: 0;
-   			* {
-   				text-align: center;
-   				white-space: nowrap;
-   				border: none;
-   			}
-   			table tr {
-   				height: $calendar_row_height !important;
-   				display: block;
-   				font-size: $calendar_row_height - 5px;
-   				* {
-   					display: inline;
-   					margin: auto;
-   				}
-   			}
-   			table tr:nth-child(even) {
-   				background-color: rgba(0, 0, 0 , 0.2);
-   			}
-   		} 	
-    }
-  }
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+// .meeting {
+// 	a {
+// 		background-color: $intra-purple;
+// 	}
+// }
+// .staff42 {
+// 	a {
+// 		background-color: $intra-blue;
+// 	}
+// }
+// .club {
+// 	a {
+// 		background-color: $intra-green;
+// 	}
+// }
+// .guest {
+// 	a {
+// 		background-color: $intra-red;
+// 	}
+// }
+// .internship {
+// 	a {
+// 		background-color: $intra-brown;
+// 	}
+// }
+// /* CALENDAR STYLE :D */
+// .simple-calendar {
+// 	overflow-y: hidden;
+// 	overflow-x: scroll;
+// 	border-radius: 0.5rem;
+// 	min-width: 400px;
+//   .calendar-heading {
+//   	text-align: center;
+// 		position: relative;
+//   	h1 {
+//   		text-decoration: underline;
+//   		display: inline;
+//   		padding: 0;
+//   		margin: 0;
+//   	}
+//   	.calendar-week-number {
+//   		position: absolute;
+//   		top: 50%;
+//   		left: 2.5%;
+//   		transform: translate(2.5%, -50%);
+//   	}
+//   	.calendar-next-prev {
+//   		position: absolute;
+//   		right: 0;
+//   		border-radius: 0 0.5rem 0 0;
+//   		background-color: $bg-secondary;
+//   		text-decoration: none !important;
+//   		a {
+//   			padding: 0 1rem;
+//   			color: gray;
+//   			text-decoration: none !important;
+//   			&:nth-child(1) {
+//   				border-right: 1px solid gray;
+//   			}
+//   			&:nth-child(2) {
+//   				border-left: 1px solid gray;
+//   			}
+//   		}
+//   	}
+//   }
+//   .table {
+//   	border-bottom: none;
+// 	  border-left: none;
+//   	border-right: none;  	
+//   	thead tr th{
+//   		text-align: center;
+//   		border-bottom: 1px solid white;
+//   		border-left: none;
+//   		border-right: none;
+//   	}
+//     tbody {
+//    		tr .time {
+//    			border: none;
+//    			padding: 0;
+//    			* {
+//    				text-align: center;
+//    				white-space: nowrap;
+//    				border: none;
+//    			}
+//    			table tr {
+//    				height: $calendar_row_height !important;
+//    				display: block;
+//    				font-size: $calendar_row_height - 5px;
+//    				* {
+//    					display: inline;
+//    					margin: auto;
+//    				}
+//    			}
+//    			table tr:nth-child(even) {
+//    				background-color: rgba(0, 0, 0 , 0.2);
+//    			}
+//    		} 	
+//     }
+//   }
 
-  .day {
-  	padding: 0;
-  	border-bottom: none;
-  	border-right: none;
-  	border-top: none;
-  }
+//   .day {
+//   	padding: 0;
+//   	border-bottom: none;
+//   	border-right: none;
+//   	border-top: none;
+//   }
 
-  .wday-0 {}
-  .wday-1 {}
-  .wday-2 {}
-  .wday-3 {}
-  .wday-4 {}
-  .wday-5 {}
-  .wday-6 {}
+//   .wday-0 {}
+//   .wday-1 {}
+//   .wday-2 {}
+//   .wday-3 {}
+//   .wday-4 {}
+//   .wday-5 {}
+//   .wday-6 {}
 
-  .today {
-  	// background-color: $intra-green;
-  	background-color: transparent;
-  }
-  .past {
-  	// opacity: 0.25;
-  }
-  .future {}
+//   .today {
+//   	// background-color: $intra-green;
+//   	background-color: transparent;
+//   }
+//   .past {
+//   	// opacity: 0.25;
+//   }
+//   .future {}
 
-  .start-date {}
-  .prev-month {}
-  .prev-month, .next-month {
-		background-color: transparent;
-  }
-  .next-month {}
-  .current-month {}
+//   .start-date {}
+//   .prev-month {}
+//   .prev-month, .next-month {
+// 		background-color: transparent;
+//   }
+//   .next-month {}
+//   .current-month {}
 
-  .has-events {}
-}
+//   .has-events {}
+// }
 
-.schedule-card .card-body {
-	border-radius: 0 !important;
-	margin-bottom: 0.25rem;
-}
+// .schedule-card .card-body {
+// 	border-radius: 0 !important;
+// 	margin-bottom: 0.25rem;
+// }
 
-#reservation-form {
-	z-index: 20;
-	opacity: 0.98;
-	position: fixed;
-	background-image: image-url("42white_background.png");
-	background-size: cover;
-	background-position: center;
-	border: 2px $bg-secondary solid;
-	border-radius: 1rem;
-	height: 80vh;
-	width: 40vw;
-	left: 30%;
-	top: 10%;
-	margin: auto;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	flex-direction: column;
-	color: $intra-blue !important;
-	text-align: center;
-	.field {
-		padding: 1rem;
-		margin-bottom: 0.5rem;
-		label {
-			display: block;
-			text-align: center;
-			padding: 0.5rem;
-			font-size: 110%;
-			text-decoration: underline;
-		}
-		select {
-			font-size: 110%;
-			padding: 0.5rem;
-		}
-		.date-input {
-			font-size: 150%;
-		}
-	}
-	.submit-button {
-		padding: 1rem;
-		background-color: $intra-blue;
-		color: $text-light !important;
-		border-radius: 1rem;
-		border: none;
-		cursor: pointer;
-		font-size: 110%;
-		&:hover {
-			opacity: 0.6;
-		}
-		&:focus {
-			opacity: 1;
-		}
-	}
-	.close-form {
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: 1rem;
-		background-color: $intra-red;
-		border: none;
-		border-radius: 0 1rem 0 1rem;
-		color: $text-light !important;
-	}
-	* {
-		color: $intra-blue !important;
-	}
-}
+// #reservation-form {
+// 	z-index: 20;
+// 	opacity: 0.98;
+// 	position: fixed;
+// 	background-image: image-url("42white_background.png");
+// 	background-size: cover;
+// 	background-position: center;
+// 	border: 2px $bg-secondary solid;
+// 	border-radius: 1rem;
+// 	height: 80vh;
+// 	width: 40vw;
+// 	left: 30%;
+// 	top: 10%;
+// 	margin: auto;
+// 	display: none;
+// 	align-items: center;
+// 	justify-content: center;
+// 	flex-wrap: wrap;
+// 	flex-direction: column;
+// 	color: $intra-blue !important;
+// 	text-align: center;
+// 	.field {
+// 		padding: 1rem;
+// 		margin-bottom: 0.5rem;
+// 		label {
+// 			display: block;
+// 			text-align: center;
+// 			padding: 0.5rem;
+// 			font-size: 110%;
+// 			text-decoration: underline;
+// 		}
+// 		select {
+// 			font-size: 110%;
+// 			padding: 0.5rem;
+// 		}
+// 		.date-input {
+// 			font-size: 150%;
+// 		}
+// 	}
+// 	.submit-button {
+// 		padding: 1rem;
+// 		background-color: $intra-blue;
+// 		color: $text-light !important;
+// 		border-radius: 1rem;
+// 		border: none;
+// 		cursor: pointer;
+// 		font-size: 110%;
+// 		&:hover {
+// 			opacity: 0.6;
+// 		}
+// 		&:focus {
+// 			opacity: 1;
+// 		}
+// 	}
+// 	.close-form {
+// 		position: absolute;
+// 		top: 0;
+// 		right: 0;
+// 		padding: 1rem;
+// 		background-color: $intra-red;
+// 		border: none;
+// 		border-radius: 0 1rem 0 1rem;
+// 		color: $text-light !important;
+// 	}
+// 	* {
+// 		color: $intra-blue !important;
+// 	}
+// }
 
-@media (max-width: 950px) {
-	body {
-		/*Reduce amount of column on the rooms index*/
-		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
-			width: 50%;
-		}
-		#reservation-form {
-			min-width: 100vw;
-			left: 0;
-			margin: auto;
-		}
-	}
-}
+// @media (max-width: 950px) {
+// 	body {
+// 		/*Reduce amount of column on the rooms index*/
+// 		.rooms-centered .rooms-cards .campus-card, .rooms-centered .rooms-cards .room-card-small {
+// 			width: 50%;
+// 		}
+// 		#reservation-form {
+// 			min-width: 100vw;
+// 			left: 0;
+// 			margin: auto;
+// 		}
+// 	}
+// }
