@@ -1,47 +1,47 @@
-<div class="container-lead flex-between">
-	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <span class="active-page"><%= link_to 'ROOMS', rooms_path %> </span></div>
-	<div class="buttons">
-		<div><%= link_to 'New Room', new_room_path, class: "btn btn-blue" %></div>
-	</div>
+<div class="hoverable d-around p2">
+	<p class="text-secondary">/ <%= link_to 'HOME', home_path %> / <%= link_to 'ROOMS', rooms_path %> </p>
+	<%= link_to 'New Room', new_room_path, class: "btn btn-blue" %>
 </div>
-<div class="container-body">
-	<div class="filters">
-		<div class="card">
-			<p class="card-title">Filters</p>
-			<div class="card-body">
-				<%= render 'rooms_filter' %>
-			</div>
+
+<div class="center m-auto p1">
+	<!-- display flex for more than one element -->
+	<!-- <div class="card bg-light">
+		<p class="card-title">Filters</p>
+		<div class="card-body">
+			Perhaps?
+			<= render 'rooms_filter' >
 		</div>
-	</div>
-	<div class="box">
-		<div class="squeeze-table">
+	</div> -->
+
+	<div class="card card-white card-md">
+		<div class="p1">
 			<% if @rooms.empty? %>
 			<h2>No Rooms, create a Room with the button <%= link_to 'New Room', new_room_path, class: "btn btn-blue" %></h2>
 			<% else %>
-				<h5>
-					<button class="btn" data-controller="hello" data-action="change->hello#items_per_page">
+			<h5>
+				<button class="btn" data-controller="hello" data-action="change->hello#items_per_page">
 						Items per page
 						<input type="text" name="items" id="items_per_page" placeholder="0">
-					</button>
-				</h5>
-				<%= render 'rooms_table', rooms: @rooms %>
-				<div class="pagination">
-					<%= link_to "Prev", rooms_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
-					<%= link_to "Prev", rooms_path(page: @page, limit: @limit), class: "control" if @page <= 1%>
-					<% get_middle((1..(@total.to_f / @limit.to_f).ceil), 4, @page).each do |n| %>
-						<% if n == @page %>
-							<%= link_to n, rooms_path(page: n, limit: @limit), class: "page active" %>
-						<% else %>
-							<%= link_to n, rooms_path(page: n, limit: @limit), class: "page" %>
-						<% end %>
+				</button>
+			</h5>
+			<%= render 'rooms_table', rooms: @rooms %>
+			<div class="pagination">
+				<%= link_to "Prev", rooms_path(page: @page - 1, limit: @limit), class: "control" unless @page <= 1%>
+				<%= link_to "Prev", rooms_path(page: @page, limit: @limit), class: "control" if @page <= 1%>
+				<% get_middle((1..(@total.to_f / @limit.to_f).ceil), 4, @page).each do |n| %>
+					<% if n == @page %>
+						<%= link_to n, rooms_path(page: n, limit: @limit), class: "page active" %>
+					<% else %>
+						<%= link_to n, rooms_path(page: n, limit: @limit), class: "page" %>
 					<% end %>
-					<%= link_to "Next", rooms_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
-					<%= link_to "Next", rooms_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
-				</div>
-				<div class="resources flex-between">
-					<span></span>
-					<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
-				</div>
+				<% end %>
+				<%= link_to "Next", rooms_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
+				<%= link_to "Next", rooms_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
+			</div>
+
+			<div class="right">
+				<h6 class="text-secondary-light m0">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</h6>
+			</div>
 			<% end %>
 		</div>
 	</div>

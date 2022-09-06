@@ -1,18 +1,18 @@
-<%= form_with model: [new_reservation] do |form| %>
+<%= form_with model: [match] do |form| %>
   <div class="card schedule-card">
     <div class="card-body flex-between" style="flex-wrap: wrap; gap: 1rem;">
-      <% if new_reservation.user %>
-        <%= form.hidden_field :user_id, value: new_reservation.user.id %>
+      <% if match.user %>
+        <%= form.hidden_field :user_id, value: match.user.id %>
       <% end %>
-      <%= form.hidden_field :room_id, value: new_reservation.room.id %>
-      <%= form.hidden_field :starts_at, value: new_reservation.starts_at %>
-      <%= form.hidden_field :ends_at, value: new_reservation.ends_at %>
+      <%= form.hidden_field :room_id, value: match.room.id %>
+      <%= form.hidden_field :starts_at, value: match.starts_at %>
+      <%= form.hidden_field :ends_at, value: match.ends_at %>
       <div class="" style="display: inline-block; min-width: 45%;">
         <div class="flex-between">
           <span class="text-secondary"> # <%= index + 1 %> </span>
-          <button style="padding: 0.5rem; margin: 0 0.25rem;"><%= new_reservation.room.name %></button>
+          <button style="padding: 0.5rem; margin: 0 0.25rem;"><%= match.room.name %></button>
           <div class="" style="display: inline-block; padding: 0;">
-            <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: new_reservation.subject), {}, {style: "padding: 0.5rem;"} %>
+            <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: match.subject), {}, {style: "padding: 0.5rem;"} %>
           </div>
         </div>
       </div>

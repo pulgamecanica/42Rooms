@@ -1,10 +1,10 @@
 <div class="container-body">
     <!--* WELCOME CARD 42 ROOMS *-->
-    <div class="card hoverable center">
-        <% if current_user %>
-        <h1 class="card-title">Welcome <%= current_user.login %></h1><h2 class="card-body"><%= current_user.campus %></h2>
-        <% end %>
-    </div>
+    <!-- <div class="card card-animation hoverable center border-bottom">
+        < if current_user >
+        <h1 class="card-title">Welcome <= current_user.login ></h1><h2 class="card-body"><= current_user.campus ></h2>
+        < end >
+    </div> -->
     <!--* END WELCOME CARD*-->
 
     <!--* FORM SCHEDULE CARD 42 ROOMS *-->
@@ -14,58 +14,148 @@
             <h2 class="rotating-text-item">Agendar  📅</h2>
             <h2 class="rotating-text-item">Reservar 📅</h2>
             <h2 class="rotating-text-item">Reserver 📅</h2>
-            <h2 class="rotating-text-item"><span class="card-title">Schedule</span> 📅</h2>
+            <h2 class="rotating-text-item"><span class="card-title">Schedule</span></h2>
         </section>
-        <div class="container-form hoverable card-sm">
+        <div class="container-form mb-1 hoverable card-sm">
             <%= form_with(url: find_reservation_path, method: "get") do |form| %>   
             <div class="form-item d-between">
-              <%= form.label :starts_at, 'Choose a date' %>
-              <%= form.datetime_field :starts_at, {min: Time.zone.now + 15.minutes, value: (Time.zone.now + 30.minutes).strftime("%Y-%m-%dT%T"), class: "date-input"} %>
+              <%= form.label :date_day, 'Choose a date' %>
+                <% if params['date_day'].nil? || params['date_day'].empty? %>
+                <%= form.date_field :date_day, {value: Time.zone.today, min: Time.zone.today } %>
+                <% else %>
+                <%= form.date_field :date_day, {value: Time.zone.today, min: Time.zone.today, value: params['date_day']} %>
+                <% end %>
             </div>
             <div class="form-item d-between">
-              <%= form.label :ends_at, 'Select the duration' %>
-              <%= form.datetime_field :ends_at, {class: "date-input", value: params['ends_at']} %>
+              <%= form.label :date_time, 'Select the time' %>
+              <span>
+                <%= form.time_select :date_time, {minute_step: 15} %>
+              </span>
             </div>
             <div class="form-item d-between">
-                <label for="cap">Capacity</label>
-                <input type="number" id="cap" name="capacity" placeholder="1">
+              <%= form.label :duration, 'Duration' %>
+              <%= form.select :duration, options_for_select(options_for_select_duration(2.hours)), {} %>
+            </div>
+            <div class="form-item d-between">
+              <%= form.label :capacity, 'Capacity' %>
+              <%= form.number_field :capacity, in: 1..20, value: 1%>
             </div>
             <div class="form-buttons">
               <%= form.submit "Search", {class: "btn hoverable"} %>
             </div>
             <% end %>
         </div>
-        <div id="founded-reservations"><%= render 'founded_rooms', matches: @match_reservations %></div>
+
+        <!--* SCHEDULE RESULTS 42 ROOMS *-->
+        <% if not @match_reservations.nil? %>
+        <div class="bg-contrast card card-animation" id="results-container">
+            <% if @match_reservations.empty? %>
+            <p class="label label-red">No Results :(</p>
+            <% else %>
+            <p class="label label-green mb-1"><%= @match_reservations.length %> Results</p>
+            <p><%= params['date_day'] %> for <%= options_for_select_duration(2.hours).key(params['duration'].to_i) %> at <%= params['date_time(4i)'] %>:<%= params['date_time(5i)'] %></p>
+            <% @match_reservations.each_with_index do |match, index| %>
+            <%= form_with model: [match] do |form| %>
+            <div class="card card-md hoverable d-between container-form">
+                <% if match.user %>
+                <%= form.hidden_field :user_id, value: match.user.id %>
+                <% end %>
+                <%= form.hidden_field :room_id, value: match.room.id %>
+                <%= form.hidden_field :starts_at, value: match.starts_at %>
+                <%= form.hidden_field :ends_at, value: match.ends_at %>
+                <div class="card-md">
+                    # <%= index + 1 %>
+                    <button class="label label-blue"><%= match.room.name %></button>
+                    <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: match.subject) %>
+                </div>
+                <%= form.submit class: "btn btn-contrast card-sm" %>
+            </div> 
+            <% end %>
+            <% end %>
+            <% end %>
+        </div>
+        <% end %>
+        <!-- * END SCHEDULE RESULTS *-->
+
     </div>
     <!--* END FORM SCHEDULE CARD *-->
 
+    <hr>
+
     <!--* ROOMS CONTAINER 42 ROOMS*-->
-    <% @rooms.each do |room| %>
-        <article class="room-card hoverable">
-            <%= link_to room_calendar_path(room), class: "flex-separator" do %>
-                <span class="info">
-                    <h2><%=room.name%></h2><h4>Capacity: <%=room.capacity%> - <%=room.description%></h4>
-                </span>
-                <div class="info">
-                    <h5>Next Meetings:</h5>
-                    <% if room.reservations.active.order(:starts_at).any? %>
-                        <% room.reservations.active.order(:starts_at).limit(3).each do |r| %>
-                            <h6>In <%= distance_of_time_in_words(r.starts_at, Time.zone.now) %>.</h6>
+    <span>
+        <h4 class="label <%= params['start_date'].nil? ? "label-blue" : "label-contrast" %>" data-controller="switch" data-action="click->switch#change_page" data-option="1">Rooms</h4>
+        <h4 class="label <%= params['start_date'].nil? ? "label-contrast" : "label-blue" %>" data-controller="switch" data-action="click->switch#change_page" data-option="2">General Calendar</h4>
+        <h4 class="label label-contrast" data-controller="switch" data-action="click->switch#change_page" data-option="3">Events</h4>
+    </span>
+    <span id="switch_content">
+        <div id="switch_page1" class="<%= params['start_date'].nil? ? "d-block" : "d-none" %>">
+            <% @rooms.each do |room| %>
+            <article class="room-card hoverable">
+                <%= link_to room_calendar_path(room), class: "flex-separator" do %>
+                    <span class="info">
+                        <h2><%=room.name%></h2><h4>Capacity: <%=room.capacity%> - <%=room.description%></h4>
+                    </span>
+                    <div class="info">
+                        <h5>Next Meetings:</h5>
+                        <% if room.reservations.active.order(:starts_at).any? %>
+                            <% room.reservations.active.order(:starts_at).limit(3).each do |r| %>
+                                <h6>In <%= distance_of_time_in_words(r.starts_at, Time.zone.now) %>.</h6>
+                            <% end %>
+                        <% else %>
+                            <h6>- No info -</h6>
                         <% end %>
-                    <% else %>
-                        <h6>- No info -</h6>
+                    </div>
+                <% end %>
+                <details>
+                    <summary>Show Reservations (<%= room.reservations.active.all.count %>)</summary>
+                    <% room.reservations.active.order(starts_at: :asc).each do |res| %>
+                        <ul><li><%= res %></li></ul>
+                    <% end %> 
+                </details>
+            </article>
+            <hr>
+            <% end %>
+        </div>
+        <div id="switch_page2" class="<%= params['start_date'].nil? ? "d-none" : "d-block" %>">
+            <div class="calendar-container">
+                <div class="calendar">
+                    <%= week_calendar(attribute: :starts_at, events: Reservation.active) do |date, reservations| %>
+                        <table class="reservations-slots">
+                            <tbody>
+                                <% _i = 0 %>
+                                <% (8.hours..23.hours).step(15.minutes) do |t| %>
+                                <% _t = Time.new(date.year, date.month, date.day, t / 1.hours, ((t - 8.hours) / 1.minutes) % 60 )%>
+                                <tr>
+                                  <th>
+                                    <% reservations.each do |reservation| %>
+                                    <% if reservation.starts_at >= _t && reservation.starts_at < _t + 15.minutes%>
+                                    <span class="slot slot_<%= ((reservation.ends_at - reservation.starts_at) / 60).to_i %> <%= reservation.subject %>">
+                                        <%= link_to reservation_path(reservation) do %>
+                                        <%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %>
+                                        <% end %>
+                                    </span>
+                                    <% end %>
+                                    <% end %>
+                                    <% if _t <= Time.zone.now %>
+                                    <span class="past"></span>
+                                    <% end %>
+                                  </th>
+                                </tr>
+                                <% _i += 1 %>
+                                <% end %>
+                            </tbody>
+                        </table>
                     <% end %>
                 </div>
-            <% end %>
-            <details>
-                <summary>Show Reservations (<%= room.reservations.active.all.count %>)</summary>
-                <% room.reservations.active.order(starts_at: :asc).each do |res| %>
-                    <ul><li><%= res %></li></ul>
-                <% end %> 
-            </details>
-        </article>
-        <hr>
-    <% end %>
-    <!--* END ROOMS CONTAINER *-->
+            </div>
+        </div>
 
+        <div id="switch_page3" class="d-none">
+            <h3>No Events Scheduled</h3>
+        </div>
+    </span>
+
+    <!--* END ROOMS CONTAINER *-->
 </div>
+

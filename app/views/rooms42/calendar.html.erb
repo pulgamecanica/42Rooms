@@ -1,9 +1,9 @@
 <div class="container-body">
-    <div class="rooms-cards">
-        <article class="room-card center">
+    <div class="card card-animation">
+        <article class="card-body hoverable center">
             <h2><%=@room.name%></h2>
-            <details> <summary>More info</summary>
-                <h4>Capacity: <%=@room.capacity%> - <%=@room.description%></h4>
+            <details><summary>More info</summary>
+                <h4>Capacity: <%=@room.capacity%><br>Description: <%=@room.description%></h4>
                 <% @room.reservations.active.order(starts_at: :asc).each do |res| %><ul><li><%= res %></li></ul><% end %> 
             </details>
         </article>
@@ -42,7 +42,6 @@
                 </table>
             <% end %>
         </div>
-        <h5 class="guide-content"><span class="club"> club </span> <span class="staff42"> staff </span> <span class="guest"> guest </span><span class="internship"> internship </span><span class="meeting"> meeting </span></h5>
     </div>
 </div>
 <div id="reservation-form"></div>

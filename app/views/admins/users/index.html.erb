@@ -1,20 +1,22 @@
-<div class="container-lead flex-between">
-	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <span class="active-page"><%= link_to 'USERS', users_path %> </span></div>
-	<div class="buttons">
-		<div><%= link_to 'New User', new_user_path, class: "btn btn-blue" %></div>
-	</div>
+<div class="hoverable d-around p2">
+	<p class="text-secondary">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', users_path %> </p>
+	<%= link_to 'New User', new_user_path, class: "btn btn-blue" %>
 </div>
-<div class="container-body">
-	<div class="filters">
+
+
+<div class="center m-auto p1">
+
+	<!-- <div class="filters">
 		<div class="card">
 			<p class="card-title">Filters</p>
 			<div class="card-body">
-				<%= render 'users_filter' %>
+				<= render 'users_filter' >
 			</div>
 		</div>
-	</div>
-	<div class="box">
-		<div class="squeeze-table">
+	</div> -->
+
+	<div class="card card-white card-md">
+		<div class="p1">
 			<% if @users.empty? %>
 				<h2>No Rooms, create a Room with the button <%= link_to 'New Room', new_room_path, class: "btn btn-blue" %></h2>
 			<% else %>
@@ -38,6 +40,7 @@
 					<%= link_to "Next", users_path(page: @page + 1, limit: @limit), class: "control" unless @last >= @total %>
 					<%= link_to "Next", users_path(page: @page, limit: @limit), class: "control" if @last >= @total %>
 				</div>
+<!-- 
 				<div class="resources flex-between">
 					<div class="downloads">Import:
 						<button class="btn btn-blue" onclick= "csv_form()"> CSV </button>
@@ -45,11 +48,18 @@
 						<button class="btn btn-blue" onclick= "csv_form()"> XML </button>
 						<button class="btn btn-danger" style="position: relative; border-radius: 50%; width: 40px; height: 40px;"><span style="position: absolute; font-size: 25px; top: 50%; left: 50%; transform: translate(-50%, -50%);">?</span></button>
 					</div>
-					<div class="info text-secondary">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</div>
+
+				</div>
+ -->
+				<div class="right">
+					<h6 class="text-secondary-light m0">Displaying <span class="text-dark bold"><%= @first %> - <%= @last %></span> of <span class="text-dark bold"> <%= @total %> </span> in total</h6>
 				</div>
 			<% end %>
 		</div>
 	</div>
+
+
+
 </div>
 <span id="curtain" onclick="close_form()"></span>
 <div id="csv-form">

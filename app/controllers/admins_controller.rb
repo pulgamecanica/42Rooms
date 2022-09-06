@@ -3,6 +3,8 @@ class AdminsController < ApplicationController
 	before_action :authenticate_admin
 	layout 'admins'
 
+	protect_from_forgery
+	
 	def home
 		@reservations = Reservation.all.active.order(:starts_at)
 	end

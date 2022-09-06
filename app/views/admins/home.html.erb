@@ -1,55 +1,35 @@
-<div class="container-lead flex-between">
-	<div class="breadcrumb">/ <span class="active-page"><%= link_to 'HOME', home_path %> </span></div>
-	<div class="buttons">
-		<div><%= link_to 'Go to Website', root_path, class: "btn btn-blue" %></div>
-	</div>
+<div class="hoverable d-around p3">
+	<p class="text-secondary">/ <%= link_to 'HOME', home_path %></p>
+	<%= link_to 'Go to Website', root_path, class: "btn btn-blue" %>
 </div>
 
-<div class="container-new">
-	<div class="card">
-		<div class="content"><h1><%= current_user.login %>, welcome back!</h1></div>	
-		<div class="card-title">
-			Link Tree
-		</div>
-		<div class="card-body">
-			<div class="card-buttons"><%= link_to "Visit Rooms", rooms_path, class: "btn btn-blue" %></div>
-			<div class="card-buttons"><%= link_to "See Users", users_path, class: "btn btn-blue" %></div>
-			<div class="card-buttons"><%= link_to "My User", edit_user_path(current_user), class: "btn btn-blue" %></div>
-		</div>
-	</div>
+<div class="card card-sm center mt-1">
+	<h1><%= current_user.login %>, welcome back!</h1>
+	<h3 class="label label-green"><%= @reservations.count %> Active Reservations</h3>
+	<details class="mt-1">
+		<% if @reservations.empty? %>
+		<summary>No upcoming reservations</summary>
+		<% else %>
+		<summary>Show Reservations:</summary>
+		<% @reservations.limit(5).each do |res| %>
+		<%= link_to edit_room_path(res.room), {class: "label label-blue", style: "display: inline-block; margin: 0.5rem 0;"} do %>
+    	In <%= distance_of_time_in_words(res.starts_at, Time.zone.now) %> at <%= res.room.name %>.
+		<% end %>
+		<% end %>
+		<% end %>
+	</details>
 </div>
-
-<br>
 <hr>
-<br>
-<div class="container-home">
-	<div class="card">
-		<div class="card-title">
-			<h2>Statistics</h2>
-		</div>
-		<div class="card-body">
-			<h3><%= @reservations.count %> Active Reservations</h3>
-			<details>
-				<% if @reservations.empty? %>
-					<summary>No upcoming reservations</summary>
-				<% else %>
-				<summary>Next Reservations:</summary>
-					<% @reservations.limit(5).each do |res| %>
-						<%= link_to edit_room_path(res.room), {class: "btn btn-blue", style: "display: inline-block; margin: 0.5rem 0;"} do %>
-	                    	In <%= distance_of_time_in_words(res.starts_at, Time.zone.now) %> at <%= res.room.name %>.
-						<% end %>
-					<% end %>
-				<% end %>
-			</details>
-			<hr>
-			<h3>Room Subject Distribution</h3>
-			<%= pie_chart Reservation.group(:subject).count %>
-			<hr>
-			<h3>Rooms Weekly Trafic</h3>
-			<%= bar_chart Room.joins(:reservations).group(:name, :id).count %>
-			<hr>
-			<h3>Week Distribution</h3>
-			<%= line_chart Room.joins(:reservations).group(:name).group_by_day(:starts_at).count %>
-		</div>
+<div class="card center">
+	<div class="card-body">
+		<h1 class="mt-2">Statistics</h1>
+		<h3>Room Subject Distribution</h3>
+		<%= pie_chart Reservation.group(:subject).count %>
+		<hr>
+		<h3>Rooms Weekly Trafic</h3>
+		<%= bar_chart Room.joins(:reservations).group(:name, :id).count %>
+		<hr>
+		<h3>Week Distribution</h3>
+		<%= line_chart Room.joins(:reservations).group(:name).group_by_day(:starts_at).count %>
 	</div>
 </div>

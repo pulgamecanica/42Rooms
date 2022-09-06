@@ -1,19 +1,20 @@
-<%= form_with model: [@new_reservation] do |form| %> 
+<%= form_with model: [@new_reservation] do |form| %>
 <h2> <%= @new_reservation.room.name %> </h2>
 <% if @new_reservation.user %>
   <%= form.hidden_field :user_id, value: @new_reservation.user.id %>
 <% end %>
 <%= form.hidden_field :room_id, value: @new_reservation.room.id %>
-<div class="field">
+<div class="card schedule-card">
   <%= form.label :starts_at %>
-  <%= form.datetime_field :starts_at, class: "date-input" %>
+  <%= form.datetime_field :starts_at %>
 </div>
-<div class="field">
+<div class="card schedule-card">
   <%= form.label :ends_at %>
-  <%= form.datetime_field :ends_at, class: "date-input" %>
+  <%= form.datetime_field :ends_at %>
 </div>
-<div class="field">
+<div class="card schedule-card">
+  <%= form.label :subject %>
   <%= form.select :subject, options_for_select(Reservation.subjects.map {|sname, description| [description.capitalize, sname]}, selected: @new_reservation.subject) %>
 </div>
-<%= form.submit class: "submit-button" %>
+<%= form.submit class: "btn btn-contrast" %>
 <% end %>

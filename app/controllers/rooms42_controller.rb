@@ -24,9 +24,14 @@ class Rooms42Controller < ApplicationController
 
   def find_reservation
     @rooms = Room.all
-    s_at = (params['starts_at'].to_datetime)
-    e_at = (params['ends_at'].to_datetime)
-    if (!s_at.nil? && !e_at.nil?)
+    @match_reservations = Array.new
+    s_at = (params['date_day'].to_datetime)
+    s_at += params['date_time(4i)'].to_i.hours
+    s_at += params['date_time(5i)'].to_i.minutes
+    now = DateTime.new(Time.zone.now.year, Time.zone.now.month, Time.zone.now.day, Time.zone.now.hour, Time.zone.now.min)
+    duration = params['duration']
+    e_at = s_at + duration.to_i.minutes
+    if (!s_at.nil? && !e_at.nil? && s_at > now + 15.minutes)
       @match_rooms = Room.all
       @match_rooms = @match_rooms.reject do |room|
         reject_room = false
@@ -45,7 +50,6 @@ class Rooms42Controller < ApplicationController
         end
         reject_room
       end
-      @match_reservations = Array.new
       @match_rooms.each do |room|
         @match_reservations.push(room.reservations.build(starts_at: s_at, ends_at: e_at, user: current_user))
       end

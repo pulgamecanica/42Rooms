@@ -9,32 +9,43 @@
     <meta name="keywords" content="42Rooms, RoR, Ruby, Ruby on Rails, RoomsManager">
     <meta name="author" content="pulgamecanica">
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body id="admin-body">
-    <nav id="admin-navbar" class="flex-around">
-      <%= link_to root_path do %>
-        <%= render "partials/coin_api42" %>
-      <% end %>
-      <%= link_to home_path do %><%= render 'partials/admin' %><% end %>
-      <%= link_to "Rooms", rooms_path %>
-      <%= link_to "Users", users_path %>
+  <body id="admin-body" class="">
+    <!--* NAVBAR 42 ROOMS *-->
+    <nav class="rooms42-navbar">
+      <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/coin_api42' %><% end %></div>
+      <div class="navbar-item navbar-item-text"><%= link_to 'Rooms', rooms_path %></div>
+      <div class="navbar-item navbar-item-text"><%= link_to 'Users', users_path %></div>
+      <div class="navbar-item navbar-item-expandible">
+        <button><%= render 'partials/three_dots' %></button>
+        <div class="expandible-container">
+          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/user' %><% end %></div>
+          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/gear' %><% end %></div>
+          <div class="navbar-item"><%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %><% end %></div>
+        </div>
+      </div>
     </nav>
+    <!--* END NAVBAR *-->
+
+    <!--* ALERTS 42 ROOMS *-->
     <% if !alert.nil? || !notice.nil? %>
-      <span class="admin-alerts">
-        <span><%= notice %></span>
-        <span><%= alert %></span>
-      </span>
+    <span class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></span>
     <% end %>
-    <div id="admin-container">
-      <%= yield %>
+    <!--* END ALERTS *-->
+
+    <!--* MAIN CONTAINER 42 ROOMS *-->
+    <div class="admin42-container">
+      <div class="container-body bg-secondary min-full-page">
+        <%= yield %>
+      </div>
+      <footer class="center">
+        <!-- <p><span class="btn btn-blue" id="time-container"><= render partial: 'partials/date'></span></p> -->
+        with ❤️ by 42Lisboa 
+      </footer>
     </div>
-    <footer>
-      <!-- <p><span class="btn btn-blue" id="time-container"><= render partial: 'partials/date'></span></p> -->
-      with ❤️ by 42Lisboa 
-    </footer>
+    <!--* END MAIN CONTAINER *-->
   </body>
 </html>

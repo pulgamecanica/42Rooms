@@ -1,36 +1,28 @@
-<div class="box">
-	<div class="squeeze-table">
-		<h3><%= title %> Reservations</h3>
-		<table class="admin-table">
-			<thead>
-				<tr class="table-head"><th> ACTIONS </th><th> <%= option == 1 ? "USER" : "ROOM" %> </th><th>SUBJECT</th><th>DATE</th><th>TIME</th><th>Finished</th></tr>
-			</thead>
-			<tbody>
-				<% if reservations.empty?%>
-					<tr><td colspan="6">Couldn't find any reservations</td></tr>
-				<% end %>
-				<% reservations.order(:starts_at).each do |reservation| %>
-					<tr>
-						<td class="list">
-							<div class="card-element">
-								<div class="room-buttons">
-									<%= link_to edit_reservation_path(reservation) do %>EDIT<% end %>
-									<%= link_to "" do %>FINISH<% end %>
-								</div>
-							</div>
-						</td>
-						<td><%= option == 1 ? (link_to reservation.user, edit_user_path(reservation.user)) : (link_to reservation.room.name, edit_room_path(reservation.room)) %></td>
-						<td><%= reservation.subject %></td>
-						<td><%= reservation.starts_at.strftime("%D") %></td>
-						<td><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></td>
-						<td><%= reservation.finished %></td>
-					</tr>
-			<% end %>
-			</tbody>
-		</table>
-		<h5 class="resources flex-between">
-			<div class="downloads">Download: <%= link_to "CSV", {}, {class: "btn btn-blue"} %> <%= link_to "JSON", {}, {class: "btn btn-blue"} %> <%= link_to "XML", {}, {class: "btn btn-blue"} %></div>
-			<div class="info text-secondary">Displaying <span class="text-dark bold"><%= first %> - <%= last %></span> of <span class="text-dark bold"> <%= total %> </span> in total</div>
-		</h5>
-	</div>
-</div>
+<table class="admin-table">
+	<thead>
+		<tr class="table-head"><th> ACTIONS </th><th> <%= option == 1 ? "USER" : "ROOM" %> </th><th>SUBJECT</th><th>DATE</th><th>TIME</th><th>Finished</th></tr>
+	</thead>
+	<tbody>
+		<% if reservations.empty?%>
+			<tr><td colspan="6">Couldn't find any reservations</td></tr>
+		<% end %>
+		<% reservations.order(:starts_at).each do |reservation| %>
+			<tr>
+				<td class="list">
+					<div class="card-element">
+						<div class="room-buttons">
+							<%= link_to edit_reservation_path(reservation) do %>EDIT<% end %>
+							<%= link_to "" do %>FINISH<% end %>
+						</div>
+					</div>
+				</td>
+				<td><%= option == 1 ? (link_to reservation.user, edit_user_path(reservation.user)) : (link_to reservation.room.name, edit_room_path(reservation.room)) %></td>
+				<td><%= reservation.subject %></td>
+				<td><%= reservation.starts_at.strftime("%D") %></td>
+				<td><%= reservation.starts_at.strftime("%H:%M") %> - <%= reservation.ends_at.strftime("%H:%M") %></td>
+				<td><%= reservation.finished %></td>
+			</tr>
+	<% end %>
+	</tbody>
+</table>
+

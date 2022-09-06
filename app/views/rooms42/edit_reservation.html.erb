@@ -1,10 +1,8 @@
-<div class="container-body">
-    <div class="rooms-cards">
-        <div class="reservation-card card">
-            <div class="card-body">
-                <%= link_to 'Back', reservation_path(@reservation), class: "btn card-buttons" %>
-                <%= render 'new_reservation' %>
-            </div>
+<div class="container-body container-form">
+    <div class="card card-md hoverable center">
+        <div class="card-body">
+            <%= link_to 'Back', reservation_path(@reservation), class: "label label-blue" %>
+            <%= render 'new_reservation' %>
         </div>
     </div>
 </div>

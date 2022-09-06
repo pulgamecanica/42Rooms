@@ -26,7 +26,6 @@
         <button><%= render 'partials/three_dots' %></button>
         <div class="expandible-container">
           <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/user' %><% end %></div>
-          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/gear' %><% end %></div>
           <div class="navbar-item"><%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %><% end %></div>
         </div>
       </div>
@@ -38,7 +37,7 @@
 
     <!--* ALERTS 42 ROOMS *-->
     <% if !alert.nil? || !notice.nil? %>
-      <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
+    <div class="alerts42-box"><span class="notice-box"><%= notice %></span><span class="alert-box"><%= alert %></span></div>
     <% end %>
     <!--* END ALERTS *-->
 
@@ -50,7 +49,7 @@
     <div class="rooms42-container">
       <%= yield %>
       <footer class="center">
-        <p><span class="btn btn-blue" id="time-container"><%= render partial: 'partials/date'%></span></p>
+       <!--  <p><span class="btn btn-blue" id="time-container"><= render partial: 'partials/date'></span></p> -->
         <p>with ❤️ by 42Lisboa</p>
       </footer>
     </div>

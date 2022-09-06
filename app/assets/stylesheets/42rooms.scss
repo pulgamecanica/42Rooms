@@ -6,6 +6,8 @@ $intra-purple: #8d66ac;
 $intra-brown: #8c5b49;
 $text-light: #f9f9f9;
 $text-secondary: #424242;
+$text-dark: #010101;
+$bg-light: #FAFAFA;
 $bg-dark: #292D39;
 $bg-darker: #121212;
 $bg-transparent-dark: rgba(32, 32, 38, 0.5);
@@ -13,16 +15,193 @@ $bg-theme-light: rgba(255, 255, 255, 0.85);
 $bg-theme-dark: rgba(18, 18, 18, 0.9);
 $bg-secondary: #bbbbbb;
 $calendar_row_height: 15px;
+$bg-admin: rgb(242, 242, 242);
+
 
 body {
 	* {
 		font-family: 'Red Hat Display', sans-serif;
 	}
+	.scrollable {
+  		@media (min-width: 768px) {
+			max-height: 600px;
+			overflow-y: scroll;
+		}
+	}
+	.min-full-page {
+		min-height: 100vh;
+	}
+	.bg-dark {
+		background-color: $bg-darker;
+	}
+	.bg-secondary {
+		background-color: #f2f2f2;
+	}
+	.bg-gray {
+		background-color: $bg-secondary;
+	}
 	.center {
 		text-align: center;
 		justify-content: center;
 		align-items: center;
-		vertical-align: center;
+	}
+	.right {
+		text-align: right;
+		justify-content: end;
+		align-items: end;
+	}
+	.d-reverse {
+		flex-direction: row-reverse
+	}
+	.d-around {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.d-between {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.d-inline-block {
+		display: inline-block !important;
+	}
+	.d-block {
+		display: block !important;
+	}
+	.d-none {
+		display: none !important;
+	}
+	.wrap {
+		flex-wrap: wrap;
+	}
+	.btn {
+		padding: 1rem !important;
+	}
+	.btn-sm {
+		padding: 0.5rem !important;
+		font-size: 12.5px;
+	}
+	.btn, .btn-sm{
+		margin: 0;
+		text-decoration: none;
+		border: none !important;
+		border-radius: 0.5rem !important;
+		display: inline !important;
+		cursor: pointer;
+	}
+	.label {
+		margin: 0;
+		padding: 0.75rem !important;
+		border: none;
+		border-radius: 0.25rem !important;
+		display: inline-block;
+		cursor: pointer;
+	}
+	.label-blue, .btn-blue {
+		background-color: $intra-blue;
+		color: $text-secondary;
+		* {
+			color: $text-secondary;
+		}
+	}
+	.label-red, .btn-red {
+		background-color: $intra-red;
+		color: $text-light;
+		* {
+			color: $text-secondary;
+		}
+	}
+	.label-green, .btn-green {
+		background-color: $intra-green !important;
+		color: $text-secondary;
+		* {
+			color: $text-secondary;
+		}
+	}
+	.mt-1 {
+		margin-top: 1rem !important;
+  		@media (min-width: 768px) {
+			margin-top: 0.75rem !important;
+  		}
+	}
+	.mt-2 {
+		margin-top: 0.5rem !important;
+		@media (min-width: 768px) {
+			margin-top: 0.25rem !important;
+  		}
+	}
+	.mb-1 {
+		margin-bottom: 1rem !important;
+  		@media (min-width: 768px) {
+			margin-bottom: 0.75rem !important;
+  		}
+	}
+	.mb-2 {
+		margin-bottom: 0.5rem !important;
+		@media (min-width: 768px) {
+			margin-bottom: 0.25rem !important;
+  		}
+	}
+	.m0 {
+		margin: 0;
+	}
+	.p0 {
+		padding: 0 !important;
+	}
+	.p1 {
+		padding: 1rem;
+	}
+	.p2 {
+		padding: 0.5rem;
+	}
+	.p3 {
+		padding: 0.25rem;
+	}
+	.text-secondary, .text-secondary * {
+		color: $text-secondary;
+		text-decoration: none;
+	}
+	.text-secondary-light {
+		color: $text-secondary;
+		text-decoration: none;
+		font-weight: normal;
+	}
+	.text-light {
+		color: $text-light;
+	}
+	.text-dark {
+		color: $text-dark;
+		text-decoration: none;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	#curtain {
+		display: none;
+		position: fixed;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(42, 42, 42, 0.9);
+		cursor: zoom-out;
+	}
+	#csv-form {
+		z-index: 20;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		display: none;
+		transform: translate(-50%, -50%);
+		form {
+			margin: auto;
+			display: inline-block;
+			background-color: $bg-admin;
+			border-radius: 0.5rem;
+			padding: 1.5rem 1rem;
+		}
 	}
 }
 
@@ -58,6 +237,12 @@ body {
 		}
 		.navbar-item a svg, .navbar-item button svg {
 			fill: $text-light;
+		}
+		.navbar-item-text a {
+			color: $text-light;
+			text-decoration: none;
+			text-transform: uppercase;
+			margin-top: 15px;
 		}
 		.navbar-item-expandible {
 			position: relative;
@@ -147,6 +332,49 @@ body {
 			100% {transform: translate(0, 0);}
 		}
 	}
+	.admin42-container .container-body {
+		margin-top: 50px;
+		.hoverable {
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.2)
+			}
+		}
+		.admin-table {
+			background-color: rgb(222, 225, 220);
+			border-spacing: 1px;
+			width: 100%;
+			thead {
+				outline: 1px lightgray solid;
+				background-color: $bg-admin;
+				tr th {
+					padding: 0.15rem 0;
+					text-transform: capitalize;
+				}
+			}
+			tbody {
+				outline: 1px lightgray solid;
+				tr:nth-child(odd) {
+					background-color: rgb(255, 255, 255);
+				}
+				tr:nth-child(even) {
+					background-color: rgb(242, 244, 240);
+				}
+				tr:hover {
+					background-color: rgba(242, 244, 240, 0.4);
+				}
+				tr td {
+					text-align: center;
+					padding: 0.5rem;
+				}
+				a {
+					color: $text-secondary;
+					&:hover {
+						color: black;
+					}
+				}
+			}
+		}
+	}
 	.rooms42-container {
 		height: 100vh;
 		margin: auto;
@@ -159,10 +387,12 @@ body {
 			padding: 0 1rem;
 		}
 	}
-	.card {
+	.card-animation {	
 		animation: shrink 1s ease-out forwards;
+	}
+	.card {
 		padding: 0.5rem 0;
-		.card-title, .card-body {
+		.card-title, .card-body, .card-subtitle {
 			margin: 0;
 		}
 		.card-title {
@@ -171,12 +401,47 @@ body {
 			background-image: url("https://profile.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg");
 			background-position: 50% 50%;
 			background-size: 30%;
-			color: rgba(0,0,0,0.08);
 			font-size: 40px;
 			font-weight: 900;
+			text-transform: uppercase;
   			@media (min-width: 768px) {
 				font-size: 50px;
   			}
+		}
+		.card-subtitle {
+			font-size: 25px;
+			font-weight: lighter;
+			text-decoration: underline;
+			padding: 0.5rem;
+		}
+	}
+	.card-form {
+		margin: auto;
+		max-width: 600px;
+		form {
+			text-align: center;
+			label {
+				font-weight: lighter;
+				display: block;
+				padding-bottom: 0.5rem;
+			}
+			input, select, textarea {
+				width: 80%;
+
+			}
+			textarea {
+				min-height: 100px;
+				max-width: 100%;
+			}
+			select {
+				font-size: 110%;
+				padding: 0.5rem;
+				text-align: center;
+				font-weight: lighter;
+			}
+			* {
+				color: $text-secondary;
+			}
 		}
 	}
 	.card-sm {
@@ -186,6 +451,61 @@ body {
 	.card-md {
 		margin: auto;
 		max-width: 800px;
+	}
+	.card-80 {
+		width: 100%;
+  		@media (min-width: 768px) {
+  			width: 80%;
+  		}
+	}
+	.card-20 {
+		width: 100%;
+  		@media (min-width: 900px) {
+  			width: 20%;
+  		}
+	}
+	.card-buttons {
+		display: inline-block;
+	}
+	.card-white {
+		background-color: #fff;
+	}
+	.pagination {
+		display: flex;
+		padding: 2rem 0;
+		flex-flow: row no-wrap;
+		gap: 1rem;
+		align-items: center;
+		justify-content: center;
+		a {
+			border: 1px $bg-dark solid;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 75%;
+			font-weight: bold;
+			color: black;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+				background-color: rgba(0, 0, 0, 0.1);
+			}
+		}
+		.active {
+			color: white;
+			background-color: $bg-dark;
+		}
+		.page {
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+		}
+		.control {
+			border-radius: 1rem;
+			height: 20px;
+			width: auto;
+			padding: 0 0.5rem;
+		}
 	}
 	.rotating-text {
 		height: 40px;
@@ -281,27 +601,316 @@ body {
 			margin-bottom: 0.25rem;
 		}
 	}
-	.d-between {
-		display: flex;
+	#results-container {
+		padding: 1rem;
+		border-radius: 0.5rem;
+	}
+	#reservation-form {
+		z-index: 20;
+		opacity: 0.98;
+		position: fixed;
+		background-image: image-url("42white_background.png");
+		background-size: cover;
+		background-position: center;
+		border: 2px $bg-secondary solid;
+		border-radius: 1rem;
+		height: 80vh;
+		width: 50vw;
+		left: 25%;
+		top: 10%;
+		margin: auto;
+		display: none;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
+		flex-wrap: wrap;
+		flex-direction: column;
+		color: $intra-blue !important;
+		text-align: center;
+		@media (max-width: 1200px) {
+			left: 5%;
+			width: 90vw;
+  		}
+		.field {
+			padding: 1rem;
+			margin-bottom: 0.5rem;
+			label {
+				display: block;
+				text-align: center;
+				padding: 0.5rem;
+				font-size: 110%;
+				text-decoration: underline;
+			}
+			select {
+				font-size: 110%;
+				padding: 0.5rem;
+			}
+			.date-input {
+				font-size: 150%;
+			}
+		}
+		.close-form {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1rem;
+			background-color: $intra-red;
+			border: none;
+			border-radius: 0 1rem 0 1rem;
+			color: $text-light !important;
+		}
+		* {
+			color: $intra-blue !important;
+		}
 	}
-	.btn {
-		margin: 0;
-		border: none !important;
-		border-radius: 0.5rem !important;
-		padding: 1rem !important;
-		display: inline !important;
-		cursor: pointer;
+	.calendar-container {
+		text-align: center;
+		display: block;
+		margin: auto;
+		overflow: scroll;
+		.calendar {
+			border-radius: 0.5rem;
+			margin: 0.25rem auto;
+			max-width: 1000px;
+			display: inline-block;
+			.reservations-slots {
+				border: none;
+				margin: 0;
+				padding: 0;
+				* {
+					border: none;
+				}
+				tbody {
+					tr {
+						display: block;
+						height: $calendar_row_height !important;
+						th {
+							position: relative;
+							padding: 0;
+							display: block;
+							width: 100%;
+							.past {
+	  							opacity: 0.5;
+	  							background-color: gray;
+								display: block;
+								height: $calendar_row_height;
+								width: 100%;
+							}
+							.slot {
+								font-size: $calendar_row_height;
+								text-align: center;
+								border-radius: 0.25rem;
+								display: inline-block;
+								overflow: hidden;
+								width: 100%;
+								z-index: 10;
+								position: relative;
+								background-image: image-url("42white_background.png");
+								background-size: cover;
+								background-position: center;
+								a {
+									display: block;
+									color: $text-secondary !important;
+									position: relative;
+									height: 100%;
+									&:hover {
+										opacity: 0.5;
+									}
+								}
+							}
+							.slot_15 {
+								font-size: $calendar_row_height - 2px !important;
+								height: $calendar_row_height;
+							}
+							.slot_30 {
+								height: $calendar_row_height * 2;
+							}
+							.slot_45 {
+								height: $calendar_row_height * 3;
+							}
+							.slot_60 {
+								height: $calendar_row_height * 4;
+							}
+							.slot_75 {
+								height: $calendar_row_height * 5;
+							}
+							.slot_90 {
+								height: $calendar_row_height * 6;
+							}
+							.slot_105 {
+								height: $calendar_row_height * 7;
+							}
+
+							.slot_120 {
+								height: $calendar_row_height * 8;
+							}
+						}
+						.add-reservation-button {
+							display: none;
+							position: absolute;
+							top: 0;
+							padding: 0;
+							width: 90%;
+							left: 5%;
+							text-align: center;
+							height: $calendar_row_height;
+							background-color: $intra-blue;
+							border-radius: 0.15rem;
+							z-index: 3;
+							button {
+								background-color: transparent;
+								width: 100%;
+								z-index: 4;
+								margin: auto;
+								padding: auto;
+								cursor: pointer;
+							}
+						}
+						a {
+							text-decoration: none;
+						}
+						&:hover .add-reservation-button {
+							display: block;
+						}
+						&:nth-child(even) {
+							background-color: rgba(0, 0, 0 , 0.2);
+						}
+					}
+				}
+			}
+		}
+		.guide-content {
+			span {
+				margin: 0 0.5rem;
+				padding: 0.5rem;
+				border-radius: 0.5rem;
+			}
+			.meeting {
+				background-color: $intra-purple;
+			}
+			.staff42 {
+				background-color: $intra-blue;
+			}
+			.club {
+				background-color: $intra-green;
+			}
+			.guest {
+				background-color: $intra-red;
+			}
+			.internship {
+				background-color: $intra-brown;
+			}
+
+		}
 	}
-	.d-block {
-		display: block !important;
+	.simple-calendar {
+		overflow-y: hidden;
+		overflow-x: scroll;
+		border-radius: 0.5rem;
+		min-width: 400px;
+	  .calendar-heading {
+	  	text-align: center;
+			position: relative;
+	  	h1 {
+	  		text-decoration: underline;
+	  		display: inline;
+	  		padding: 0;
+	  		margin: 0;
+	  	}
+	  	.calendar-week-number {
+	  		position: absolute;
+	  		top: 50%;
+	  		left: 2.5%;
+	  		transform: translate(2.5%, -50%);
+	  	}
+	  	.calendar-next-prev {
+	  		position: absolute;
+	  		right: 0;
+	  		border-radius: 0 0.5rem 0 0;
+	  		background-color: $bg-secondary;
+	  		text-decoration: none !important;
+	  		a {
+	  			padding: 0 1rem;
+	  			color: gray;
+	  			text-decoration: none !important;
+	  			&:nth-child(1) {
+	  				border-right: 1px solid gray;
+	  			}
+	  			&:nth-child(2) {
+	  				border-left: 1px solid gray;
+	  			}
+	  		}
+	  	}
+	  }
+	  .table {
+	  	border-bottom: none;
+		  border-left: none;
+	  	border-right: none;  	
+	  	thead tr th{
+	  		text-align: center;
+	  		border-bottom: 1px solid white;
+	  		border-left: none;
+	  		border-right: none;
+	  	}
+	    tbody {
+	   		tr .time {
+	   			border: none;
+	   			padding: 0;
+	   			* {
+	   				text-align: center;
+	   				white-space: nowrap;
+	   				border: none;
+	   			}
+	   			table tr {
+	   				height: $calendar_row_height !important;
+	   				display: block;
+	   				font-size: $calendar_row_height - 5px;
+	   				* {
+	   					display: inline;
+	   					margin: auto;
+	   				}
+	   			}
+	   			table tr:nth-child(even) {
+	   				background-color: rgba(0, 0, 0 , 0.2);
+	   			}
+	   		} 	
+	    }
+	  }
+	  .day {
+	  	padding: 0;
+	  	border-bottom: none;
+	  	border-right: none;
+	  	border-top: none;
+	  }
+	  .wday-0 {}
+	  .wday-1 {}
+	  .wday-2 {}
+	  .wday-3 {}
+	  .wday-4 {}
+	  .wday-5 {}
+	  .wday-6 {}
+	  .today {
+	  	// background-color: $intra-green;
+	  	background-color: transparent;
+	  }
+	  .past {
+	  	// opacity: 0.25;
+	  }
+	  .future {}
+	  .start-date {}
+	  .prev-month {}
+	  .prev-month, .next-month {
+			background-color: transparent;
+	  }
+	  .next-month {}
+	  .current-month {}
+
+	  .has-events {}
+	}
+	.schedule-card .card-body {
+		border-radius: 0 !important;
+		margin-bottom: 0.25rem;
 	}
 }
-
-
-
-
 
 .bg-light {
 	* {
@@ -311,7 +920,7 @@ body {
 		outline: 2px darkgray solid;
 		background-color: $bg-theme-light;
 	}
-	.card {
+	.border-bottom {
 		border-bottom: 1px darkgray solid;
 	}
 	.hoverable {
@@ -319,8 +928,25 @@ body {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 	}
+	.card .card-title {
+		color: rgba(0 ,0 ,0 ,0.2);
+	}
 	.container-form input, .container-form select, .container-form textarea {
 		background-color: $bg-secondary;
+	}
+	.bg-contrast {
+		background-color: $bg-light;
+	}
+	.label-contrast, .btn-contrast {
+		background-color: $bg-secondary !important;
+		color: $text-secondary;
+	}
+	.calendar-container .calendar {
+		background-color: rgba(100, 140, 120, 0.5);
+		border: 1px darkgray solid;
+		.slot {
+			outline: 1px solid black;
+		}
 	}
 }
 
@@ -332,7 +958,7 @@ body {
 		outline: 2px darkgray solid;
  		background-color: $bg-theme-dark;
 	}
-	.card {
+	.border-bottom {
 		border-bottom: 1px white solid;
 	}
 	.hoverable {
@@ -340,8 +966,25 @@ body {
 			background-color: rgba(255, 255, 255, 0.05);
 		}
 	}
+	.card .card-title {
+		color: rgba(255, 255, 255,0.2);
+	}
 	.container-form input, .container-form select, .container-form textarea {
 		background-color: $bg-dark;
+	}
+	.bg-contrast {
+		background-color: $bg-dark;
+	}
+	.label-contrast, .btn-contrast {
+		background-color: $bg-light !important;
+		color: $text-secondary;
+	}
+	.calendar-container .calendar {
+		background-color: rgba(255, 255, 255, 0.1);
+		outline: 1px white solid;
+		.slot {
+			outline: 1px solid white;
+		}
 	}
 }
 
