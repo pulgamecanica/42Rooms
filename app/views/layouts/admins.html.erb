@@ -22,7 +22,7 @@
       <div class="navbar-item navbar-item-expandible">
         <button><%= render 'partials/three_dots' %></button>
         <div class="expandible-container">
-          <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/user' %><% end %></div>
+          <div class="navbar-item"><%= link_to profile_path do %><%= render 'partials/user' %><% end %></div>
           <div class="navbar-item"><%= link_to home_path do %><%= render 'partials/gear' %><% end %></div>
           <div class="navbar-item"><%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %><%= render 'partials/coin_exit' %><% end %></div>
         </div>

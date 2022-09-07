@@ -1,13 +1,13 @@
 <%= form_with model: [@user] do |form| %>   
-<div class="field">
+<div class="p2">
   <%= form.label :login %>
   <%= form.text_field :login %>
 </div>
-<div class="field">
+<div class="p2">
   <%= form.label :email %>
   <%= form.text_field :email %>
 </div>
-<div class="field">
+<div class="p2">
   <%= form.label :role %>
   <% if @user.persisted? %>
     <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}, selected: @user.role) %>
@@ -15,7 +15,7 @@
     <%= form.select :role, options_for_select(User.roles.map {|name, id| [name.capitalize, name]}) %>
   <% end %>
 </div>
-<div class="field">
+<div class="p1">
   <%= form.label :campus_id %>
   <% if @user.persisted? && !@user.campus.nil? %>
     <%= form.select :campus_id, options_for_select(Campus.all.order(:name).map {|c| [c.name.capitalize, c.id]}, selected: @user.campus.id), {}, disabled: true %>

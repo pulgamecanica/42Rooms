@@ -13,8 +13,9 @@
             <%= week_calendar(attribute: :starts_at, events: @room.reservations.active) do |date, reservations| %>
                 <table class="reservations-slots">
                     <tbody>
-                    <% (0..60).each do |t| %>
-                        <% _t = Time.new(date.year, date.month, date.day,  8 + (t / 4 - 1), (t) * 15 % 60) %>
+                        <% _i = 0 %>
+                        <% (8.hours..23.hours).step(15.minutes) do |t| %>
+                        <% _t = Time.new(date.year, date.month, date.day, t / 1.hours, ((t - 8.hours) / 1.minutes) % 60 )%>
                         <tr>
                           <th>
                             <% reservations.each do |reservation| %>

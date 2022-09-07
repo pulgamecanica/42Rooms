@@ -19,6 +19,9 @@ class Rooms42Controller < ApplicationController
     end
   end
 
+  def profile
+  end
+
   def reservation
   end
 

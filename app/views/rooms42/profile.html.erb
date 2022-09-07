@@ -1,0 +1,44 @@
+<div class="admin42-container">
+	<div class="container-body center">
+		<div class="card">
+			<p class="card-title">Welcome <%= current_user.login %></p>
+			<% if current_user.reservations.active.any? %>
+				<p class="card-subtitle">You have <%= current_user.reservations.active.length %> reservations.</p>
+			<% else %>
+				<p class="card-subtitle">Currently you don't have any reservations.</p>
+			<% end %>
+			<table class="admin-table card-md mt-1 mb-1 text-secondary">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>subject</th>
+						<th>start</th>
+						<th>end</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% current_user.reservations.active.each do |res| %>
+					<tr>
+						<td><%= res.id %></td>
+						<td><%= res.subject %></td>
+						<td><%= res.starts_at %></td>
+						<td><%= res.ends_at %></td>
+						<td><%= link_to 'Edit', edit_reservation_path(res) %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<details class="card-md">
+				<summary class="btn-sm btn-blue">Show All reservation</summary>
+				<p>
+					<ul>
+						<% current_user.reservations.each do |res| %>
+						<li class="hoverable"> <b><%= res.subject %></b> reservation at <i class="text-secondary"><%= res.starts_at %> </i></li>
+						<% end %>	
+					</ul>
+				</p>
+			</details>
+		</div>
+	</div>
+</div>

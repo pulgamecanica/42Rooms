@@ -1,7 +1,6 @@
 <div class="d-between p2">
 	<p class="text-secondary">/ <%= link_to 'HOME', home_path %> / <%= link_to 'ROOMS', rooms_path %> / <%= link_to @room.name, edit_room_path(@room) %> </p>
 </div>
-
 <div class="center d-around wrap">
 	<div class="card card-white card-80">
 		<h3 class="text-secondary card-subtitle">Edit Room</h3>
@@ -66,22 +65,22 @@
 		<div class="p2">
 			<p class="card-subtitle text-light bg-dark">Black List</p>
 			<div class="card-body p1 card-white">
-				<% @room.white_lists.order(created_at: :desc).limit(3).each do |elem| %>
+				<% @room.black_lists.order(created_at: :desc).limit(3).each do |elem| %>
 				<% if elem.persisted? %>
 				<p class="d-between m0 p3">
 					<%= link_to elem.user, edit_user_path(elem.user), class: "btn-sm hoverable text-secondary" %>
-					<%= link_to 'Remove', room_white_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn-sm btn-red" %>
+					<%= link_to 'Remove', room_black_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn-sm btn-red" %>
 				</p>
 				<% end %>
 				<% end %>
-				<% if @room.white_lists.all.length > 3 %>
+				<% if @room.black_lists.all.length > 3 %>
 				<details>
-					<summary class="hoverable btn">Show all (<%= @room.white_lists.all.length - 3 %> more)</summary>
-					<% @room.white_lists.order(created_at: :desc).offset(3).each do |elem| %>
+					<summary class="hoverable btn">Show all (<%= @room.black_lists.all.length - 3 %> more)</summary>
+					<% @room.black_lists.order(created_at: :desc).offset(3).each do |elem| %>
 					<% if elem.persisted? %>
 					<p class="d-between m0 p3">
 						<%= link_to elem.user, edit_user_path(elem.user), class: "btn-sm hoverable text-secondary" %>
-						<%= link_to 'Remove', room_white_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn-sm btn-red" %>
+						<%= link_to 'Remove', room_black_list_path(@room, elem), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to ban this user?"}, class: "btn-sm btn-red" %>
 					</p>
 					<% end %>
 					<% end %>
@@ -89,7 +88,7 @@
 				<% end %>
 				<hr>
 				<div class="card-form">
-					<%= render 'white_list_form' %>
+					<%= render 'black_list_form' %>
 				</div>
 				<button class="btn-sm btn-blue mt-1" onclick= "csv_form('white')"> CSV / JSON </button>
 			</div>

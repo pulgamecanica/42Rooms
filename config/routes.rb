@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'authentication42api/callback', to: 'authentication#authentication_callback'#authentication42api_callback_path
   
   #Website Routes
+  get '/profile', to: "rooms42#profile"
   get '/find_reservation', to: "rooms42#find_reservation"
   get '/reservations/:id', to: 'rooms42#reservation', as: "reservation"
   get '/reservations/:id/edit', to: 'rooms42#edit_reservation', as: "edit_reservation"

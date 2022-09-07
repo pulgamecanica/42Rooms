@@ -1,10 +1,8 @@
-<div class="container-lead flex-between">
-	<div class="breadcrumb">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', users_path %> / <span class="active-page"><%= link_to 'NEW', new_user_path %> </span></div>
-	<div class="buttons">
-		<div><%= link_to 'New User', new_user_path, class: "btn btn-blue" %></div>
-	</div>
+<div class="hoverable d-around p2">
+	<p class="text-secondary">/ <%= link_to 'HOME', home_path %> / <%= link_to 'USERS', users_path %> / <%= link_to 'NEW', new_user_path %> </p>
+	<%= link_to 'New User', new_user_path, class: "btn btn-blue" %>
 </div>
-<div class="container-new">
-	<div class="content"><h1>New User</h1></div>
-	<%= render 'user_form', room: @room %>
+<div class="card center card-sm">
+	<div class="card-title"><h6 class="mt-1 mb-1">New User</h6></div>
+	<div class="card-form"><%= render 'user_form' %></div>
 </div>
